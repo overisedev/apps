@@ -1,0 +1,420 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+:root{--bg:#060607;--bg2:#0b0b0e;--card:#111114;--card2:#16161b;--bd:#232329;--bd2:#34343d;
+--text:#e7e7ea;--muted:#8a8a94;--muted2:#5c5c66;--neon:#00FF41;--cyan:#00e676;--gold:#fbbf24;
+--font:'Inter',system-ui,sans-serif;--head:'Sora','Inter',sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:radial-gradient(1200px 600px at 80% -10%,rgba(0,230,118,.08),transparent 60%),radial-gradient(900px 500px at -10% 20%,rgba(0,255,65,.06),transparent 55%),var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::-webkit-scrollbar{width:9px}::-webkit-scrollbar-thumb{background:#26262d;border-radius:9px}
+a{color:inherit;text-decoration:none}
+.shell{display:grid;grid-template-columns:248px 1fr;min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;background:linear-gradient(180deg,var(--bg2),#060608);border-right:1px solid var(--bd);display:flex;flex-direction:column;padding:24px 16px}
+.brand{display:flex;align-items:center;gap:12px;padding:0 8px 20px}
+.brand-mark{width:40px;height:40px;border-radius:11px;background:conic-gradient(from 140deg,var(--neon),var(--cyan),var(--neon));display:grid;place-items:center;color:#04130a;font-weight:900;font-family:var(--head);box-shadow:0 0 24px rgba(0,230,118,.35)}
+.brand-name{font-family:var(--head);font-weight:800;font-size:1.12rem;color:#fff;letter-spacing:-.5px}
+.brand-name span{color:var(--neon)}.brand-sub{font-size:.6rem;letter-spacing:2px;color:var(--gold);text-transform:uppercase;font-weight:700}
+.nav{display:flex;flex-direction:column;gap:4px;margin-top:6px}
+.nav-label{font-size:.6rem;letter-spacing:2px;color:var(--muted2);text-transform:uppercase;padding:14px 12px 6px}
+.nav a{display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:10px;color:var(--muted);font-weight:600;font-size:.88rem;cursor:pointer;transition:.18s;border:1px solid transparent}
+.nav a i{width:18px;text-align:center}.nav a:hover{background:var(--card);color:#fff}
+.nav a.active{background:var(--card2);color:#fff;border-color:var(--bd2)}.nav a.active i{color:var(--cyan)}
+.side-card{margin-top:auto;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;text-align:center}
+.tier-pill{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(90deg,rgba(251,191,36,.14),rgba(0,230,118,.10));border:1px solid rgba(251,191,36,.45);color:var(--gold);padding:6px 13px;border-radius:50px;font-size:.7rem;font-weight:800}
+.side-card h4{font-family:var(--head);color:#fff;margin:12px 0 2px;font-size:1rem}.side-card p{color:var(--muted);font-size:.76rem}
+.main{padding:26px 32px 60px;max-width:1200px}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;flex-wrap:wrap;gap:12px}
+.greeting h1{font-family:var(--head);font-size:1.5rem;color:#fff;letter-spacing:-.6px}
+.greeting p{color:var(--muted);font-size:.88rem;margin-top:3px}
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--bd);color:var(--muted);padding:9px 14px;border-radius:50px;font-size:.76rem;font-weight:700}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--neon);box-shadow:0 0 10px var(--neon);animation:blink 1.8s infinite}
+.pill.off .dot{background:#f44336;box-shadow:0 0 10px #f44336}
+@keyframes blink{50%{opacity:.35}}
+.view{display:none}.view.active{display:block;animation:fade .25s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.hero{position:relative;overflow:hidden;background:radial-gradient(700px 300px at 90% -40%,rgba(0,230,118,.18),transparent 60%),linear-gradient(120deg,#0e1a14 0%,var(--card) 55%);border:1px solid var(--bd2);border-radius:20px;padding:30px;margin-bottom:24px}
+.hero-tag{color:var(--cyan);font-weight:800;font-size:.7rem;letter-spacing:2px;text-transform:uppercase}
+.hero h2{font-family:var(--head);font-size:1.9rem;color:#fff;letter-spacing:-1px;margin:8px 0 6px;line-height:1.1}
+.hero h2 b{background:linear-gradient(90deg,var(--neon),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);max-width:520px;font-size:.9rem;line-height:1.6}
+.hero-counter{font-family:var(--head);font-size:3rem;font-weight:800;color:#fff;line-height:1;margin-top:16px}
+.hero-counter small{font-size:.85rem;color:var(--muted);font-weight:600;letter-spacing:1px;display:block;margin-top:4px;font-family:var(--font)}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;margin:30px 0 14px}
+.section-head h3{font-family:var(--head);font-size:1.18rem;color:#fff}.section-head span{font-size:.8rem;color:var(--muted)}
+.unlock-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.uc{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:22px;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
+.uc:hover{transform:translateY(-3px);border-color:var(--cyan);box-shadow:0 12px 36px rgba(0,0,0,.5)}
+.uc.active-batch{border-color:var(--neon);background:radial-gradient(400px 160px at 50% 0,rgba(0,255,65,.12),transparent),var(--card)}
+.uc .kick{font-size:.64rem;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--cyan)}
+.uc h4{font-family:var(--head);color:#fff;font-size:1.4rem;margin:8px 0 4px}
+.uc p{color:var(--muted);font-size:.82rem;margin-bottom:16px}
+.uc .go{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(90deg,var(--neon),var(--cyan));color:#04130a;font-weight:800;font-size:.82rem;padding:11px 16px;border-radius:9px}
+.uc .badge-on{position:absolute;top:14px;right:14px;color:var(--neon);font-size:.7rem;font-weight:800;display:none}
+.uc.active-batch .badge-on{display:block}
+.searchbar{display:flex;gap:10px;margin-bottom:16px}
+.searchbar input{flex:1;background:var(--card2);border:1px solid var(--bd);color:var(--text);border-radius:10px;padding:14px 16px;font-size:.95rem;font-family:var(--font);outline:none}
+.searchbar input:focus{border-color:var(--cyan)}
+.btn{border:none;cursor:pointer;font-family:var(--font);font-weight:800;border-radius:10px;transition:.2s;display:inline-flex;align-items:center;gap:9px;justify-content:center}
+.btn:hover{transform:translateY(-2px)}
+.btn-green{background:linear-gradient(90deg,var(--neon),var(--cyan));color:#04130a;padding:14px 22px;font-size:.9rem}
+.btn-gold{background:var(--gold);color:#1a1400;padding:11px 16px;font-size:.82rem}
+.results{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:15px}
+.gcard{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid var(--bd);transition:.2s;background:linear-gradient(160deg,#1b1b24,#0e0e12)}
+.gcard:hover{transform:translateY(-4px);border-color:var(--cyan);box-shadow:0 14px 36px rgba(0,0,0,.55)}
+.gcard>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.gcard .ph{position:absolute;inset:0;display:none;place-items:center;color:#34343d;font-size:2.4rem}
+.gcard .grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,8,.94) 6%,rgba(6,6,8,.45) 34%,transparent 62%)}
+.gcard .info{position:absolute;left:14px;right:14px;bottom:13px;display:flex;flex-direction:column;align-items:flex-start;gap:9px}
+.gcard .nm{color:#fff;font-family:var(--head);font-weight:700;font-size:1rem;line-height:1.15;text-shadow:0 2px 10px rgba(0,0,0,.9);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.gpill{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:50px;font-size:.78rem;font-weight:700;cursor:pointer;border:1px solid transparent;font-family:var(--font);transition:.18s;backdrop-filter:blur(6px)}
+.gpill:hover{transform:translateY(-1px)}
+.gpill.add{background:rgba(0,255,65,.15);border-color:rgba(0,255,65,.45);color:var(--neon)}
+.gpill.add:hover{background:rgba(0,255,65,.25)}
+.gpill.lock{background:rgba(255,255,255,.08);border-color:var(--bd2);color:var(--text)}
+.gpill.lock:hover{background:rgba(255,255,255,.14)}
+.gpill.ok{background:var(--neon);color:#04130a;cursor:default}
+.hint{grid-column:1/-1;color:var(--muted);text-align:center;padding:40px;font-size:.88rem}
+.modal{position:fixed;inset:0;background:rgba(4,4,6,.82);backdrop-filter:blur(6px);display:none;place-items:center;z-index:400;padding:20px}
+.modal.show{display:grid}
+.m-card{background:var(--card);border:1px solid var(--bd2);border-radius:18px;padding:32px 30px;text-align:center;width:90%;max-width:400px;animation:fade .25s}
+.m-ic{width:56px;height:56px;margin:0 auto 16px;border-radius:14px;display:grid;place-items:center;background:rgba(251,191,36,.14);border:1px solid rgba(251,191,36,.4);color:var(--gold);font-size:1.5rem}
+.m-card h3{font-family:var(--head);color:#fff;font-size:1.25rem;margin-bottom:8px}
+.m-card p{color:var(--muted);font-size:.9rem;line-height:1.55;margin-bottom:22px}.m-card p b{color:#fff}
+.m-skip{display:block;margin-top:14px;color:var(--muted);font-size:.82rem;cursor:pointer;text-decoration:underline}
+.alt-actions{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.ac{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px 18px;cursor:pointer;transition:.18s}
+.ac-ic{width:42px;height:42px;flex:none;border-radius:11px;display:grid;place-items:center;font-size:1.05rem}
+.ac-tx{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
+.ac-tx b{font-family:var(--head);color:#fff;font-size:.95rem;font-weight:700}
+.ac-tx span{color:var(--muted);font-size:.76rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ac-go{color:var(--muted);font-size:.9rem;transition:.18s}
+.ac:hover .ac-go{transform:translateX(3px)}
+.ac-fix .ac-ic{background:rgba(0,230,118,.12);border:1px solid rgba(0,230,118,.4);color:var(--cyan)}
+.ac-fix:hover{border-color:rgba(0,230,118,.5);background:radial-gradient(320px 130px at 0 0,rgba(0,230,118,.08),transparent),var(--card)}
+.ac-fix:hover .ac-go{color:var(--cyan)}
+.ac-rm .ac-ic{background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.4);color:#f87171}
+.ac-rm:hover{border-color:rgba(248,113,113,.45);background:rgba(248,113,113,.05)}
+.ac-rm:hover .ac-go{color:#f87171}
+.lib{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:8px}
+.game{aspect-ratio:2/3;border-radius:10px;overflow:hidden;background:var(--card2);border:1px solid var(--bd);transition:.2s}
+.game:hover{transform:translateY(-4px);border-color:var(--cyan)}.game img{width:100%;height:100%;object-fit:cover}
+.restart-bar{position:fixed;left:248px;right:0;bottom:0;background:rgba(11,11,14,.96);border-top:1px solid var(--bd2);padding:14px 32px;display:none;align-items:center;justify-content:space-between;backdrop-filter:blur(8px);z-index:50}
+.restart-bar.show{display:flex}.restart-bar b{color:var(--neon)}
+/* overlay progresso */
+.overlay{position:fixed;inset:0;background:rgba(4,4,6,.86);backdrop-filter:blur(6px);display:none;place-items:center;z-index:200}
+.overlay.show{display:grid}
+.ov-card{background:var(--card);border:1px solid var(--bd2);border-radius:18px;padding:34px 40px;text-align:center;width:90%;max-width:440px}
+.spinner{width:54px;height:54px;border:4px solid #1d1d24;border-top-color:var(--neon);border-radius:50%;margin:0 auto 18px;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ov-card h3{font-family:var(--head);color:#fff;font-size:1.1rem;margin-bottom:14px}
+.bar{height:8px;background:#1d1d24;border-radius:8px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--neon),var(--cyan));border-radius:8px;transition:width .4s}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--card2);border:1px solid var(--bd2);color:#fff;padding:13px 22px;border-radius:12px;font-weight:700;font-size:.86rem;z-index:300;transition:.35s;box-shadow:0 12px 40px rgba(0,0,0,.5)}
+.toast.show{transform:translateX(-50%) translateY(0)}.toast i{color:var(--neon)}
+@media(max-width:820px){.shell{grid-template-columns:1fr}.sidebar{position:sticky;flex-direction:row;height:auto;padding:12px 16px;border-right:none;border-bottom:1px solid var(--bd)}.nav,.nav-label,.side-card h4,.side-card p{display:none}.side-card{margin:0;padding:0;border:none;background:none}.unlock-grid{grid-template-columns:1fr}.alt-actions{grid-template-columns:1fr}.lib{grid-template-columns:repeat(3,1fr)}.restart-bar{left:0}}
+#login{position:fixed;inset:0;background:radial-gradient(800px 500px at 50% -10%,rgba(0,230,118,.10),transparent 60%),var(--bg);display:grid;place-items:center;z-index:500}
+.login-card{width:90%;max-width:400px;background:var(--card);border:1px solid var(--bd2);border-radius:20px;padding:38px 34px;text-align:center}
+.login-logo{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:26px}
+.ll-mark{width:46px;height:46px;border-radius:12px;background:conic-gradient(from 140deg,var(--neon),var(--cyan),var(--neon));display:grid;place-items:center;color:#04130a;font-weight:900;font-family:var(--head);box-shadow:0 0 26px rgba(0,230,118,.4)}
+.ll-name{font-family:var(--head);font-weight:800;font-size:1.4rem;color:#fff;text-align:left}.ll-name span{color:var(--neon)}
+.ll-sub{font-size:.6rem;letter-spacing:2px;color:var(--gold);text-transform:uppercase;font-weight:700;text-align:left}
+.login-card h2{font-family:var(--head);color:#fff;font-size:1.3rem;margin-bottom:6px}
+.lf-sub{color:var(--muted);font-size:.86rem;margin-bottom:20px}.lf-sub b{color:#fff}
+#login input{width:100%;background:var(--card2);border:1px solid var(--bd);color:var(--text);border-radius:10px;padding:14px 16px;font-size:.95rem;font-family:var(--font);outline:none;margin-bottom:12px;text-align:center}
+#login input:focus{border-color:var(--cyan)}
+#login .btn-green{width:100%;justify-content:center}
+.login-err{color:#f87171;font-size:.84rem;margin-top:14px;min-height:18px;font-weight:600}
+.login-help{display:block;margin-top:18px;color:var(--muted);font-size:.8rem;cursor:pointer;text-decoration:underline}
+.lc-txt{color:var(--muted);margin-top:14px}
+.upsell{display:flex;align-items:center;gap:16px;background:linear-gradient(90deg,rgba(251,191,36,.16),var(--card) 70%);border:1px solid rgba(251,191,36,.4);border-left:4px solid var(--gold);border-radius:14px;padding:16px 20px;margin-bottom:22px}
+.up-ic{width:44px;height:44px;flex:none;border-radius:11px;display:grid;place-items:center;background:rgba(251,191,36,.15);color:var(--gold);font-size:1.2rem}
+.up-txt{flex:1}.up-txt b{display:block;color:#fff;font-family:var(--head);font-size:1rem}.up-txt span{color:var(--muted);font-size:.84rem}
+.up-btn{flex:none;background:var(--gold);color:#1a1400;border:none;border-radius:10px;padding:12px 18px;font-weight:800;font-size:.86rem;cursor:pointer;font-family:var(--font);transition:.2s}
+.up-btn:hover{transform:translateY(-2px)}
+</style></head><body>
+<div id="login"><div class="login-card">
+  <div class="login-logo"><div class="ll-mark">O</div><div><div class="ll-name">OVER<span>ISE</span></div><div class="ll-sub">Vitalício</div></div></div>
+  <div id="loginChecking"><div class="spinner"></div><p class="lc-txt">Verificando licença...</p></div>
+  <div id="loginForm" style="display:none">
+    <h2>Acesse sua conta</h2>
+    <p class="lf-sub">Use o <b>email da sua compra</b>.</p>
+    <input id="email" type="email" placeholder="seu@email.com" onkeydown="if(event.key==='Enter')doLogin()">
+    <button id="loginBtn" class="btn btn-green" onclick="doLogin()">Entrar</button>
+    <div class="login-err" id="loginErr"></div>
+    <a class="login-help" onclick="api.open_url('https://wa.me/5568999215897')">Não consegue entrar? Falar com o suporte</a>
+  </div>
+</div></div>
+<div class="shell" id="shell" style="display:none">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">O</div><div><div class="brand-name">OVER<span>ISE</span></div><div class="brand-sub" id="brandSub">—</div></div></div>
+    <nav class="nav">
+      <div class="nav-label">Painel</div>
+      <a class="active" data-view="dash"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+      <a data-view="add"><i class="fa-solid fa-plus"></i> Adicionar Jogo</a>
+      <a data-view="novos"><i class="fa-solid fa-fire"></i> Novos Jogos</a>
+      <a data-view="populares"><i class="fa-solid fa-ranking-star"></i> Em Alta</a>
+      <div class="nav-label">Conta</div>
+      <a onclick="api.open_url('https://chat.whatsapp.com/F5K8OEAX3niI9nAyffZwKa')"><i class="fa-brands fa-whatsapp"></i> Grupo VIP</a>
+      <a onclick="api.open_url('https://wa.me/5568999215897')"><i class="fa-solid fa-headset"></i> Suporte</a>
+      <a onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
+    </nav>
+    <div class="side-card"><span class="tier-pill" id="tierPill">—</span><h4 id="tierTitle">—</h4><p id="tierDesc">—</p></div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="greeting"><h1>Painel do Cliente</h1><p>Acesso total — sua biblioteca completa, para sempre.</p></div>
+      <span class="pill" id="steamPill"><span class="dot"></span> Verificando Steam...</span>
+    </div>
+
+    <!-- DASHBOARD -->
+    <section class="view active" id="view-dash">
+      <div class="hero">
+        <span class="hero-tag">Bem-vindo de volta</span>
+        <h2>Sua biblioteca <b>completa</b> está pronta.</h2>
+        <p>Desbloqueie sua biblioteca com 1 clique — instala tudo e reinicia a Steam sozinho.</p>
+        <div class="hero-counter"><span id="counter">40.000</span><small>JOGOS DISPONÍVEIS</small></div>
+      </div>
+      <div class="upsell" id="upsellBanner" style="display:none">
+        <div class="up-ic"><i class="fa-solid fa-crown"></i></div>
+        <div class="up-txt"><b id="upTitle">Quer mais jogos?</b><span id="upSub">Faça upgrade e libere tudo.</span></div>
+        <button class="up-btn" onclick="api.checkout('banner_dash')">Fazer upgrade →</button>
+      </div>
+      <div class="section-head"><h3>Desbloquear catálogo</h3><span>1 clique — instala tudo e reinicia a Steam</span></div>
+      <div class="unlock-grid" id="unlockGrid"></div>
+      <div class="alt-actions">
+        <div class="ac ac-fix" onclick="doUnlockAlt()">
+          <div class="ac-ic"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="ac-tx"><b>Não desbloqueou?</b><span>Reparo profundo + reinstala (Open)</span></div>
+          <i class="fa-solid fa-arrow-right ac-go"></i>
+        </div>
+        <div class="ac ac-rm" onclick="doRemove()">
+          <div class="ac-ic"><i class="fa-solid fa-trash-can"></i></div>
+          <div class="ac-tx"><b>Remover jogos</b><span>Limpa a biblioteca desbloqueada</span></div>
+          <i class="fa-solid fa-arrow-right ac-go"></i>
+        </div>
+      </div>
+      <div class="section-head" style="margin-top:34px"><h3>Em Alta</h3><span>Os mais jogados do momento</span></div>
+      <div class="lib"></div>
+    </section>
+
+    <!-- ADD -->
+    <section class="view" id="view-add">
+      <div class="section-head"><h3>Adicionar Jogo</h3><span>Busque pelo nome ou AppID</span></div>
+      <div class="searchbar">
+        <input id="q" placeholder="Ex: Elden Ring, GTA V, 1245620..." onkeydown="if(event.key==='Enter')doSearch()">
+        <button class="btn btn-green" onclick="doSearch()"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
+      </div>
+      <div class="results" id="results"><div class="hint">Digite o nome do jogo e busque.</div></div>
+    </section>
+
+    <!-- NOVOS -->
+    <section class="view" id="view-novos">
+      <div class="section-head"><h3>🔥 Novos Jogos</h3><span>Lançamentos recém-adicionados</span></div>
+      <div class="results" id="novos"><div class="hint">Carregando...</div></div>
+    </section>
+
+    <!-- EM ALTA / POPULARES -->
+    <section class="view" id="view-populares">
+      <div class="section-head"><h3>Em Alta</h3><span>Os mais jogados do momento</span></div>
+      <div class="lib" id="lib"></div>
+    </section>
+  </main>
+</div>
+
+<div class="restart-bar" id="restartBar"><div><b id="addedCount">0 jogos adicionados</b> — reinicie a Steam para aplicar.</div><button class="btn btn-green" onclick="api.restart()"><i class="fa-solid fa-rotate"></i> Reiniciar Steam</button></div>
+
+<div class="overlay" id="overlay"><div class="ov-card"><div class="spinner"></div><h3 id="ovText">Processando...</h3><div class="bar"><i id="ovBar"></i></div><button id="ovAv" class="btn btn-green" style="display:none;margin-top:18px;width:100%;justify-content:center" onclick="api.open_defender()"><i class="fa-solid fa-shield-halved"></i> Abrir Segurança do Windows</button></div></div>
+<div class="modal" id="rmModal">
+  <div class="m-card">
+    <div class="m-ic" style="background:rgba(248,113,113,.12);border-color:rgba(248,113,113,.4);color:#f87171"><i class="fa-solid fa-trash-can"></i></div>
+    <h3>Remover jogos?</h3>
+    <p>Remove todos os jogos desbloqueados e <b>devolve sua Steam ao normal</b> (limpa os componentes e restaura a conexão). Suas <b>contas e logins são preservados</b>. Você pode desbloquear de novo quando quiser.</p>
+    <button class="btn" style="width:100%;justify-content:center;background:#f87171;color:#1a0606" onclick="rmGo()"><i class="fa-solid fa-trash-can"></i> Sim, remover</button>
+    <a class="m-skip" onclick="rmClose()">Cancelar</a>
+  </div>
+</div>
+<div class="modal" id="upModal">
+  <div class="m-card">
+    <div class="m-ic"><i class="fa-solid fa-crown"></i></div>
+    <h3>Jogo do Plano Completo</h3>
+    <p>Esse jogo é exclusivo do <b>Vitalício</b>. Faça upgrade e libere <b>40.000 jogos</b> + adicionar qualquer jogo.</p>
+    <input type="hidden" id="upContent">
+    <button class="btn btn-green" style="width:100%;justify-content:center" onclick="upGo()"><i class="fa-solid fa-crown"></i> Fazer upgrade agora</button>
+    <a class="m-skip" onclick="upClose()">Agora não</a>
+  </div>
+</div>
+<div class="toast" id="toast"><i class="fa-solid fa-check"></i><span id="toastMsg">Feito!</span></div>
+
+<script>
+let api=null, added=[], PLANO='basico', PLANO_ALL=true, PLANO_SET=null;
+const PLANO_INFO={
+  basico:   {label:'Básico',    count:'1.000'},
+  avancado: {label:'Avançado',  count:'20.000'},
+  vitalicio:{label:'Vitalício', count:'40.000'},
+};
+const OV={3768760:"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3768760/dbe86ebd2edb4c77d113e9e2feefeb90189fabc9/header.jpg",3357650:"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3357650/e32e168b25ed68a0cf6264c220c07e96c2abfb56/header.jpg",2483190:"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2483190/27abb1584a118d50d0e3950fd48d557c51981db7/header.jpg",3764200:"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3764200/ce5437442768e38eb575f205ab9397d0264017b0/header.jpg",2215200:"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2215200/a07a9a6c0c9c1225f5b260b4f29fe40e6f099f6b/header.jpg"};
+const FEATURED=[[3768760,"007 First Light"],[3357650,"PRAGMATA"],[2483190,"Forza Horizon 6"],[3764200,"Resident Evil Requiem"],[2215200,"LEGO Batman"],[1174180,"Red Dead Redemption 2"],[271590,"Grand Theft Auto V"],[1245620,"Elden Ring"],[2358720,"Black Myth: Wukong"],[1086940,"Baldur's Gate 3"],[1091500,"Cyberpunk 2077"],[990080,"Hogwarts Legacy"],[1593500,"God of War"],[2050650,"Resident Evil 4"],[553850,"HELLDIVERS 2"],[2246340,"Monster Hunter Wilds"],[1623730,"Palworld"],[1817070,"Marvel's Spider-Man Remastered"]];
+const CAP="https://cdn.cloudflare.steamstatic.com/steam/apps";
+
+function $(id){return document.getElementById(id)}
+function toast(m){const t=$('toast');$('toastMsg').textContent=m;t.classList.add('show');clearTimeout(window._tt);window._tt=setTimeout(()=>t.classList.remove('show'),3000)}
+function overlay(on,txt){$('overlay').classList.toggle('show',on);if(txt)$('ovText').textContent=txt}
+function openUpsell(content){ $('upContent').value=content; $('upModal').classList.add('show'); }
+function upGo(){ api.checkout($('upContent').value||'upsell'); $('upModal').classList.remove('show'); }
+function upClose(){ $('upModal').classList.remove('show'); }
+function doRemove(){ $('rmModal').classList.add('show'); }
+function rmClose(){ $('rmModal').classList.remove('show'); }
+async function rmGo(){ rmClose(); overlay(true,'Restaurando a Steam...'); $('ovBar').style.width='10%'; await api.remove(); }
+function goldBtn(content){return `<button class="cbtn gold" onclick="api.checkout('${content}')">🔒 Liberar</button>`}
+
+function setView(v){
+  document.querySelectorAll('.view').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav a[data-view]').forEach(a=>a.classList.remove('active'));
+  $('view-'+v).classList.add('active');
+  document.querySelector(`.nav a[data-view="${v}"]`).classList.add('active');
+  if(v==='novos') loadNovos();
+  if(v==='populares') buildLib();
+}
+document.querySelectorAll('.nav a[data-view]').forEach(a=>a.onclick=()=>setView(a.dataset.view));
+
+function renderUnlock(){
+  const info=PLANO_INFO[PLANO]||PLANO_INFO.basico;
+  $('unlockGrid').innerHTML=`
+    <div class="uc" style="grid-column:1/-1" onclick="doUnlock()">
+      <div class="kick">Seu plano</div>
+      <h4>Desbloquear ${info.count} jogos</h4>
+      <p>1 clique — instala tudo e reinicia a Steam automaticamente.</p>
+      <span class="go"><i class="fa-solid fa-bolt"></i> Desbloquear agora</span>
+    </div>`;
+}
+function buildLib(){
+  const h=FEATURED.map(([id])=>`<div class="game"><img loading="lazy" src="${CAP}/${id}/library_600x900.jpg" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='${OV[id]||CAP+'/'+id+'/library_hero.jpg'}'}else{this.style.opacity=0}"></div>`).join('');
+  document.querySelectorAll('.lib').forEach(el=>el.innerHTML=h);
+}
+async function doUnlock(){ overlay(true,'Iniciando...'); $('ovBar').style.width='5%'; await api.unlock(); }
+async function doUnlockAlt(){ overlay(true,'Aplicando método alternativo...'); $('ovBar').style.width='5%'; await api.unlock_alt(); }
+async function doSearch(){
+  const q=$('q').value.trim(); if(!q)return;
+  $('results').innerHTML='<div class="hint">Buscando...</div>';
+  const items=await api.search(q);
+  if(!items.length){$('results').innerHTML='<div class="hint">Nenhum resultado. Tente outro nome.</div>';return}
+  $('results').innerHTML=items.map(it=>row(it.id,it.name,it.img)).join('');
+}
+function canAdd(id){ return PLANO_ALL || (PLANO_SET && PLANO_SET.has(id)); }
+function coverErr(im){
+  let l; try{l=JSON.parse(decodeURIComponent(im.dataset.s))}catch(e){l=[]}
+  let i=parseInt(im.dataset.i||'0')+1;
+  if(i<l.length){ im.dataset.i=i; im.src=l[i]; return; }
+  if(!im.dataset.tried && im.dataset.id && api){
+    im.dataset.tried=1;
+    api.cover(im.dataset.id).then(u=>{ if(u){im.src=u;} else {im.style.display='none';im.nextElementSibling.style.display='grid';} })
+      .catch(()=>{im.style.display='none';im.nextElementSibling.style.display='grid';});
+    return;
+  }
+  im.style.display='none'; im.nextElementSibling.style.display='grid';
+}
+function gameCard(id,name,img,state){
+  const srcs=[`${CAP}/${id}/capsule_616x353.jpg`,`${CAP}/${id}/header.jpg`];
+  if(img){ const u=img.split('?')[0]; const b=u.substring(0,u.lastIndexOf('/'));
+    if(b.includes('/apps/')) srcs.push(b+'/capsule_616x353.jpg', b+'/header.jpg');
+    if(!u.includes('capsule_231x87')) srcs.push(img); }
+  const data=encodeURIComponent(JSON.stringify(srcs));
+  let pill;
+  if(state==='added') pill='<button class="gpill ok" disabled><i class="fa-solid fa-check"></i> Adicionado</button>';
+  else if(state==='locked') pill=`<button class="gpill lock" onclick="openUpsell('jogo_${id}')"><i class="fa-solid fa-lock"></i> Liberar</button>`;
+  else pill=`<button class="gpill add" onclick="doAdd(${id},this)"><i class="fa-solid fa-plus"></i> Adicionar</button>`;
+  return `<div class="gcard" id="row-${id}"><img loading="lazy" data-id="${id}" data-s="${data}" data-i="0" src="${srcs[0]}" onerror="coverErr(this)"><div class="ph"><i class="fa-solid fa-gamepad"></i></div><div class="grad"></div><div class="info"><div class="nm">${name}</div>${pill}</div></div>`;
+}
+function row(id,name,img){
+  const state = added.includes(id) ? 'added' : (canAdd(id) ? 'add' : 'locked');
+  return gameCard(id,name,img,state);
+}
+async function doAdd(id,btn){
+  btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Adicionando'; btn.disabled=true; btn.classList.remove('add');
+  const r=await api.add(id,'');
+  if(r&&r.ok){
+    btn.outerHTML=`<button class="gpill ok" disabled><i class="fa-solid fa-check"></i> ${r.library_only?'Biblioteca':'Adicionado'}</button>`;
+    if(!added.includes(id)){added.push(id);updateBar()}
+  } else if(r&&r.locked){ btn.outerHTML=`<button class="gpill lock" onclick="openUpsell('jogo_${id}')"><i class="fa-solid fa-lock"></i> Liberar</button>`; }
+  else { btn.innerHTML='<i class="fa-solid fa-plus"></i> Tentar de novo'; btn.disabled=false; btn.classList.add('add'); toast('Falha: '+((r&&r.error)||'?')); }
+}
+function updateBar(){
+  $('addedCount').textContent=added.length+' jogo'+(added.length>1?'s':'')+' adicionado'+(added.length>1?'s':'');
+  $('restartBar').classList.toggle('show', added.length>0);
+}
+async function loadNovos(){
+  const g=await api.novos();
+  if(!g||!g.length){$('novos').innerHTML='<div class="hint">Nenhum jogo novo no momento.</div>';return}
+  $('novos').innerHTML=g.map(x=>{
+    const state = added.includes(x.appid) ? 'added' : (PLANO_ALL ? 'add' : 'locked');
+    return gameCard(x.appid, x.name, x.img, state);
+  }).join('');
+}
+
+// Python -> JS
+window.onPy=(msg)=>{
+  if(msg.event==='progress'){overlay(true,msg.text);$('ovBar').style.width=(msg.pct*100)+'%';}
+  else if(msg.event==='av'){$('ovAv').style.display=msg.show?'flex':'none';}
+  else if(msg.event==='done'){
+    setTimeout(()=>overlay(false),700); $('ovAv').style.display='none';
+    if(msg.ok){
+      if(msg.kind==='unlock'){toast('✓ Catálogo desbloqueado!');renderUnlock();}
+      else if(msg.kind==='restart'){toast('✓ Steam reiniciada!');added=[];updateBar();}
+      else if(msg.kind==='remove'){toast('✓ Jogos removidos!');added=[];updateBar();renderUnlock();}
+      else if(msg.kind==='fix'){toast('✓ Conexão corrigida!');}
+    }else{toast('Erro: '+(msg.error||'?'));}
+  }
+};
+
+const MOTIVOS={
+  nao_encontrado:'Email não encontrado. Use o email exato da sua compra.',
+  inativa:'Sua licença está inativa. Fale com o suporte.',
+  plano_insuficiente:'Seu plano não dá acesso a esta versão.',
+  outro_pc:'Esta licença já está ativa em outro PC. Fale com o suporte pra liberar.',
+  rede:'Sem conexão. Verifique a internet e tente de novo.'
+};
+function loginError(m){$('loginErr').textContent=m||''}
+function showLogin(motivo){
+  $('shell').style.display='none'; $('login').style.display='grid';
+  $('loginChecking').style.display='none'; $('loginForm').style.display='block';
+  if(motivo) loginError(MOTIVOS[motivo]||'Não foi possível validar.');
+}
+async function showApp(){
+  $('login').style.display='none'; $('shell').style.display='grid';
+  const s=await api.status();
+  PLANO = s.plano || 'basico';
+  const info = PLANO_INFO[PLANO] || PLANO_INFO.basico;
+  $('brandSub').textContent = info.label;
+  $('tierPill').innerHTML = (PLANO==='vitalicio'?'<i class="fa-solid fa-crown"></i> ':'') + info.label.toUpperCase();
+  $('tierTitle').textContent = info.count + ' jogos';
+  $('tierDesc').textContent = (PLANO==='vitalicio'?'Catálogo completo':'Seu plano ativo');
+  $('counter').textContent = info.count;
+  const _lim = (PLANO!=='vitalicio');
+  $('upsellBanner').style.display = _lim ? 'flex' : 'none';
+  if(_lim){ $('upTitle').textContent='Você tem '+info.count+' jogos liberados.'; $('upSub').textContent='Faça upgrade pro Vitalício: 40.000 jogos + adicionar qualquer jogo.'; }
+  try{ const pl=await api.plano_lista(); PLANO_ALL=pl.all; PLANO_SET=pl.all?null:new Set(pl.appids); }
+  catch(e){ PLANO_ALL=(PLANO==='vitalicio'); PLANO_SET=PLANO_ALL?null:new Set(); }
+  const pill=$('steamPill');
+  if(s.steam){pill.className='pill';pill.innerHTML='<span class="dot"></span> Steam detectada';}
+  else{pill.className='pill off';pill.innerHTML='<span class="dot"></span> Steam não encontrada';}
+  renderUnlock(); buildLib();
+}
+async function doLogin(){
+  const email=$('email').value.trim();
+  if(!email){loginError('Digite seu email.');return}
+  const b=$('loginBtn'); b.disabled=true; b.textContent='Verificando...'; loginError('');
+  const r=await api.login(email);
+  b.disabled=false; b.textContent='Entrar';
+  if(r&&r.ok){showApp();} else {loginError(MOTIVOS[r&&r.motivo]||'Não foi possível validar.');}
+}
+async function doLogout(){
+  await api.logout(); added=[]; PLANO='basico'; $('email').value=''; loginError(''); showLogin();
+}
+async function boot(){
+  const lic=await api.check_license();
+  if(lic&&lic.ok){showApp();} else {showLogin(lic&&lic.motivo);}
+}
+window.addEventListener('pywebviewready', ()=>{ api=window.pywebview.api; boot(); });
+</script></body></html>
