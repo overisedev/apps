@@ -146,16 +146,7 @@ a{color:inherit;text-decoration:none}
 .wc-news li b{color:#fff}
 .wc-sub{font-family:var(--head);color:#fff;font-size:1rem;margin:0 0 12px;display:flex;align-items:center;gap:8px}
 .wc-sub i{color:#f59e0b}
-.wc-carousel{position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid var(--bd);background:linear-gradient(160deg,#1b1b24,#0e0e12)}
-.wc-slide{position:absolute;inset:0;opacity:0;transition:opacity .8s ease;pointer-events:none}
-.wc-slide.on{opacity:1}
-.wc-slide img{width:100%;height:100%;object-fit:cover;display:block}
-.wc-slide .g{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,8,.92) 4%,rgba(6,6,8,.30) 36%,transparent 62%)}
-.wc-slide .n{position:absolute;left:18px;bottom:15px;color:#fff;font-family:var(--head);font-weight:800;font-size:1.15rem;text-shadow:0 2px 12px rgba(0,0,0,.9)}
-.wc-dots{display:flex;gap:6px;justify-content:center;margin:12px 0 4px}
-.wc-dots i{width:7px;height:7px;border-radius:50%;background:var(--bd2);transition:.25s;cursor:pointer}
-.wc-dots i.on{background:var(--neon);width:18px;border-radius:4px}
-.wc-cta{margin-top:14px;width:100%;justify-content:center}
+.wc-cta{margin-top:8px;width:100%;justify-content:center}
 </style></head><body>
 <div id="login"><div class="login-card">
   <div class="login-logo"><div class="ll-mark">O</div><div><div class="ll-name">OVER<span>ISE</span></div><div class="ll-sub">Vitalício</div></div></div>
@@ -277,9 +268,6 @@ a{color:inherit;text-decoration:none}
     </div>
     <div class="wc-body">
       <ul class="wc-news" id="wcNews"></ul>
-      <div class="wc-sub"><i class="fa-solid fa-fire"></i> Em alta agora</div>
-      <div class="wc-carousel" id="wcCarousel"></div>
-      <div class="wc-dots" id="wcDots"></div>
       <button class="btn btn-green wc-cta" onclick="closeWelcome()"><i class="fa-solid fa-arrow-right-to-bracket"></i> Entrar no painel</button>
     </div>
   </div>
@@ -333,34 +321,20 @@ function buildLib(){
   document.querySelectorAll('.lib').forEach(el=>el.innerHTML=h);
 }
 /* ===== Boas-vindas: novidades da atualização + em alta (horizontal) ===== */
-const NEWS_VERSION = "2026-06-13";
+const NEWS_VERSION = "2026-06-13b";
 const NEWS = [
   ["Reparo profundo", "o \"Método alternativo\" agora limpa tudo e reinstala sozinho"],
   ["Em Alta renovado", "capas oficiais da Steam, visual premium"],
   ["Novos jogos", "007 First Light, PRAGMATA, Resident Evil Requiem, Forza Horizon 6 e mais"],
 ];
-let _wcTimer=null, _wcIdx=0;
 function buildWelcome(){
   $('wcNews').innerHTML = NEWS.map(([t,d])=>`<li><i class="fa-solid fa-circle-check"></i><span><b>${t}</b> — ${d}</span></li>`).join('');
-  const slides = FEATURED.slice(0,8);   // capas HORIZONTAIS (header), carrossel automático
-  $('wcCarousel').innerHTML = slides.map(([id,nm],i)=>`<div class="wc-slide${i===0?' on':''}"><img loading="lazy" src="${OV[id]||CAP+'/'+id+'/capsule_616x353.jpg'}" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='${CAP}/${id}/header.jpg'}else{this.style.opacity=0}"><div class="g"></div><div class="n">${nm}</div></div>`).join('');
-  $('wcDots').innerHTML = slides.map((_,i)=>`<i class="${i===0?'on':''}" onclick="wcGo(${i})"></i>`).join('');
-  _wcIdx=0;
 }
-function wcGo(i){
-  const sl=document.querySelectorAll('#wcCarousel .wc-slide'); const dt=document.querySelectorAll('#wcDots i');
-  if(!sl.length) return;
-  _wcIdx=(i+sl.length)%sl.length;
-  sl.forEach((s,k)=>s.classList.toggle('on',k===_wcIdx));
-  dt.forEach((d,k)=>d.classList.toggle('on',k===_wcIdx));
-}
-function wcStop(){ if(_wcTimer){clearInterval(_wcTimer);_wcTimer=null;} }
-function wcStart(){ wcStop(); _wcTimer=setInterval(()=>wcGo(_wcIdx+1),3500); }   // fade automático
 function maybeShowWelcome(){
   try{ if(localStorage.getItem('overise_news')===NEWS_VERSION) return; }catch(e){}
-  buildWelcome(); $('wcModal').classList.add('show'); wcStart();
+  buildWelcome(); $('wcModal').classList.add('show');
 }
-function closeWelcome(){ wcStop(); $('wcModal').classList.remove('show'); try{localStorage.setItem('overise_news',NEWS_VERSION)}catch(e){} }
+function closeWelcome(){ $('wcModal').classList.remove('show'); try{localStorage.setItem('overise_news',NEWS_VERSION)}catch(e){} }
 
 async function doUnlock(){ overlay(true,'Iniciando...'); $('ovBar').style.width='5%'; await api.unlock(); }
 async function doUnlockAlt(){ overlay(true,'Aplicando método alternativo...'); $('ovBar').style.width='5%'; await api.unlock_alt(); }
