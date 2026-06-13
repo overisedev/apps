@@ -112,7 +112,7 @@ a{color:inherit;text-decoration:none}
 .bar{height:8px;background:#1d1d24;border-radius:8px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--neon),var(--cyan));border-radius:8px;transition:width .4s}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--card2);border:1px solid var(--bd2);color:#fff;padding:13px 22px;border-radius:12px;font-weight:700;font-size:.86rem;z-index:300;transition:.35s;box-shadow:0 12px 40px rgba(0,0,0,.5)}
 .toast.show{transform:translateX(-50%) translateY(0)}.toast i{color:var(--neon)}
-@media(max-width:820px){.shell{grid-template-columns:1fr}.sidebar{position:sticky;flex-direction:row;height:auto;padding:12px 16px;border-right:none;border-bottom:1px solid var(--bd)}.nav,.nav-label,.side-card h4,.side-card p{display:none}.side-card{margin:0;padding:0;border:none;background:none}.unlock-grid{grid-template-columns:1fr}.alt-actions{grid-template-columns:1fr}.lib{grid-template-columns:repeat(3,1fr)}.restart-bar{left:0}}
+@media(max-width:820px){.shell{grid-template-columns:1fr}.sidebar{position:sticky;flex-direction:row;height:auto;padding:12px 16px;border-right:none;border-bottom:1px solid var(--bd)}.nav,.nav-label,.side-card h4,.side-card p{display:none}.side-card{margin:0;padding:0;border:none;background:none}.unlock-grid{grid-template-columns:1fr}.alt-actions{grid-template-columns:1fr}.community{grid-template-columns:1fr}.lib{grid-template-columns:repeat(3,1fr)}.restart-bar{left:0}}
 #login{position:fixed;inset:0;background:radial-gradient(800px 500px at 50% -10%,rgba(0,230,118,.10),transparent 60%),var(--bg);display:grid;place-items:center;z-index:500}
 .login-card{width:90%;max-width:400px;background:var(--card);border:1px solid var(--bd2);border-radius:20px;padding:38px 34px;text-align:center}
 .login-logo{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:26px}
@@ -147,6 +147,18 @@ a{color:inherit;text-decoration:none}
 .wc-sub{font-family:var(--head);color:#fff;font-size:1rem;margin:0 0 12px;display:flex;align-items:center;gap:8px}
 .wc-sub i{color:#f59e0b}
 .wc-cta{margin-top:8px;width:100%;justify-content:center}
+/* comunidade (Discord + WhatsApp com cores oficiais) */
+.community{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.combtn{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:14px;cursor:pointer;border:none;font-family:var(--font);transition:.18s;text-align:left}
+.combtn:hover{transform:translateY(-3px)}
+.combtn i{font-size:1.8rem;flex:none}
+.combtn b{display:block;font-family:var(--head);font-size:1rem;font-weight:800}
+.combtn span{font-size:.78rem;opacity:.9}
+.combtn.discord{background:linear-gradient(135deg,#5865F2,#4752c4);color:#fff}
+.combtn.discord:hover{box-shadow:0 12px 30px rgba(88,101,242,.45)}
+.combtn.whats{background:linear-gradient(135deg,#25D366,#1ebe5a);color:#04210f}
+.combtn.whats:hover{box-shadow:0 12px 30px rgba(37,211,102,.45)}
+.nav a .fa-whatsapp{color:#25D366}.nav a .fa-discord{color:#5865F2}
 </style></head><body>
 <div id="login"><div class="login-card">
   <div class="login-logo"><div class="ll-mark">O</div><div><div class="ll-name">OVER<span>ISE</span></div><div class="ll-sub">Vitalício</div></div></div>
@@ -164,13 +176,14 @@ a{color:inherit;text-decoration:none}
   <aside class="sidebar">
     <div class="brand"><div class="brand-mark">O</div><div><div class="brand-name">OVER<span>ISE</span></div><div class="brand-sub" id="brandSub">—</div></div></div>
     <nav class="nav">
-      <div class="nav-label">Painel</div>
-      <a class="active" data-view="dash"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+      <div class="nav-label">Menu</div>
+      <a class="active" data-view="dash"><i class="fa-solid fa-house"></i> Início</a>
       <a data-view="add"><i class="fa-solid fa-plus"></i> Adicionar Jogo</a>
       <a data-view="novos"><i class="fa-solid fa-fire"></i> Novos Jogos</a>
       <a data-view="populares"><i class="fa-solid fa-ranking-star"></i> Em Alta</a>
       <div class="nav-label">Conta</div>
       <a onclick="api.open_url('https://chat.whatsapp.com/F5K8OEAX3niI9nAyffZwKa')"><i class="fa-brands fa-whatsapp"></i> Grupo VIP</a>
+      <a onclick="api.open_url('https://discord.gg/TN3YWHcsF9')"><i class="fa-brands fa-discord"></i> Discord</a>
       <a onclick="api.open_url('https://wa.me/5568999215897')"><i class="fa-solid fa-headset"></i> Suporte</a>
       <a onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
     </nav>
@@ -179,7 +192,7 @@ a{color:inherit;text-decoration:none}
 
   <main class="main">
     <div class="topbar">
-      <div class="greeting"><h1>Painel do Cliente</h1><p>Acesso total — sua biblioteca completa, para sempre.</p></div>
+      <div class="greeting"><h1>Meu OVERISE</h1><p>Acesso total — sua biblioteca completa, para sempre.</p></div>
       <span class="pill" id="steamPill"><span class="dot"></span> Verificando Steam...</span>
     </div>
 
@@ -209,6 +222,11 @@ a{color:inherit;text-decoration:none}
           <div class="ac-tx"><b>Remover jogos</b><span>Limpa a biblioteca desbloqueada</span></div>
           <i class="fa-solid fa-arrow-right ac-go"></i>
         </div>
+      </div>
+      <div class="section-head" style="margin-top:34px"><h3>Comunidade</h3><span>Entra nos grupos pra novidades, novos jogos e suporte</span></div>
+      <div class="community">
+        <a class="combtn discord" onclick="api.open_url('https://discord.gg/TN3YWHcsF9')"><i class="fa-brands fa-discord"></i><div><b>Discord</b><span>Comunidade, novidades e ajuda</span></div></a>
+        <a class="combtn whats" onclick="api.open_url('https://chat.whatsapp.com/F5K8OEAX3niI9nAyffZwKa')"><i class="fa-brands fa-whatsapp"></i><div><b>Grupo no WhatsApp</b><span>Avisos e suporte rápido</span></div></a>
       </div>
       <div class="section-head" style="margin-top:34px"><h3>Em Alta</h3><span>Os mais jogados do momento</span></div>
       <div class="lib"></div>
@@ -268,7 +286,7 @@ a{color:inherit;text-decoration:none}
     </div>
     <div class="wc-body">
       <ul class="wc-news" id="wcNews"></ul>
-      <button class="btn btn-green wc-cta" onclick="closeWelcome()"><i class="fa-solid fa-arrow-right-to-bracket"></i> Entrar no painel</button>
+      <button class="btn btn-green wc-cta" onclick="closeWelcome()"><i class="fa-solid fa-arrow-right-to-bracket"></i> Entrar no OVERISE</button>
     </div>
   </div>
 </div>
