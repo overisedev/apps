@@ -144,6 +144,22 @@ a{color:inherit;text-decoration:none}
 .wc-news li{display:flex;gap:11px;align-items:flex-start;color:var(--muted);font-size:.9rem;line-height:1.45}
 .wc-news li i{color:var(--neon);margin-top:3px;font-size:.82rem;flex:none}
 .wc-news li b{color:#fff}
+/* aviso Denuvo */
+.dn-card{max-width:520px;overflow:hidden}
+.dn-banner{height:108px;display:grid;place-items:center;font-size:2.9rem;color:#241803;background:linear-gradient(135deg,#f6c343,#e8590c);position:relative}
+.dn-banner::after{content:"DENUVO";position:absolute;bottom:8px;letter-spacing:4px;font-family:var(--head);font-size:.62rem;color:rgba(36,24,3,.6);font-weight:800}
+.dn-body{padding:22px 26px 26px}
+.dn-title{font-family:var(--head);color:#fff;font-size:1.3rem;margin:0;display:flex;align-items:center;justify-content:space-between}
+.dn-lead{color:var(--muted);font-size:.92rem;line-height:1.55;margin:10px 0 18px}
+.dn-lead b{color:#fff}
+.dn-steps{list-style:none;margin:0 0 16px;padding:0;display:flex;flex-direction:column;gap:13px}
+.dn-steps li{display:flex;gap:12px;align-items:flex-start;color:var(--muted);font-size:.9rem;line-height:1.45}
+.dn-steps li b{color:#fff}
+.dn-num{flex:none;width:25px;height:25px;border-radius:50%;display:grid;place-items:center;font-size:.78rem;font-weight:800;background:linear-gradient(135deg,#f6c343,#e8590c);color:#241803}
+.dn-note{display:flex;gap:9px;background:rgba(246,195,67,.09);border:1px solid rgba(246,195,67,.22);border-radius:12px;padding:11px 13px;color:#e3bd63;font-size:.82rem;line-height:1.45;margin:0 0 18px}
+.dn-note i{margin-top:2px;flex:none}
+.dn-cta{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;box-sizing:border-box;background:#5865F2;color:#fff;border:0;border-radius:12px;padding:14px;font-weight:800;font-size:.95rem;cursor:pointer;font-family:var(--font);text-decoration:none}
+.dn-skip{display:block;width:100%;margin-top:10px;background:none;border:0;color:var(--muted2);font-size:.82rem;cursor:pointer;font-family:var(--font)}
 .wc-sub{font-family:var(--head);color:#fff;font-size:1rem;margin:0 0 12px;display:flex;align-items:center;gap:8px}
 .wc-sub i{color:#f59e0b}
 .wc-cta{margin-top:8px;width:100%;justify-content:center}
@@ -290,6 +306,23 @@ a{color:inherit;text-decoration:none}
     </div>
   </div>
 </div>
+<div class="modal" id="dnModal">
+  <div class="wc-card dn-card">
+    <div class="dn-banner"><i class="fa-solid fa-shield-halved"></i></div>
+    <div class="dn-body">
+      <h3 class="dn-title">Jogos com Denuvo <button class="wc-x" onclick="closeDenuvo()">✕</button></h3>
+      <p class="dn-lead">Alguns jogos usam o <b>Denuvo</b>, uma proteção contra cópia. Esses precisam de uma <b>ativação especial</b>, feita pela nossa equipe lá no Discord. Não dá pra liberar sozinho aqui pelo launcher.</p>
+      <ul class="dn-steps">
+        <li><span class="dn-num">1</span><span><b>Entre no nosso Discord</b></span></li>
+        <li><span class="dn-num">2</span><span><b>Pegue seu cargo</b> no canal de atribuir cargo, validando seu acesso</span></li>
+        <li><span class="dn-num">3</span><span>Depois vá no <b>canal de ativação Denuvo</b> e veja o <b>tutorial</b> de como ativar o Denuvo 🎮</span></li>
+      </ul>
+      <div class="dn-note"><i class="fa-solid fa-circle-info"></i><span>A maioria dos jogos <b>não</b> tem Denuvo e libera direto por aqui. Isso vale só pros títulos protegidos.</span></div>
+      <a class="dn-cta" onclick="api.open_url('https://discord.gg/TN3YWHcsF9'); closeDenuvo()"><i class="fa-brands fa-discord"></i> Entrar no Discord</a>
+      <button class="dn-skip" onclick="closeDenuvo()">Agora não, obrigado</button>
+    </div>
+  </div>
+</div>
 <div class="toast" id="toast"><i class="fa-solid fa-check"></i><span id="toastMsg">Feito!</span></div>
 
 <script>
@@ -349,10 +382,17 @@ function buildWelcome(){
   $('wcNews').innerHTML = NEWS.map(([t,d])=>`<li><i class="fa-solid fa-circle-check"></i><span><b>${t}</b> — ${d}</span></li>`).join('');
 }
 function maybeShowWelcome(){
-  try{ if(localStorage.getItem('overise_news')===NEWS_VERSION) return; }catch(e){}
+  try{ if(localStorage.getItem('overise_news')===NEWS_VERSION){ maybeShowDenuvo(); return; } }catch(e){ maybeShowDenuvo(); return; }
   buildWelcome(); $('wcModal').classList.add('show');
 }
-function closeWelcome(){ $('wcModal').classList.remove('show'); try{localStorage.setItem('overise_news',NEWS_VERSION)}catch(e){} }
+function closeWelcome(){ $('wcModal').classList.remove('show'); try{localStorage.setItem('overise_news',NEWS_VERSION)}catch(e){} maybeShowDenuvo(); }
+/* ===== Aviso de jogos Denuvo (1x na primeira abertura, logo apos o boas-vindas) ===== */
+const DENUVO_VERSION = "2026-06-22";
+function maybeShowDenuvo(){
+  try{ if(localStorage.getItem('overise_denuvo')===DENUVO_VERSION) return; }catch(e){}
+  $('dnModal').classList.add('show');
+}
+function closeDenuvo(){ $('dnModal').classList.remove('show'); try{localStorage.setItem('overise_denuvo',DENUVO_VERSION)}catch(e){} }
 
 async function doUnlock(){ overlay(true,'Iniciando...'); $('ovBar').style.width='5%'; await api.unlock(); }
 async function doUnlockAlt(){ overlay(true,'Aplicando método alternativo...'); $('ovBar').style.width='5%'; await api.unlock_alt(); }
