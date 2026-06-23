@@ -396,12 +396,28 @@ function closeDenuvo(){ $('dnModal').classList.remove('show'); try{localStorage.
 
 async function doUnlock(){ overlay(true,'Iniciando...'); $('ovBar').style.width='5%'; await api.unlock(); }
 async function doUnlockAlt(){ overlay(true,'Aplicando método alternativo...'); $('ovBar').style.width='5%'; await api.unlock_alt(); }
+/* curadoria online: jogos que a busca da Steam esconde (ex: GTA V Legacy) ou
+   com nome em PT (homem aranha). Editar curadoria.json no repo = atualiza na hora. */
+let _curCache=null;
+async function getCuradoria(){
+  if(_curCache) return _curCache;
+  try{
+    const r=await fetch('https://raw.githubusercontent.com/overisedev/overise-luas/main/curadoria.json',{cache:'no-store'});
+    _curCache = r.ok ? await r.json() : [];
+  }catch(e){ _curCache=[]; }
+  return _curCache;
+}
 async function doSearch(){
   const q=$('q').value.trim(); if(!q)return;
+  const ql=q.toLowerCase();
   $('results').innerHTML='<div class="hint">Buscando...</div>';
-  const items=await api.search(q);
-  if(!items.length){$('results').innerHTML='<div class="hint">Nenhum resultado. Tente outro nome.</div>';return}
-  $('results').innerHTML=items.map(it=>row(it.id,it.name,it.img)).join('');
+  const [items,cur]=await Promise.all([ api.search(q), getCuradoria() ]);
+  const hits=(cur||[]).filter(e=>(e.keys||[]).some(k=>{k=(''+k).toLowerCase();return k.includes(ql)||ql.includes(k);}));
+  const seen=new Set(), merged=[];
+  hits.forEach(e=>{ if(e.appid&&!seen.has(e.appid)){ seen.add(e.appid); merged.push({id:e.appid,name:e.name,img:e.img}); } });
+  (items||[]).forEach(it=>{ if(!seen.has(it.id)){ seen.add(it.id); merged.push(it); } });
+  if(!merged.length){$('results').innerHTML='<div class="hint">Nenhum resultado. Tente outro nome ou o número do jogo.</div>';return}
+  $('results').innerHTML=merged.map(it=>row(it.id,it.name,it.img)).join('');
 }
 function canAdd(id){ return PLANO_ALL || (PLANO_SET && PLANO_SET.has(id)); }
 function coverErr(im){
