@@ -294,6 +294,14 @@ a{color:inherit;text-decoration:none}
     <a class="m-skip" onclick="upClose()">Agora não</a>
   </div>
 </div>
+<div class="modal" id="steamModal">
+  <div class="m-card">
+    <div class="m-ic" style="background:rgba(0,255,65,.12);border-color:rgba(0,255,65,.4);color:var(--neon)"><i class="fa-brands fa-steam"></i></div>
+    <h3>Catálogo desbloqueado! 🎮</h3>
+    <p>Pronto! Agora <b>abra a Steam</b> normalmente para acessar todos os seus jogos.</p>
+    <button class="btn btn-green" style="width:100%;justify-content:center" onclick="$('steamModal').classList.remove('show')"><i class="fa-brands fa-steam"></i> Entendi</button>
+  </div>
+</div>
 <div class="modal" id="wcModal">
   <div class="wc-card">
     <div class="wc-head">
@@ -499,7 +507,7 @@ window.onPy=(msg)=>{
   else if(msg.event==='done'){
     setTimeout(()=>overlay(false),700); $('ovAv').style.display='none';
     if(msg.ok){
-      if(msg.kind==='unlock'){toast('✓ Catálogo desbloqueado!');renderUnlock();}
+      if(msg.kind==='unlock'){renderUnlock();$('steamModal').classList.add('show');}
       else if(msg.kind==='restart'){toast('✓ Steam reiniciada!');added=[];updateBar();}
       else if(msg.kind==='remove'){toast('✓ Jogos removidos!');added=[];updateBar();renderUnlock();}
       else if(msg.kind==='fix'){toast('✓ Conexão corrigida!');}
