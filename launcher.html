@@ -295,11 +295,12 @@ a{color:inherit;text-decoration:none}
   </div>
 </div>
 <div class="modal" id="steamModal">
-  <div class="m-card">
+  <div class="m-card" style="position:relative">
+    <button onclick="$('steamModal').classList.remove('show')" style="position:absolute;top:12px;right:14px;background:none;border:none;color:var(--muted);font-size:1.15rem;cursor:pointer;line-height:1">✕</button>
     <div class="m-ic" style="background:rgba(0,255,65,.12);border-color:rgba(0,255,65,.4);color:var(--neon)"><i class="fa-brands fa-steam"></i></div>
     <h3>Catálogo desbloqueado! 🎮</h3>
-    <p>Pronto! Agora <b>abra a Steam</b> normalmente para acessar todos os seus jogos.</p>
-    <button class="btn btn-green" style="width:100%;justify-content:center" onclick="$('steamModal').classList.remove('show')"><i class="fa-brands fa-steam"></i> Entendi</button>
+    <p>Pronto! Agora <b>abra a STEAM</b> normalmente para acessar todos os seus jogos.</p>
+    <button class="btn btn-green" style="width:100%;justify-content:center" onclick="$('steamModal').classList.remove('show')"><i class="fa-brands fa-steam"></i> Entendido</button>
   </div>
 </div>
 <div class="modal" id="wcModal">
