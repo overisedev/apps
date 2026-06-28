@@ -195,6 +195,8 @@ a{color:inherit;text-decoration:none}
       <div class="nav-label">Menu</div>
       <a class="active" data-view="dash"><i class="fa-solid fa-house"></i> Início</a>
       <a data-view="add"><i class="fa-solid fa-plus"></i> Adicionar Jogo</a>
+      <a data-view="rmgame"><i class="fa-solid fa-trash-can"></i> Remover Jogo</a>
+      <a data-view="bypass"><i class="fa-solid fa-screwdriver-wrench"></i> Bypass</a>
       <a data-view="novos"><i class="fa-solid fa-fire"></i> Novos Jogos</a>
       <a data-view="populares"><i class="fa-solid fa-ranking-star"></i> Em Alta</a>
       <div class="nav-label">Conta</div>
@@ -258,6 +260,25 @@ a{color:inherit;text-decoration:none}
       <div class="results" id="results"><div class="hint">Digite o nome do jogo e busque.</div></div>
     </section>
 
+    <!-- REMOVER JOGO (1 jogo só) -->
+    <section class="view" id="view-rmgame">
+      <div class="section-head"><h3>Remover Jogo</h3><span>Tira a lua de UM jogo só — resolve conflito sem zerar a biblioteca</span></div>
+      <div class="searchbar">
+        <input id="qr" placeholder="Ex: Elden Ring, GTA V, 1245620..." onkeydown="if(event.key==='Enter')doSearchRm()">
+        <button class="btn btn-green" onclick="doSearchRm()"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
+      </div>
+      <div class="results" id="resultsRm"><div class="hint">Busque o jogo que quer remover.</div></div>
+    </section>
+
+    <!-- BYPASS (crack na pasta — jogos com DRM próprio) -->
+    <section class="view" id="view-bypass">
+      <div class="section-head"><h3>Bypass</h3><span>Pra jogos com proteção própria (GTA, RDR...). Aplica a correção e abre pelo launcher do jogo.</span></div>
+      <div class="bp-wrap">
+        <aside class="bp-list" id="bypassList"><div class="hint" style="padding:14px">Carregando...</div></aside>
+        <div class="bp-detail" id="bpPane"><div class="hint" style="padding:50px 20px;text-align:center">Selecione um jogo na lista.</div></div>
+      </div>
+    </section>
+
     <!-- NOVOS -->
     <section class="view" id="view-novos">
       <div class="section-head"><h3>🔥 Novos Jogos</h3><span>Lançamentos recém-adicionados</span></div>
@@ -303,6 +324,46 @@ a{color:inherit;text-decoration:none}
     <button class="btn btn-green" style="width:100%;justify-content:center" onclick="$('steamModal').classList.remove('show')"><i class="fa-brands fa-steam"></i> Entendido</button>
   </div>
 </div>
+<style>
+.bp-wrap{display:flex;gap:22px;align-items:flex-start}
+.bp-list{width:268px;flex:none;display:flex;flex-direction:column;gap:6px}
+.bp-litem{display:flex;align-items:center;gap:12px;padding:9px 11px;border-radius:11px;cursor:pointer;border:1px solid transparent;transition:.15s}
+.bp-litem:hover{background:rgba(255,255,255,.04)}
+.bp-litem.active{background:rgba(0,255,65,.08);border-color:rgba(0,255,65,.3)}
+.bp-litem img{width:56px;height:26px;object-fit:cover;border-radius:4px;flex:none;background:#1b1b22}
+.bp-litem .nm{font-size:.85rem;color:#fff;font-weight:600;line-height:1.2}
+.bp-litem .lst{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
+.bp-litem .lst.ok{color:#00FF41}.bp-litem .lst.no{color:#f87171}.bp-litem .lst.av{color:#8a8a94}
+.bp-detail{flex:1;min-width:0}
+.bp-hero{position:relative;height:268px;border-radius:18px;overflow:hidden;background:#111114}
+.bp-hero img{width:100%;height:100%;object-fit:cover}
+.bp-hero-grad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,6,7,.1),rgba(6,6,7,.48) 56%,rgba(6,6,7,.96))}
+.bp-hero-tt{position:absolute;left:28px;right:28px;bottom:22px}
+.bp-hero-tt h1{font-size:2.1rem;color:#fff;margin:0 0 9px;font-weight:900;letter-spacing:-.5px;text-shadow:0 3px 18px rgba(0,0,0,.6)}
+.bp-status{display:inline-flex;align-items:center;gap:8px;font-size:.74rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.bp-status.ok{color:#00FF41}.bp-status.no{color:#f87171}
+.bp-status .dot{width:9px;height:9px;border-radius:50%;background:currentColor;box-shadow:0 0 9px currentColor}
+.bp-bar{display:flex;align-items:center;gap:26px;padding:18px 4px;border-bottom:1px solid #1c1c22;margin-bottom:22px;flex-wrap:wrap}
+.bp-play{padding:14px 26px;font-size:1rem}
+.bp-meta{display:flex;gap:26px;flex:1;min-width:0;align-items:center}
+.bp-col{display:flex;flex-direction:column;gap:5px;min-width:0;flex:none}
+.bp-col.grow{flex:1;min-width:70px}
+.bp-col .l{font-size:.61rem;letter-spacing:.14em;text-transform:uppercase;color:#6c6c76;font-weight:700}
+.bp-col .v{font-size:.88rem;color:#e7e7ea;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bp-col .v.ok{color:#00FF41}
+.bp-icons{display:flex;gap:8px}
+.bp-ic{width:44px;height:44px;border-radius:11px;background:#16161b;border:1px solid #34343d;color:#cdcdd4;cursor:pointer;display:grid;place-items:center;font-size:1rem;transition:.15s}
+.bp-ic:hover{color:#fff;border-color:#4a4a55;background:#1c1c22}
+.bp-why{background:linear-gradient(180deg,rgba(251,191,36,.09),rgba(251,191,36,.03));border:1px solid rgba(251,191,36,.36);border-radius:16px;padding:22px 24px}
+.bp-why-h{display:flex;align-items:center;gap:12px;font-size:1.08rem;font-weight:800;color:#fbbf24;margin-bottom:13px}
+.bp-why-b{font-size:.95rem;color:#d8d8de;line-height:1.62}
+.bp-why-b b{color:#fff}.bp-why-b .st{color:#f87171;font-weight:700}.bp-why-b .ov{color:#00FF41;font-weight:700}
+.bp-steps{display:flex;gap:13px;margin-top:18px;flex-wrap:wrap}
+.bp-step{flex:1;min-width:200px;background:rgba(255,255,255,.03);border:1px solid #232329;border-radius:12px;padding:14px 16px;font-size:.88rem;color:#cdcdd4}
+.bp-step .n{display:inline-grid;place-items:center;width:23px;height:23px;border-radius:50%;background:#00FF41;color:#04130a;font-weight:900;font-size:.78rem;margin-right:8px}
+.bp-step.bad .n{background:#f87171}
+@media(max-width:900px){.bp-wrap{flex-direction:column}.bp-list{width:100%;flex-direction:row;overflow-x:auto}.bp-pathbox{text-align:left}}
+</style>
 <div class="modal" id="wcModal">
   <div class="wc-card">
     <div class="wc-head">
@@ -363,6 +424,7 @@ function setView(v){
   document.querySelector(`.nav a[data-view="${v}"]`).classList.add('active');
   if(v==='novos') loadNovos();
   if(v==='populares') buildLib();
+  if(v==='bypass') loadBypass();
 }
 document.querySelectorAll('.nav a[data-view]').forEach(a=>a.onclick=()=>setView(a.dataset.view));
 
@@ -450,6 +512,7 @@ function gameCard(id,name,img,state){
   let pill;
   if(state==='added') pill='<button class="gpill ok" disabled><i class="fa-solid fa-check"></i> Adicionado</button>';
   else if(state==='locked') pill=`<button class="gpill lock" onclick="openUpsell('jogo_${id}')"><i class="fa-solid fa-lock"></i> Liberar</button>`;
+  else if(state==='remove') pill=`<button class="gpill" style="background:#f87171;color:#1a0606;font-weight:800" onclick="doRemoveOne(${id},this)"><i class="fa-solid fa-trash-can"></i> Remover</button>`;
   else pill=`<button class="gpill add" onclick="doAdd(${id},this)"><i class="fa-solid fa-plus"></i> Adicionar</button>`;
   return `<div class="gcard" id="row-${id}"><img loading="lazy" data-id="${id}" data-s="${data}" data-i="0" src="${srcs[0]}" onerror="coverErr(this)"><div class="ph"><i class="fa-solid fa-gamepad"></i></div><div class="grad"></div><div class="info"><div class="nm">${name}</div>${pill}</div></div>`;
 }
@@ -465,6 +528,73 @@ async function doAdd(id,btn){
     if(!added.includes(id)){added.push(id);updateBar()}
   } else if(r&&r.locked){ btn.outerHTML=`<button class="gpill lock" onclick="openUpsell('jogo_${id}')"><i class="fa-solid fa-lock"></i> Liberar</button>`; }
   else { btn.innerHTML='<i class="fa-solid fa-plus"></i> Tentar de novo'; btn.disabled=false; btn.classList.add('add'); toast('Falha: '+((r&&r.error)||'?')); }
+}
+async function doSearchRm(){
+  const q=$('qr').value.trim(); if(!q)return;
+  $('resultsRm').innerHTML='<div class="hint">Buscando...</div>';
+  const items=await api.search(q);
+  if(!items||!items.length){ $('resultsRm').innerHTML='<div class="hint">Nenhum resultado. Tente outro nome ou o número do jogo.</div>'; return; }
+  $('resultsRm').innerHTML=items.map(it=>gameCard(it.id,it.name,it.img,'remove')).join('');
+}
+async function doRemoveOne(id,btn){
+  btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Removendo'; btn.disabled=true;
+  const r=await api.remove_one(id);
+  if(r&&r.ok){
+    btn.outerHTML=`<button class="gpill ok" disabled><i class="fa-solid fa-check"></i> ${r.removed?'Removido':'Não estava'}</button>`;
+    if(r.removed){
+      const i=added.indexOf(id); if(i>=0) added.splice(i,1);
+      $('addedCount').textContent='Jogo removido'; $('restartBar').classList.add('show');
+    }
+  } else { btn.innerHTML='<i class="fa-solid fa-trash-can"></i> Tentar de novo'; btn.disabled=false; toast('Falha: '+((r&&r.error)||'?')); }
+}
+// ── BYPASS (correções AAA — crack na pasta do jogo) ──
+let BYPASS=[], BPSEL=null;
+function bpListItem(g){
+  const st = !g.installed?'<span class="lst no">não instalado</span>':(g.applied?'<span class="lst ok">aplicado</span>':'<span class="lst av">disponível</span>');
+  return `<div class="bp-litem ${g.appid==BPSEL?'active':''}" data-id="${g.appid}" onclick="selectBypass(${g.appid})"><img src="${CAP}/${g.appid}/capsule_231x87.jpg" onerror="this.style.visibility='hidden'"><div><div class="nm">${g.name}</div>${st}</div></div>`;
+}
+async function loadBypass(){
+  $('bypassList').innerHTML='<div class="hint" style="padding:14px">Carregando...</div>';
+  try{
+    BYPASS=await api.bypass_list()||[];
+    if(!BYPASS.length){ $('bypassList').innerHTML='<div class="hint" style="padding:14px">Nenhum bypass disponível ainda.</div>'; $('bpPane').innerHTML=''; return; }
+    if(!BYPASS.find(x=>x.appid==BPSEL)) BPSEL=BYPASS[0].appid;
+    $('bypassList').innerHTML=BYPASS.map(bpListItem).join('');
+    selectBypass(BPSEL);
+  }catch(e){ $('bypassList').innerHTML='<div class="hint" style="padding:14px">Erro ao carregar.</div>'; }
+}
+function selectBypass(id){
+  BPSEL=id;
+  const g=BYPASS.find(x=>x.appid==id); if(!g)return;
+  document.querySelectorAll('.bp-litem').forEach(el=>el.classList.toggle('active', el.dataset.id==id));
+  const inst=g.installed, app=g.applied, launch=g.launch||'launcher do jogo';
+  let primary, icons='';
+  if(!inst){
+    primary=`<button class="btn bp-play" disabled style="opacity:.5"><i class="fa-solid fa-circle-info"></i> Instale pela Steam</button>`;
+  } else if(app){
+    primary=`<button class="btn btn-green bp-play" onclick="doLaunchBypass(${id})"><i class="fa-solid fa-play"></i> Iniciar jogo</button>`;
+    icons=`<button class="bp-ic" title="Reaplicar bypass" onclick="doApplyBypass(${id})"><i class="fa-solid fa-rotate"></i></button>`;
+    icons+=`<button class="bp-ic" title="Abrir pasta" onclick="api.bypass_open_folder(${id})"><i class="fa-solid fa-folder-open"></i></button>`;
+  } else {
+    primary=`<button class="btn btn-green bp-play" onclick="doApplyBypass(${id})"><i class="fa-solid fa-download"></i> Aplicar bypass</button>`;
+    icons=`<button class="bp-ic" title="Abrir pasta" onclick="api.bypass_open_folder(${id})"><i class="fa-solid fa-folder-open"></i></button>`;
+  }
+  const pathV = inst ? `<span class="v" title="${g.path||''}">${g.path||''}</span>` : '<span class="v">—</span>';
+  $('bpPane').innerHTML=`
+    <div class="bp-hero"><img src="${CAP}/${id}/library_hero.jpg" onerror="this.onerror=null;this.src='${CAP}/${id}/header.jpg'"><div class="bp-hero-grad"></div><div class="bp-hero-tt"><h1>${g.name}</h1><span class="bp-status ${inst?'ok':'no'}"><span class="dot"></span> ${inst?'Auto-detectado':'Jogo não instalado'}</span></div></div>
+    <div class="bp-bar">${primary}<div class="bp-meta"><div class="bp-col"><span class="l">Abre pelo</span><span class="v">${inst?launch:'—'}</span></div><div class="bp-col grow"><span class="l">Local</span>${pathV}</div></div><div class="bp-icons">${icons}</div></div>
+    <div class="bp-why"><div class="bp-why-h"><i class="fa-solid fa-circle-exclamation"></i> Importante — abra esse jogo SÓ pelo nosso launcher</div>
+      <div class="bp-why-b">Esse jogo tem uma <b>proteção própria</b> (além da Steam). O bypass troca os arquivos pra ele rodar liberado — mas <span class="st">se você abrir pela Steam</span>, ela usa os arquivos do jeito original e o bypass <b>não funciona</b> (dá erro ou pede pra comprar).<br><br>Por isso, <span class="ov">abra sempre pelo botão "Iniciar jogo"</span>, que executa direto pelo <b>${launch}</b> — sem passar pela Steam.</div>
+      <div class="bp-steps"><div class="bp-step"><span class="n">1</span> Primeiro <b>"Aplicar bypass"</b>, depois <b>"Iniciar jogo"</b> — é por aqui que o jogo abre liberado.</div><div class="bp-step bad"><span class="n">✕</span> <b>Não abra pela Steam</b> — se abrir por ela, o bypass não funciona.</div></div>
+    </div>`;
+}
+function doApplyBypass(id){
+  overlay(true,'Baixando e aplicando bypass...'); $('ovBar').style.width='5%';
+  api.bypass_apply(id);
+}
+async function doLaunchBypass(id){
+  const r=await api.bypass_launch(id);
+  if(r&&r.ok) toast('Abrindo o jogo pelo launcher dele...'); else toast('Falha: '+((r&&r.error)||'?'));
 }
 function updateBar(){
   $('addedCount').textContent=added.length+' jogo'+(added.length>1?'s':'')+' adicionado'+(added.length>1?'s':'');
@@ -512,6 +642,7 @@ window.onPy=(msg)=>{
       else if(msg.kind==='restart'){toast('✓ Steam reiniciada!');added=[];updateBar();}
       else if(msg.kind==='remove'){toast('✓ Jogos removidos!');added=[];updateBar();renderUnlock();}
       else if(msg.kind==='fix'){toast('✓ Conexão corrigida!');}
+      else if(msg.kind==='bypass'){toast('✓ Bypass aplicado! Agora clique em "Iniciar jogo".');BPSEL=msg.appid;setTimeout(()=>loadBypass(),800);}
     }else{toast('Erro: '+(msg.error||'?'));}
   }
 };
