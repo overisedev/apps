@@ -306,7 +306,7 @@ a{color:inherit;text-decoration:none}
   </main>
 </div>
 
-<div class="restart-bar" id="restartBar"><div><b id="addedCount">0 jogos adicionados</b>. <span data-i18n="bar.restart">Reinicie a Steam para aplicar.</span></div><button class="btn btn-green" onclick="api.restart()" data-i18n="restart.btn"><i class="fa-solid fa-rotate"></i> Reiniciar Steam</button></div>
+<div class="restart-bar" id="restartBar"><div><b id="addedCount">0 jogos adicionados</b>. <span data-i18n="bar.restart">Reinicie a Steam para aplicar.</span></div><button class="btn btn-green" onclick="doRestartSteam()" data-i18n="restart.btn"><i class="fa-solid fa-rotate"></i> Reiniciar Steam</button></div>
 
 <div class="overlay" id="overlay"><div class="ov-card"><div class="spinner"></div><h3 id="ovText" data-i18n="overlay.processing">Processando...</h3><div class="bar"><i id="ovBar"></i></div><button id="ovAv" class="btn btn-green" style="display:none;margin-top:18px;width:100%;justify-content:center" onclick="api.open_defender()" data-i18n="overlay.defender"><i class="fa-solid fa-shield-halved"></i> Abrir Segurança do Windows</button></div></div>
 <div class="modal" id="rmModal">
@@ -568,7 +568,7 @@ function refreshDynamic(){
   try{ refreshAddResults(); }catch(e){}
   try{ const v=(document.querySelector('.view.active')||{}).id||''; if(v==='view-bypass')loadBypass(); else if(v==='view-rmgame')loadRmInstalled(); else if(v==='view-novos')loadNovos(); else if(v==='view-populares')buildLib(); }catch(e){}
 }
-let api=null, added=[], lastResults=[], PLANO='basico', PLANO_ALL=true, PLANO_SET=null;
+let api=null, added=[], lastResults=[], lastRemove=false, PLANO='basico', PLANO_ALL=true, PLANO_SET=null;
 const PLANO_INFO={
   basico:   {label:'Básico',    count:'1.000'},
   avancado: {label:'Avançado',  count:'20.000'},
@@ -705,6 +705,7 @@ async function doAdd(id,btn){
   if(r&&r.ok){
     btn.outerHTML=`<button class="gpill ok" disabled><i class="fa-solid fa-check"></i> ${r.library_only?t('card.library'):t('card.added')}</button>`;
     if(!added.includes(id)){added.push(id);updateBar()}
+    lastRemove=false;   // adicionou: o "Reiniciar Steam" usa o fluxo completo (garante o OST)
   } else if(r&&r.locked){ btn.outerHTML=`<button class="gpill lock" onclick="openUpsell('jogo_${id}')"><i class="fa-solid fa-lock"></i> ${t('card.unlock')}</button>`; }
   else { btn.innerHTML=`<i class="fa-solid fa-plus"></i> ${t('card.retry')}`; btn.disabled=false; btn.classList.add('add'); toast(t('t.fail')+((r&&r.error)||'?')); }
 }
@@ -741,6 +742,7 @@ async function doRemoveOne(id,btn){
     if(r.removed){
       const i=added.indexOf(id); if(i>=0) added.splice(i,1);
       $('addedCount').textContent=t('t.gameRemoved'); $('restartBar').classList.add('show');
+      lastRemove=true;   // próximo "Reiniciar Steam" usa o LEVE (não reinstala OST)
       refreshAddResults();
     }
   } else { btn.innerHTML=`<i class="fa-solid fa-trash-can"></i> ${t('card.retry')}`; btn.disabled=false; toast(t('t.fail')+((r&&r.error)||'?')); }
@@ -810,6 +812,11 @@ async function doLaunchBypass(id){
 function updateBar(){
   $('addedCount').textContent=t('added.count').replace('{n}',added.length);
   $('restartBar').classList.toggle('show', added.length>0);
+}
+// Remover Jogo usa restart LEVE (não reinstala o OST); Adicionar usa o completo.
+function doRestartSteam(){
+  if(lastRemove && api && api.restart_remove){ api.restart_remove(); }
+  else { api.restart(); }
 }
 async function loadNovos(){
   const g=await api.novos();
