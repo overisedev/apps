@@ -588,7 +588,7 @@ function selectBypass(id){
   BPSEL=id;
   const g=BYPASS.find(x=>x.appid==id); if(!g)return;
   document.querySelectorAll('.bp-litem').forEach(el=>el.classList.toggle('active', el.dataset.id==id));
-  const inst=g.installed, app=g.applied, launch=g.launch||'launcher do jogo';
+  const inst=g.installed, app=g.applied, launch=(g.launch||'').split(/[\\\/]/).pop()||'launcher do jogo';
   let primary, icons='';
   if(!inst){
     primary=`<button class="btn bp-play" disabled style="opacity:.5"><i class="fa-solid fa-circle-info"></i> Instale pela Steam</button>`;
