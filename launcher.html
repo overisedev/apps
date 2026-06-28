@@ -178,34 +178,35 @@ a{color:inherit;text-decoration:none}
 </style></head><body>
 <div id="login"><div class="login-card">
   <div class="login-logo"><div class="ll-mark">O</div><div><div class="ll-name">OVER<span>ISE</span></div><div class="ll-sub">Vitalício</div></div></div>
-  <div id="loginChecking"><div class="spinner"></div><p class="lc-txt">Verificando licença...</p></div>
+  <div id="loginChecking"><div class="spinner"></div><p class="lc-txt" data-i18n="login.checking">Verificando licença...</p></div>
   <div id="loginForm" style="display:none">
-    <h2>Acesse sua conta</h2>
-    <p class="lf-sub">Use o <b>email da sua compra</b>.</p>
-    <input id="email" type="email" placeholder="seu@email.com" onkeydown="if(event.key==='Enter')doLogin()">
-    <button id="loginBtn" class="btn btn-green" onclick="doLogin()">Entrar</button>
+    <h2 data-i18n="login.title">Acesse sua conta</h2>
+    <p class="lf-sub" data-i18n-html="login.sub">Use o <b>email da sua compra</b>.</p>
+    <input id="email" type="email" placeholder="seu@email.com" data-i18n-ph="login.ph" onkeydown="if(event.key==='Enter')doLogin()">
+    <button id="loginBtn" class="btn btn-green" onclick="doLogin()" data-i18n="login.btn">Entrar</button>
     <div class="login-err" id="loginErr"></div>
-    <a class="login-help" onclick="api.open_url('https://wa.me/5568996081689')">Não consegue entrar? Falar com o suporte</a>
+    <a class="login-help" onclick="api.open_url('https://wa.me/5568996081689')" data-i18n="login.help">Não consegue entrar? Falar com o suporte</a>
   </div>
 </div></div>
 <div class="shell" id="shell" style="display:none">
   <aside class="sidebar">
     <div class="brand"><div class="brand-mark">O</div><div><div class="brand-name">OVER<span>ISE</span></div><div class="brand-sub" id="brandSub">—</div></div></div>
     <nav class="nav">
-      <div class="nav-label">Menu</div>
-      <a class="active" data-view="dash"><i class="fa-solid fa-house"></i> Início</a>
-      <a data-view="add"><i class="fa-solid fa-plus"></i> Adicionar Jogo</a>
-      <a data-view="rmgame"><i class="fa-solid fa-trash-can"></i> Remover Jogo</a>
-      <a data-view="bypass"><i class="fa-solid fa-screwdriver-wrench"></i> Bypass</a>
-      <a data-view="novos"><i class="fa-solid fa-fire"></i> Novos Jogos</a>
-      <a data-view="populares"><i class="fa-solid fa-ranking-star"></i> Em Alta</a>
-      <div class="nav-label">Conta</div>
-      <a onclick="api.open_url('https://chat.whatsapp.com/F5K8OEAX3niI9nAyffZwKa')"><i class="fa-brands fa-whatsapp"></i> Grupo VIP</a>
-      <a onclick="api.open_url('https://discord.gg/TN3YWHcsF9')"><i class="fa-brands fa-discord"></i> Discord</a>
-      <a onclick="api.open_url('https://wa.me/5568996081689')"><i class="fa-solid fa-headset"></i> Suporte</a>
-      <a onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
+      <div class="nav-label" data-i18n="nav.menu">Menu</div>
+      <a class="active" data-view="dash" data-i18n="nav.home"><i class="fa-solid fa-house"></i> Início</a>
+      <a data-view="add" data-i18n="nav.add"><i class="fa-solid fa-plus"></i> Adicionar Jogo</a>
+      <a data-view="rmgame" data-i18n="nav.remove"><i class="fa-solid fa-trash-can"></i> Remover Jogo</a>
+      <a data-view="bypass" data-i18n="nav.bypass"><i class="fa-solid fa-screwdriver-wrench"></i> Bypass</a>
+      <a data-view="novos" data-i18n="nav.new"><i class="fa-solid fa-fire"></i> Novos Jogos</a>
+      <a data-view="populares" data-i18n="nav.trending"><i class="fa-solid fa-ranking-star"></i> Em Alta</a>
+      <div class="nav-label" data-i18n="nav.account">Conta</div>
+      <a onclick="api.open_url('https://chat.whatsapp.com/F5K8OEAX3niI9nAyffZwKa')" data-i18n="nav.vip"><i class="fa-brands fa-whatsapp"></i> Grupo VIP</a>
+      <a onclick="api.open_url('https://discord.gg/TN3YWHcsF9')" data-i18n="nav.discord"><i class="fa-brands fa-discord"></i> Discord</a>
+      <a onclick="api.open_url('https://wa.me/5568996081689')" data-i18n="nav.support"><i class="fa-solid fa-headset"></i> Suporte</a>
+      <a onclick="doLogout()" data-i18n="nav.logout"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
     </nav>
     <div class="side-card"><span class="tier-pill" id="tierPill">—</span><h4 id="tierTitle">—</h4><p id="tierDesc">—</p></div>
+    <div class="lang-switch"><span class="lang-opt" data-l="pt" onclick="setLang('pt')">PT</span><span class="lang-opt" data-l="en" onclick="setLang('en')">EN</span><span class="lang-opt" data-l="es" onclick="setLang('es')">ES</span></div>
     <div class="build-tag" id="buildTag" onclick="checkUpdate()" title="Clique pra checar atualização"></div>
   </aside>
 
@@ -215,125 +216,125 @@ a{color:inherit;text-decoration:none}
       <button class="upd-btn" onclick="doSelfUpdate()"><i class="fa-solid fa-download"></i> Atualizar agora</button>
     </div>
     <div class="topbar">
-      <div class="greeting"><h1>Meu OVERISE</h1><p>Acesso total à sua biblioteca completa, para sempre.</p></div>
+      <div class="greeting"><h1>Meu OVERISE</h1><p data-i18n="top.sub">Acesso total à sua biblioteca completa, para sempre.</p></div>
       <span class="pill" id="steamPill"><span class="dot"></span> Verificando Steam...</span>
     </div>
 
     <!-- DASHBOARD -->
     <section class="view active" id="view-dash">
       <div class="hero">
-        <span class="hero-tag">Bem-vindo de volta</span>
-        <h2>Sua biblioteca <b>completa</b> está pronta.</h2>
-        <p>Desbloqueie sua biblioteca com 1 clique. Instala tudo e reinicia a Steam sozinho.</p>
-        <div class="hero-counter"><span id="counter">40.000</span><small>JOGOS DISPONÍVEIS</small></div>
+        <span class="hero-tag" data-i18n="hero.tag">Bem-vindo de volta</span>
+        <h2 data-i18n-html="hero.title">Sua biblioteca <b>completa</b> está pronta.</h2>
+        <p data-i18n="hero.sub">Desbloqueie sua biblioteca com 1 clique. Instala tudo e reinicia a Steam sozinho.</p>
+        <div class="hero-counter"><span id="counter">40.000</span><small data-i18n="hero.counter">JOGOS DISPONÍVEIS</small></div>
       </div>
       <div class="upsell" id="upsellBanner" style="display:none">
         <div class="up-ic"><i class="fa-solid fa-crown"></i></div>
         <div class="up-txt"><b id="upTitle">Quer mais jogos?</b><span id="upSub">Faça upgrade e libere tudo.</span></div>
-        <button class="up-btn" onclick="api.checkout('banner_dash')">Fazer upgrade →</button>
+        <button class="up-btn" onclick="api.checkout('banner_dash')" data-i18n="upsell.btn">Fazer upgrade →</button>
       </div>
-      <div class="section-head"><h3>Desbloquear catálogo</h3><span>1 clique instala tudo e reinicia a Steam</span></div>
+      <div class="section-head"><h3 data-i18n="dash.unlockHead">Desbloquear catálogo</h3><span data-i18n="dash.unlockSub">1 clique instala tudo e reinicia a Steam</span></div>
       <div class="unlock-grid" id="unlockGrid"></div>
       <div class="alt-actions">
         <div class="ac ac-fix" onclick="doUnlockAlt()">
           <div class="ac-ic"><i class="fa-solid fa-shield-halved"></i></div>
-          <div class="ac-tx"><b>Não desbloqueou?</b><span>Reparo profundo + reinstala (Open)</span></div>
+          <div class="ac-tx"><b data-i18n="dash.fixTitle">Não desbloqueou?</b><span data-i18n="dash.fixSub">Reparo profundo + reinstala (Open)</span></div>
           <i class="fa-solid fa-arrow-right ac-go"></i>
         </div>
         <div class="ac ac-rm" onclick="doRemove()">
           <div class="ac-ic"><i class="fa-solid fa-trash-can"></i></div>
-          <div class="ac-tx"><b>Remover jogos</b><span>Limpa a biblioteca desbloqueada</span></div>
+          <div class="ac-tx"><b data-i18n="dash.rmTitle">Remover jogos</b><span data-i18n="dash.rmSub">Limpa a biblioteca desbloqueada</span></div>
           <i class="fa-solid fa-arrow-right ac-go"></i>
         </div>
       </div>
-      <div class="section-head" style="margin-top:34px"><h3>Comunidade</h3><span>Entra nos grupos pra novidades, novos jogos e suporte</span></div>
+      <div class="section-head" style="margin-top:34px"><h3 data-i18n="dash.commHead">Comunidade</h3><span data-i18n="dash.commSub">Entra nos grupos pra novidades, novos jogos e suporte</span></div>
       <div class="community">
-        <a class="combtn discord" onclick="api.open_url('https://discord.gg/TN3YWHcsF9')"><i class="fa-brands fa-discord"></i><div><b>Discord</b><span>Comunidade, novidades e ajuda</span></div></a>
-        <a class="combtn whats" onclick="api.open_url('https://chat.whatsapp.com/F5K8OEAX3niI9nAyffZwKa')"><i class="fa-brands fa-whatsapp"></i><div><b>Grupo no WhatsApp</b><span>Avisos e suporte rápido</span></div></a>
+        <a class="combtn discord" onclick="api.open_url('https://discord.gg/TN3YWHcsF9')"><i class="fa-brands fa-discord"></i><div><b data-i18n="dash.discordTitle">Discord</b><span data-i18n="dash.discordSub">Comunidade, novidades e ajuda</span></div></a>
+        <a class="combtn whats" onclick="api.open_url('https://chat.whatsapp.com/F5K8OEAX3niI9nAyffZwKa')"><i class="fa-brands fa-whatsapp"></i><div><b data-i18n="dash.whatsTitle">Grupo no WhatsApp</b><span data-i18n="dash.whatsSub">Avisos e suporte rápido</span></div></a>
       </div>
-      <div class="section-head" style="margin-top:34px"><h3>Em Alta</h3><span>Os mais jogados do momento</span></div>
+      <div class="section-head" style="margin-top:34px"><h3 data-i18n="dash.trendHead">Em Alta</h3><span data-i18n="dash.trendSub">Os mais jogados do momento</span></div>
       <div class="lib"></div>
     </section>
 
     <!-- ADD -->
     <section class="view" id="view-add">
-      <div class="section-head"><h3>Adicionar Jogo</h3><span>Busque pelo nome ou AppID</span></div>
+      <div class="section-head"><h3 data-i18n="add.head">Adicionar Jogo</h3><span data-i18n="add.sub">Busque pelo nome ou AppID</span></div>
       <div class="searchbar">
-        <input id="q" placeholder="Ex: Elden Ring, GTA V, 1245620..." onkeydown="if(event.key==='Enter')doSearch()">
-        <button class="btn btn-green" onclick="doSearch()"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
+        <input id="q" placeholder="Ex: Elden Ring, GTA V, 1245620..." data-i18n-ph="add.ph" onkeydown="if(event.key==='Enter')doSearch()">
+        <button class="btn btn-green" onclick="doSearch()" data-i18n="btn.search"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
       </div>
-      <div class="results" id="results"><div class="hint">Digite o nome do jogo e busque.</div></div>
+      <div class="results" id="results"><div class="hint" data-i18n="add.hint">Digite o nome do jogo e busque.</div></div>
     </section>
 
     <!-- REMOVER JOGO (1 jogo só) -->
     <section class="view" id="view-rmgame">
-      <div class="section-head"><h3>Remover Jogo</h3><span>Tira a lua de UM jogo só, sem zerar a biblioteca toda</span></div>
-      <div id="rmInstalled"><div class="hint">Procurando os jogos instalados no seu PC...</div></div>
+      <div class="section-head"><h3 data-i18n="rm.head">Remover Jogo</h3><span data-i18n="rm.sub">Tira a lua de UM jogo só, sem zerar a biblioteca toda</span></div>
+      <div id="rmInstalled"><div class="hint" data-i18n="rm.searching">Procurando os jogos instalados no seu PC...</div></div>
       <div class="searchbar" style="margin-top:20px">
-        <input id="qr" placeholder="Não achou na lista? Busque pelo nome ou número..." onkeydown="if(event.key==='Enter')doSearchRm()">
-        <button class="btn btn-green" onclick="doSearchRm()"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
+        <input id="qr" placeholder="Não achou na lista? Busque pelo nome ou número..." data-i18n-ph="rm.ph" onkeydown="if(event.key==='Enter')doSearchRm()">
+        <button class="btn btn-green" onclick="doSearchRm()" data-i18n="btn.search"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
       </div>
       <div class="results" id="resultsRm"></div>
     </section>
 
     <!-- BYPASS (crack na pasta — jogos com DRM próprio) -->
     <section class="view" id="view-bypass">
-      <div class="section-head"><h3>Bypass</h3><span>Pra jogos com proteção própria (GTA, RDR...). Aplica a correção e abre pelo launcher do jogo.</span></div>
+      <div class="section-head"><h3 data-i18n="bp.head">Bypass</h3><span data-i18n="bp.sub">Pra jogos com proteção própria (GTA, RDR...). Aplica a correção e abre pelo launcher do jogo.</span></div>
       <div class="bp-wrap">
         <aside class="bp-side">
           <div class="bp-side-top">
-            <div class="bp-side-h">Jogos</div>
-            <div class="bp-search"><i class="fa-solid fa-magnifying-glass"></i><input id="bpSearch" placeholder="Buscar jogo..." oninput="renderBypassList()"></div>
+            <div class="bp-side-h" data-i18n="bp.sideH">Jogos</div>
+            <div class="bp-search"><i class="fa-solid fa-magnifying-glass"></i><input id="bpSearch" placeholder="Buscar jogo..." data-i18n-ph="bp.searchPh" oninput="renderBypassList()"></div>
           </div>
-          <div class="bp-list" id="bypassList"><div class="hint" style="padding:14px">Carregando...</div></div>
+          <div class="bp-list" id="bypassList"><div class="hint" style="padding:14px" data-i18n="bp.loading">Carregando...</div></div>
         </aside>
-        <div class="bp-detail" id="bpPane"><div class="hint" style="padding:50px 20px;text-align:center">Selecione um jogo na lista.</div></div>
+        <div class="bp-detail" id="bpPane"><div class="hint" style="padding:50px 20px;text-align:center" data-i18n="bp.selectHint">Selecione um jogo na lista.</div></div>
       </div>
     </section>
 
     <!-- NOVOS -->
     <section class="view" id="view-novos">
-      <div class="section-head"><h3>🔥 Novos Jogos</h3><span>Lançamentos recém-adicionados</span></div>
-      <div class="results" id="novos"><div class="hint">Carregando...</div></div>
+      <div class="section-head"><h3 data-i18n="novos.head">🔥 Novos Jogos</h3><span data-i18n="novos.sub">Lançamentos recém-adicionados</span></div>
+      <div class="results" id="novos"><div class="hint" data-i18n="novos.loading">Carregando...</div></div>
     </section>
 
     <!-- EM ALTA / POPULARES -->
     <section class="view" id="view-populares">
-      <div class="section-head"><h3>Em Alta</h3><span>Os mais jogados do momento</span></div>
+      <div class="section-head"><h3 data-i18n="pop.head">Em Alta</h3><span data-i18n="pop.sub">Os mais jogados do momento</span></div>
       <div class="lib" id="lib"></div>
     </section>
   </main>
 </div>
 
-<div class="restart-bar" id="restartBar"><div><b id="addedCount">0 jogos adicionados</b>. Reinicie a Steam para aplicar.</div><button class="btn btn-green" onclick="api.restart()"><i class="fa-solid fa-rotate"></i> Reiniciar Steam</button></div>
+<div class="restart-bar" id="restartBar"><div><b id="addedCount">0 jogos adicionados</b>. <span data-i18n="bar.restart">Reinicie a Steam para aplicar.</span></div><button class="btn btn-green" onclick="api.restart()" data-i18n="restart.btn"><i class="fa-solid fa-rotate"></i> Reiniciar Steam</button></div>
 
-<div class="overlay" id="overlay"><div class="ov-card"><div class="spinner"></div><h3 id="ovText">Processando...</h3><div class="bar"><i id="ovBar"></i></div><button id="ovAv" class="btn btn-green" style="display:none;margin-top:18px;width:100%;justify-content:center" onclick="api.open_defender()"><i class="fa-solid fa-shield-halved"></i> Abrir Segurança do Windows</button></div></div>
+<div class="overlay" id="overlay"><div class="ov-card"><div class="spinner"></div><h3 id="ovText" data-i18n="overlay.processing">Processando...</h3><div class="bar"><i id="ovBar"></i></div><button id="ovAv" class="btn btn-green" style="display:none;margin-top:18px;width:100%;justify-content:center" onclick="api.open_defender()" data-i18n="overlay.defender"><i class="fa-solid fa-shield-halved"></i> Abrir Segurança do Windows</button></div></div>
 <div class="modal" id="rmModal">
   <div class="m-card">
     <div class="m-ic" style="background:rgba(248,113,113,.12);border-color:rgba(248,113,113,.4);color:#f87171"><i class="fa-solid fa-trash-can"></i></div>
-    <h3>Remover jogos?</h3>
-    <p>Remove todos os jogos desbloqueados e <b>devolve sua Steam ao normal</b> (limpa os componentes e restaura a conexão). Suas <b>contas e logins são preservados</b>. Você pode desbloquear de novo quando quiser.</p>
-    <button class="btn" style="width:100%;justify-content:center;background:#f87171;color:#1a0606" onclick="rmGo()"><i class="fa-solid fa-trash-can"></i> Sim, remover</button>
-    <a class="m-skip" onclick="rmClose()">Cancelar</a>
+    <h3 data-i18n="rmM.title">Remover jogos?</h3>
+    <p data-i18n-html="rmM.body">Remove todos os jogos desbloqueados e <b>devolve sua Steam ao normal</b> (limpa os componentes e restaura a conexão). Suas <b>contas e logins são preservados</b>. Você pode desbloquear de novo quando quiser.</p>
+    <button class="btn" style="width:100%;justify-content:center;background:#f87171;color:#1a0606" onclick="rmGo()" data-i18n="rmM.yes"><i class="fa-solid fa-trash-can"></i> Sim, remover</button>
+    <a class="m-skip" onclick="rmClose()" data-i18n="rmM.cancel">Cancelar</a>
   </div>
 </div>
 <div class="modal" id="upModal">
   <div class="m-card">
     <div class="m-ic"><i class="fa-solid fa-crown"></i></div>
-    <h3>Jogo do Plano Completo</h3>
-    <p>Esse jogo é exclusivo do <b>Vitalício</b>. Faça upgrade e libere <b>40.000 jogos</b> + adicionar qualquer jogo.</p>
+    <h3 data-i18n="upM.title">Jogo do Plano Completo</h3>
+    <p data-i18n-html="upM.body">Esse jogo é exclusivo do <b>Vitalício</b>. Faça upgrade e libere <b>40.000 jogos</b> + adicionar qualquer jogo.</p>
     <input type="hidden" id="upContent">
-    <button class="btn btn-green" style="width:100%;justify-content:center" onclick="upGo()"><i class="fa-solid fa-crown"></i> Fazer upgrade agora</button>
-    <a class="m-skip" onclick="upClose()">Agora não</a>
+    <button class="btn btn-green" style="width:100%;justify-content:center" onclick="upGo()" data-i18n="upM.btn"><i class="fa-solid fa-crown"></i> Fazer upgrade agora</button>
+    <a class="m-skip" onclick="upClose()" data-i18n="upM.later">Agora não</a>
   </div>
 </div>
 <div class="modal" id="steamModal">
   <div class="m-card" style="position:relative">
     <button onclick="$('steamModal').classList.remove('show')" style="position:absolute;top:12px;right:14px;background:none;border:none;color:var(--muted);font-size:1.15rem;cursor:pointer;line-height:1">✕</button>
     <div class="m-ic" style="background:rgba(0,255,65,.12);border-color:rgba(0,255,65,.4);color:var(--neon)"><i class="fa-brands fa-steam"></i></div>
-    <h3>Catálogo desbloqueado! 🎮</h3>
-    <p>Pronto! Agora <b>abra a STEAM</b> normalmente para acessar todos os seus jogos.</p>
-    <button class="btn btn-green" style="width:100%;justify-content:center" onclick="$('steamModal').classList.remove('show')"><i class="fa-brands fa-steam"></i> Entendido</button>
+    <h3 data-i18n="stM.title">Catálogo desbloqueado! 🎮</h3>
+    <p data-i18n-html="stM.body">Pronto! Agora <b>abra a STEAM</b> normalmente para acessar todos os seus jogos.</p>
+    <button class="btn btn-green" style="width:100%;justify-content:center" onclick="$('steamModal').classList.remove('show')" data-i18n="stM.ok"><i class="fa-brands fa-steam"></i> Entendido</button>
   </div>
 </div>
 <style>
@@ -367,6 +368,10 @@ a{color:inherit;text-decoration:none}
 .upd-btn:hover{background:#54ff36;transform:translateY(-1px)}
 .build-tag{margin-top:12px;text-align:center;color:#565a67;font-size:.72rem;font-weight:700;letter-spacing:.04em;cursor:pointer;user-select:none;transition:.15s}
 .build-tag:hover{color:#8a8e9b}.build-tag.upd{color:#7CFC9B}
+.lang-switch{display:flex;gap:6px;justify-content:center;margin-top:14px}
+.lang-opt{font-size:.7rem;font-weight:800;letter-spacing:.05em;color:#6c6c76;padding:4px 10px;border-radius:8px;border:1px solid #232329;cursor:pointer;transition:.15s;user-select:none}
+.lang-opt:hover{color:#cfd2dc;border-color:#3a3a44}
+.lang-opt.on{color:#06210d;background:#39ff14;border-color:#39ff14}
 .bp-hero{position:relative;height:268px;border-radius:18px;overflow:hidden;background:#111114}
 .bp-hero img{width:100%;height:100%;object-fit:cover}
 .bp-hero-grad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,6,7,.1),rgba(6,6,7,.48) 56%,rgba(6,6,7,.96))}
@@ -399,12 +404,12 @@ a{color:inherit;text-decoration:none}
 <div class="modal" id="wcModal">
   <div class="wc-card">
     <div class="wc-head">
-      <h3><i class="fa-solid fa-rocket"></i> Novidades da atualização</h3>
+      <h3 data-i18n="wcM.title"><i class="fa-solid fa-rocket"></i> Novidades da atualização</h3>
       <button class="wc-x" onclick="closeWelcome()">✕</button>
     </div>
     <div class="wc-body">
       <ul class="wc-news" id="wcNews"></ul>
-      <button class="btn btn-green wc-cta" onclick="closeWelcome()"><i class="fa-solid fa-arrow-right-to-bracket"></i> Entrar no OVERISE</button>
+      <button class="btn btn-green wc-cta" onclick="closeWelcome()" data-i18n="wcM.cta"><i class="fa-solid fa-arrow-right-to-bracket"></i> Entrar no OVERISE</button>
     </div>
   </div>
 </div>
@@ -412,23 +417,158 @@ a{color:inherit;text-decoration:none}
   <div class="wc-card dn-card">
     <div class="dn-banner"><i class="fa-solid fa-shield-halved"></i></div>
     <div class="dn-body">
-      <h3 class="dn-title">Jogos com Denuvo <button class="wc-x" onclick="closeDenuvo()">✕</button></h3>
-      <p class="dn-lead">Alguns jogos usam o <b>Denuvo</b>, uma proteção contra cópia. Esses precisam de uma <b>ativação especial</b>, feita pela nossa equipe lá no Discord. Não dá pra liberar sozinho aqui pelo launcher.</p>
+      <h3 class="dn-title"><span data-i18n="dnM.title">Jogos com Denuvo</span> <button class="wc-x" onclick="closeDenuvo()">✕</button></h3>
+      <p class="dn-lead" data-i18n-html="dnM.lead">Alguns jogos usam o <b>Denuvo</b>, uma proteção contra cópia. Esses precisam de uma <b>ativação especial</b>, feita pela nossa equipe lá no Discord. Não dá pra liberar sozinho aqui pelo launcher.</p>
       <ul class="dn-steps">
-        <li><span class="dn-num">1</span><span><b>Entre no nosso Discord</b></span></li>
-        <li><span class="dn-num">2</span><span><b>Pegue seu cargo</b> no canal de atribuir cargo, validando seu acesso</span></li>
-        <li><span class="dn-num">3</span><span>Depois vá no <b>canal de ativação Denuvo</b> e veja o <b>tutorial</b> de como ativar o Denuvo 🎮</span></li>
+        <li><span class="dn-num">1</span><span data-i18n-html="dnM.s1"><b>Entre no nosso Discord</b></span></li>
+        <li><span class="dn-num">2</span><span data-i18n-html="dnM.s2"><b>Pegue seu cargo</b> no canal de atribuir cargo, validando seu acesso</span></li>
+        <li><span class="dn-num">3</span><span data-i18n-html="dnM.s3">Depois vá no <b>canal de ativação Denuvo</b> e veja o <b>tutorial</b> de como ativar o Denuvo 🎮</span></li>
       </ul>
-      <div class="dn-note"><i class="fa-solid fa-circle-info"></i><span>A maioria dos jogos <b>não</b> tem Denuvo e libera direto por aqui. Isso vale só pros títulos protegidos.</span></div>
-      <a class="dn-cta" onclick="api.open_url('https://discord.gg/TN3YWHcsF9'); closeDenuvo()"><i class="fa-brands fa-discord"></i> Entrar no Discord</a>
-      <button class="dn-skip" onclick="closeDenuvo()">Agora não, obrigado</button>
+      <div class="dn-note"><i class="fa-solid fa-circle-info"></i><span data-i18n-html="dnM.note">A maioria dos jogos <b>não</b> tem Denuvo e libera direto por aqui. Isso vale só pros títulos protegidos.</span></div>
+      <a class="dn-cta" onclick="api.open_url('https://discord.gg/TN3YWHcsF9'); closeDenuvo()" data-i18n="dnM.cta"><i class="fa-brands fa-discord"></i> Entrar no Discord</a>
+      <button class="dn-skip" onclick="closeDenuvo()" data-i18n="dnM.skip">Agora não, obrigado</button>
     </div>
   </div>
 </div>
 <div class="toast" id="toast"><i class="fa-solid fa-check"></i><span id="toastMsg">Feito!</span></div>
 
 <script>
-let api=null, added=[], PLANO='basico', PLANO_ALL=true, PLANO_SET=null;
+// ───────────────────────── i18n (PT / EN / ES) ─────────────────────────
+const I18N = {
+ pt:{
+  "login.checking":"Verificando licença...","login.title":"Acesse sua conta","login.sub":"Use o <b>email da sua compra</b>.","login.ph":"seu@email.com","login.btn":"Entrar","login.help":"Não consegue entrar? Falar com o suporte",
+  "nav.menu":"Menu","nav.home":"Início","nav.add":"Adicionar Jogo","nav.remove":"Remover Jogo","nav.bypass":"Bypass","nav.new":"Novos Jogos","nav.trending":"Em Alta","nav.account":"Conta","nav.vip":"Grupo VIP","nav.discord":"Discord","nav.support":"Suporte","nav.logout":"Sair",
+  "top.sub":"Acesso total à sua biblioteca completa, para sempre.","steam.checking":"Verificando Steam...","steam.ok":"Steam detectada","steam.no":"Steam não encontrada",
+  "hero.tag":"Bem-vindo de volta","hero.title":"Sua biblioteca <b>completa</b> está pronta.","hero.sub":"Desbloqueie sua biblioteca com 1 clique. Instala tudo e reinicia a Steam sozinho.","hero.counter":"JOGOS DISPONÍVEIS",
+  "upsell.btn":"Fazer upgrade →","dash.unlockHead":"Desbloquear catálogo","dash.unlockSub":"1 clique instala tudo e reinicia a Steam",
+  "dash.fixTitle":"Não desbloqueou?","dash.fixSub":"Reparo profundo + reinstala (Open)","dash.rmTitle":"Remover jogos","dash.rmSub":"Limpa a biblioteca desbloqueada",
+  "dash.commHead":"Comunidade","dash.commSub":"Entra nos grupos pra novidades, novos jogos e suporte","dash.discordTitle":"Discord","dash.discordSub":"Comunidade, novidades e ajuda","dash.whatsTitle":"Grupo no WhatsApp","dash.whatsSub":"Avisos e suporte rápido","dash.trendHead":"Em Alta","dash.trendSub":"Os mais jogados do momento",
+  "add.head":"Adicionar Jogo","add.sub":"Busque pelo nome ou AppID","add.ph":"Ex: Elden Ring, GTA V, 1245620...","add.hint":"Digite o nome do jogo e busque.","btn.search":"Buscar",
+  "rm.head":"Remover Jogo","rm.sub":"Tira a lua de UM jogo só, sem zerar a biblioteca toda","rm.searching":"Procurando os jogos instalados no seu PC...","rm.ph":"Não achou na lista? Busque pelo nome ou número...","rm.installedHead":"Instalados no seu PC",
+  "bp.head":"Bypass","bp.sub":"Pra jogos com proteção própria (GTA, RDR...). Aplica a correção e abre pelo launcher do jogo.","bp.sideH":"Jogos","bp.searchPh":"Buscar jogo...","bp.loading":"Carregando...","bp.selectHint":"Selecione um jogo na lista.","bp.apply":"Aplicar bypass","bp.launch":"Iniciar jogo","bp.installSteam":"Instale pela Steam","bp.abrePelo":"Abre pelo","bp.local":"Local","bp.autoDetect":"Auto-detectado","bp.notInstalled":"Jogo não instalado","bp.reapply":"Reaplicar bypass","bp.openFolder":"Abrir pasta","bp.launcherDefault":"launcher do jogo",
+  "bp.whyH":"Importante: abra esse jogo SÓ pelo nosso launcher","bp.step1":"Primeiro <b>\"Aplicar bypass\"</b>, depois <b>\"Iniciar jogo\"</b>. É por aqui que o jogo abre liberado.","bp.step2":"<b>Não abra pela Steam</b>. Se abrir por ela, o bypass não funciona.",
+  "novos.head":"🔥 Novos Jogos","novos.sub":"Lançamentos recém-adicionados","novos.loading":"Carregando...","pop.head":"Em Alta","pop.sub":"Os mais jogados do momento",
+  "restart.btn":"Reiniciar Steam","overlay.processing":"Processando...","overlay.defender":"Abrir Segurança do Windows",
+  "rmM.title":"Remover jogos?","rmM.body":"Remove todos os jogos desbloqueados e <b>devolve sua Steam ao normal</b> (limpa os componentes e restaura a conexão). Suas <b>contas e logins são preservados</b>. Você pode desbloquear de novo quando quiser.","rmM.yes":"Sim, remover","rmM.cancel":"Cancelar",
+  "upM.title":"Jogo do Plano Completo","upM.body":"Esse jogo é exclusivo do <b>Vitalício</b>. Faça upgrade e libere <b>40.000 jogos</b> + adicionar qualquer jogo.","upM.btn":"Fazer upgrade agora","upM.later":"Agora não",
+  "stM.title":"Catálogo desbloqueado! 🎮","stM.body":"Pronto! Agora <b>abra a STEAM</b> normalmente para acessar todos os seus jogos.","stM.ok":"Entendido",
+  "wcM.title":"Novidades da atualização","wcM.cta":"Entrar no OVERISE",
+  "dnM.title":"Jogos com Denuvo","dnM.lead":"Alguns jogos usam o <b>Denuvo</b>, uma proteção contra cópia. Esses precisam de uma <b>ativação especial</b>, feita pela nossa equipe lá no Discord. Não dá pra liberar sozinho aqui pelo launcher.","dnM.s1":"<b>Entre no nosso Discord</b>","dnM.s2":"<b>Pegue seu cargo</b> no canal de atribuir cargo, validando seu acesso","dnM.s3":"Depois vá no <b>canal de ativação Denuvo</b> e veja o <b>tutorial</b> de como ativar o Denuvo 🎮","dnM.note":"A maioria dos jogos <b>não</b> tem Denuvo e libera direto por aqui. Isso vale só pros títulos protegidos.","dnM.cta":"Entrar no Discord","dnM.skip":"Agora não, obrigado",
+  "card.added":"Adicionado","card.unlock":"Liberar","card.remove":"Remover","card.add":"Adicionar","card.library":"Biblioteca","card.retry":"Tentar de novo","card.adding":"Adicionando","card.removing":"Removendo","card.removed":"Removido","card.wasnt":"Não estava",
+  "upd.newAvail":"<b>Nova versão disponível.</b> Atualize com 1 clique e o OVERISE reinicia sozinho.","upd.now":"Atualizar agora","upd.oldAvail":"<b>Tem uma versão nova do OVERISE.</b> Baixe a atualização pra usar as novidades. Depois dessa vez, as próximas são automáticas.","upd.download":"Baixar atualização","upd.version":"versão","upd.preparing":"Preparando atualização...","upd.manualHint":"Baixe a versão nova pela área de membros.","upd.latest":"✓ Você está na versão mais recente","upd.available":"Atualização disponível! Clique em \"Atualizar agora\".",
+  "t.steamRestart":"✓ Steam reiniciada!","t.removed":"✓ Jogos removidos!","t.connFixed":"✓ Conexão corrigida!","t.bypassApplied":"✓ Bypass aplicado! Agora clique em \"Iniciar jogo\".","t.error":"Erro: ","t.fail":"Falha: ","t.gameRemoved":"Jogo removido","t.noResults":"Nenhum resultado. Tente outro nome ou o número do jogo.","t.noInstalled":"Nenhuma lua individual instalada aqui no PC.","rm.batchNote":"Além desses, os jogos do seu plano ficam num lote. Pra tirar um do plano, busque pelo nome abaixo.","rm.oldExe":"Atualize o OVERISE pra listar os jogos instalados aqui. Por enquanto, use a busca abaixo.","rm.cantRead":"Não consegui ler os jogos instalados.",
+  "unlock.title":"Desbloquear {n} jogos","unlock.kick":"Seu plano","unlock.sub":"1 clique instala tudo e reinicia a Steam automaticamente.","unlock.btn":"Desbloquear agora","bar.restart":"Reinicie a Steam para aplicar.","added.count":"{n} jogo(s) adicionado(s)"
+ },
+ en:{
+  "login.checking":"Checking license...","login.title":"Sign in to your account","login.sub":"Use the <b>email from your purchase</b>.","login.ph":"you@email.com","login.btn":"Sign in","login.help":"Can't sign in? Contact support",
+  "nav.menu":"Menu","nav.home":"Home","nav.add":"Add Game","nav.remove":"Remove Game","nav.bypass":"Bypass","nav.new":"New Games","nav.trending":"Trending","nav.account":"Account","nav.vip":"VIP Group","nav.discord":"Discord","nav.support":"Support","nav.logout":"Log out",
+  "top.sub":"Full access to your complete library, forever.","steam.checking":"Checking Steam...","steam.ok":"Steam detected","steam.no":"Steam not found",
+  "hero.tag":"Welcome back","hero.title":"Your <b>complete</b> library is ready.","hero.sub":"Unlock your library with 1 click. Installs everything and restarts Steam by itself.","hero.counter":"GAMES AVAILABLE",
+  "upsell.btn":"Upgrade →","dash.unlockHead":"Unlock catalog","dash.unlockSub":"1 click installs everything and restarts Steam",
+  "dash.fixTitle":"Didn't unlock?","dash.fixSub":"Deep repair + reinstall (Open)","dash.rmTitle":"Remove games","dash.rmSub":"Clears the unlocked library",
+  "dash.commHead":"Community","dash.commSub":"Join the groups for news, new games and support","dash.discordTitle":"Discord","dash.discordSub":"Community, news and help","dash.whatsTitle":"WhatsApp Group","dash.whatsSub":"Updates and quick support","dash.trendHead":"Trending","dash.trendSub":"Most played right now",
+  "add.head":"Add Game","add.sub":"Search by name or AppID","add.ph":"e.g. Elden Ring, GTA V, 1245620...","add.hint":"Type the game name and search.","btn.search":"Search",
+  "rm.head":"Remove Game","rm.sub":"Removes the lua of ONE game only, without wiping the whole library","rm.searching":"Looking for games installed on your PC...","rm.ph":"Not in the list? Search by name or number...","rm.installedHead":"Installed on your PC",
+  "bp.head":"Bypass","bp.sub":"For games with their own protection (GTA, RDR...). Applies the fix and opens via the game's launcher.","bp.sideH":"Games","bp.searchPh":"Search game...","bp.loading":"Loading...","bp.selectHint":"Select a game from the list.","bp.apply":"Apply bypass","bp.launch":"Launch game","bp.installSteam":"Install via Steam","bp.abrePelo":"Opens with","bp.local":"Location","bp.autoDetect":"Auto-detected","bp.notInstalled":"Game not installed","bp.reapply":"Reapply bypass","bp.openFolder":"Open folder","bp.launcherDefault":"the game launcher",
+  "bp.whyH":"Important: open this game ONLY through our launcher","bp.step1":"First <b>\"Apply bypass\"</b>, then <b>\"Launch game\"</b>. This is how the game opens unlocked.","bp.step2":"<b>Don't open via Steam</b>. If you do, the bypass won't work.",
+  "novos.head":"🔥 New Games","novos.sub":"Recently added releases","novos.loading":"Loading...","pop.head":"Trending","pop.sub":"Most played right now",
+  "restart.btn":"Restart Steam","overlay.processing":"Processing...","overlay.defender":"Open Windows Security",
+  "rmM.title":"Remove games?","rmM.body":"Removes all unlocked games and <b>restores your Steam to normal</b> (clears the components and restores the connection). Your <b>accounts and logins are preserved</b>. You can unlock again whenever you want.","rmM.yes":"Yes, remove","rmM.cancel":"Cancel",
+  "upM.title":"Full Plan Game","upM.body":"This game is exclusive to <b>Lifetime</b>. Upgrade and unlock <b>40,000 games</b> + add any game.","upM.btn":"Upgrade now","upM.later":"Not now",
+  "stM.title":"Catalog unlocked! 🎮","stM.body":"Done! Now <b>open STEAM</b> normally to access all your games.","stM.ok":"Got it",
+  "wcM.title":"What's new","wcM.cta":"Enter OVERISE",
+  "dnM.title":"Denuvo Games","dnM.lead":"Some games use <b>Denuvo</b>, a copy protection. Those need a <b>special activation</b>, done by our team on Discord. You can't unlock it by yourself here in the launcher.","dnM.s1":"<b>Join our Discord</b>","dnM.s2":"<b>Get your role</b> in the role-assign channel, validating your access","dnM.s3":"Then go to the <b>Denuvo activation channel</b> and check the <b>tutorial</b> on how to activate Denuvo 🎮","dnM.note":"Most games <b>don't</b> have Denuvo and unlock right here. This only applies to protected titles.","dnM.cta":"Join Discord","dnM.skip":"No thanks, not now",
+  "card.added":"Added","card.unlock":"Unlock","card.remove":"Remove","card.add":"Add","card.library":"Library","card.retry":"Try again","card.adding":"Adding","card.removing":"Removing","card.removed":"Removed","card.wasnt":"Wasn't there",
+  "upd.newAvail":"<b>New version available.</b> Update with 1 click and OVERISE restarts by itself.","upd.now":"Update now","upd.oldAvail":"<b>There's a new version of OVERISE.</b> Download the update to get the new features. After this one, the next ones are automatic.","upd.download":"Download update","upd.version":"version","upd.preparing":"Preparing update...","upd.manualHint":"Download the new version from the members area.","upd.latest":"✓ You're on the latest version","upd.available":"Update available! Click \"Update now\".",
+  "t.steamRestart":"✓ Steam restarted!","t.removed":"✓ Games removed!","t.connFixed":"✓ Connection fixed!","t.bypassApplied":"✓ Bypass applied! Now click \"Launch game\".","t.error":"Error: ","t.fail":"Failed: ","t.gameRemoved":"Game removed","t.noResults":"No results. Try another name or the game number.","t.noInstalled":"No individual lua installed here on the PC.","rm.batchNote":"Besides these, your plan's games are in a batch. To remove one from the plan, search by name below.","rm.oldExe":"Update OVERISE to list installed games here. For now, use the search below.","rm.cantRead":"Couldn't read the installed games.",
+  "unlock.title":"Unlock {n} games","unlock.kick":"Your plan","unlock.sub":"1 click installs everything and restarts Steam automatically.","unlock.btn":"Unlock now","bar.restart":"Restart Steam to apply.","added.count":"{n} game(s) added"
+ },
+ es:{
+  "login.checking":"Verificando licencia...","login.title":"Accede a tu cuenta","login.sub":"Usa el <b>email de tu compra</b>.","login.ph":"tu@email.com","login.btn":"Entrar","login.help":"¿No puedes entrar? Habla con soporte",
+  "nav.menu":"Menú","nav.home":"Inicio","nav.add":"Agregar Juego","nav.remove":"Quitar Juego","nav.bypass":"Bypass","nav.new":"Juegos Nuevos","nav.trending":"Tendencias","nav.account":"Cuenta","nav.vip":"Grupo VIP","nav.discord":"Discord","nav.support":"Soporte","nav.logout":"Salir",
+  "top.sub":"Acceso total a tu biblioteca completa, para siempre.","steam.checking":"Verificando Steam...","steam.ok":"Steam detectada","steam.no":"Steam no encontrada",
+  "hero.tag":"Bienvenido de nuevo","hero.title":"Tu biblioteca <b>completa</b> está lista.","hero.sub":"Desbloquea tu biblioteca con 1 clic. Instala todo y reinicia Steam solo.","hero.counter":"JUEGOS DISPONIBLES",
+  "upsell.btn":"Mejorar →","dash.unlockHead":"Desbloquear catálogo","dash.unlockSub":"1 clic instala todo y reinicia Steam",
+  "dash.fixTitle":"¿No desbloqueó?","dash.fixSub":"Reparación profunda + reinstala (Open)","dash.rmTitle":"Quitar juegos","dash.rmSub":"Limpia la biblioteca desbloqueada",
+  "dash.commHead":"Comunidad","dash.commSub":"Únete a los grupos para novedades, juegos nuevos y soporte","dash.discordTitle":"Discord","dash.discordSub":"Comunidad, novedades y ayuda","dash.whatsTitle":"Grupo de WhatsApp","dash.whatsSub":"Avisos y soporte rápido","dash.trendHead":"Tendencias","dash.trendSub":"Los más jugados del momento",
+  "add.head":"Agregar Juego","add.sub":"Busca por nombre o AppID","add.ph":"Ej: Elden Ring, GTA V, 1245620...","add.hint":"Escribe el nombre del juego y busca.","btn.search":"Buscar",
+  "rm.head":"Quitar Juego","rm.sub":"Quita la lua de UN solo juego, sin borrar toda la biblioteca","rm.searching":"Buscando los juegos instalados en tu PC...","rm.ph":"¿No está en la lista? Busca por nombre o número...","rm.installedHead":"Instalados en tu PC",
+  "bp.head":"Bypass","bp.sub":"Para juegos con protección propia (GTA, RDR...). Aplica la corrección y abre por el launcher del juego.","bp.sideH":"Juegos","bp.searchPh":"Buscar juego...","bp.loading":"Cargando...","bp.selectHint":"Selecciona un juego de la lista.","bp.apply":"Aplicar bypass","bp.launch":"Iniciar juego","bp.installSteam":"Instala por Steam","bp.abrePelo":"Abre con","bp.local":"Ubicación","bp.autoDetect":"Auto-detectado","bp.notInstalled":"Juego no instalado","bp.reapply":"Reaplicar bypass","bp.openFolder":"Abrir carpeta","bp.launcherDefault":"el launcher del juego",
+  "bp.whyH":"Importante: abre este juego SOLO por nuestro launcher","bp.step1":"Primero <b>\"Aplicar bypass\"</b>, después <b>\"Iniciar juego\"</b>. Así es como el juego abre desbloqueado.","bp.step2":"<b>No abras por Steam</b>. Si lo haces, el bypass no funciona.",
+  "novos.head":"🔥 Juegos Nuevos","novos.sub":"Lanzamientos recién agregados","novos.loading":"Cargando...","pop.head":"Tendencias","pop.sub":"Los más jugados del momento",
+  "restart.btn":"Reiniciar Steam","overlay.processing":"Procesando...","overlay.defender":"Abrir Seguridad de Windows",
+  "rmM.title":"¿Quitar juegos?","rmM.body":"Quita todos los juegos desbloqueados y <b>devuelve tu Steam a la normalidad</b> (limpia los componentes y restaura la conexión). Tus <b>cuentas y sesiones se conservan</b>. Puedes desbloquear de nuevo cuando quieras.","rmM.yes":"Sí, quitar","rmM.cancel":"Cancelar",
+  "upM.title":"Juego del Plan Completo","upM.body":"Este juego es exclusivo del <b>Vitalicio</b>. Mejora y desbloquea <b>40.000 juegos</b> + agregar cualquier juego.","upM.btn":"Mejorar ahora","upM.later":"Ahora no",
+  "stM.title":"¡Catálogo desbloqueado! 🎮","stM.body":"¡Listo! Ahora <b>abre STEAM</b> normalmente para acceder a todos tus juegos.","stM.ok":"Entendido",
+  "wcM.title":"Novedades","wcM.cta":"Entrar en OVERISE",
+  "dnM.title":"Juegos con Denuvo","dnM.lead":"Algunos juegos usan <b>Denuvo</b>, una protección anticopia. Esos necesitan una <b>activación especial</b>, hecha por nuestro equipo en Discord. No se puede desbloquear solo aquí en el launcher.","dnM.s1":"<b>Entra a nuestro Discord</b>","dnM.s2":"<b>Obtén tu rol</b> en el canal de asignar rol, validando tu acceso","dnM.s3":"Después ve al <b>canal de activación Denuvo</b> y mira el <b>tutorial</b> de cómo activar Denuvo 🎮","dnM.note":"La mayoría de los juegos <b>no</b> tiene Denuvo y se desbloquea aquí directo. Esto solo aplica a los títulos protegidos.","dnM.cta":"Entrar a Discord","dnM.skip":"Ahora no, gracias",
+  "card.added":"Agregado","card.unlock":"Desbloquear","card.remove":"Quitar","card.add":"Agregar","card.library":"Biblioteca","card.retry":"Intentar de nuevo","card.adding":"Agregando","card.removing":"Quitando","card.removed":"Quitado","card.wasnt":"No estaba",
+  "upd.newAvail":"<b>Nueva versión disponible.</b> Actualiza con 1 clic y OVERISE se reinicia solo.","upd.now":"Actualizar ahora","upd.oldAvail":"<b>Hay una versión nueva de OVERISE.</b> Descarga la actualización para usar las novedades. Después de esta, las próximas son automáticas.","upd.download":"Descargar actualización","upd.version":"versión","upd.preparing":"Preparando actualización...","upd.manualHint":"Descarga la versión nueva desde el área de miembros.","upd.latest":"✓ Estás en la versión más reciente","upd.available":"¡Actualización disponible! Haz clic en \"Actualizar ahora\".",
+  "t.steamRestart":"✓ ¡Steam reiniciada!","t.removed":"✓ ¡Juegos quitados!","t.connFixed":"✓ ¡Conexión corregida!","t.bypassApplied":"✓ ¡Bypass aplicado! Ahora haz clic en \"Iniciar juego\".","t.error":"Error: ","t.fail":"Falló: ","t.gameRemoved":"Juego quitado","t.noResults":"Sin resultados. Prueba otro nombre o el número del juego.","t.noInstalled":"Ninguna lua individual instalada aquí en el PC.","rm.batchNote":"Además de estos, los juegos de tu plan están en un lote. Para quitar uno del plan, busca por nombre abajo.","rm.oldExe":"Actualiza OVERISE para listar los juegos instalados aquí. Por ahora, usa la búsqueda de abajo.","rm.cantRead":"No pude leer los juegos instalados.",
+  "unlock.title":"Desbloquear {n} juegos","unlock.kick":"Tu plan","unlock.sub":"1 clic instala todo y reinicia Steam automáticamente.","unlock.btn":"Desbloquear ahora","bar.restart":"Reinicia Steam para aplicar.","added.count":"{n} juego(s) agregado(s)"
+ }
+};
+Object.assign(I18N.pt,{
+  "t.searching":"Buscando...","bp.applied":"aplicado","bp.available":"disponível","bp.notInst":"não instalado","bp.noneYet":"Nenhum bypass ainda.","bp.loadErr":"Erro ao carregar.","bp.noResult":"Nenhum resultado.","bp.applying":"Baixando e aplicando bypass...","bp.opening":"Abrindo o jogo pelo launcher dele...",
+  "bp.whyB":"Esse jogo tem uma <b>proteção própria</b> (além da Steam). O bypass troca os arquivos pra ele rodar liberado, mas <span class=\"st\">se você abrir pela Steam</span>, ela usa os arquivos do jeito original e o bypass <b>não funciona</b> (dá erro ou pede pra comprar).<br><br>Por isso, <span class=\"ov\">abra sempre pelo botão \"Iniciar jogo\"</span>, que executa direto pelo {launch}, sem passar pela Steam.",
+  "rm.many":"Você tem {n} luas instaladas. São muitas pra listar uma por uma, então use a busca abaixo pra achar o jogo.","tier.games":"jogos","tier.full":"Catálogo completo","tier.active":"Seu plano ativo","up.youHave":"Você tem {n} jogos liberados.","up.upgradeSub":"Faça upgrade pro Vitalício: 40.000 jogos + adicionar qualquer jogo.",
+  "login.enterEmail":"Digite seu email.","login.checkingBtn":"Verificando...","overlay.starting":"Iniciando...","overlay.altMethod":"Aplicando método alternativo...","overlay.restoring":"Restaurando a Steam...",
+  "motivo.nao_encontrado":"Email não encontrado. Use o email exato da sua compra.","motivo.inativa":"Sua licença está inativa. Fale com o suporte.","motivo.plano_insuficiente":"Seu plano não dá acesso a esta versão.","motivo.outro_pc":"Esta licença já está ativa em outro PC. Fale com o suporte pra liberar.","motivo.rede":"Sem conexão. Verifique a internet e tente de novo.","motivo.generic":"Não foi possível validar."
+});
+Object.assign(I18N.en,{
+  "t.searching":"Searching...","bp.applied":"applied","bp.available":"available","bp.notInst":"not installed","bp.noneYet":"No bypasses yet.","bp.loadErr":"Error loading.","bp.noResult":"No results.","bp.applying":"Downloading and applying bypass...","bp.opening":"Opening the game via its launcher...",
+  "bp.whyB":"This game has its <b>own protection</b> (beyond Steam). The bypass swaps the files so it runs unlocked, but <span class=\"st\">if you open it via Steam</span>, it uses the original files and the bypass <b>won't work</b> (error or asks you to buy).<br><br>So, <span class=\"ov\">always open with the \"Launch game\" button</span>, which runs directly via {launch}, without going through Steam.",
+  "rm.many":"You have {n} luas installed. That's too many to list one by one, so use the search below to find the game.","tier.games":"games","tier.full":"Full catalog","tier.active":"Your active plan","up.youHave":"You have {n} games unlocked.","up.upgradeSub":"Upgrade to Lifetime: 40,000 games + add any game.",
+  "login.enterEmail":"Enter your email.","login.checkingBtn":"Checking...","overlay.starting":"Starting...","overlay.altMethod":"Applying alternative method...","overlay.restoring":"Restoring Steam...",
+  "motivo.nao_encontrado":"Email not found. Use the exact email from your purchase.","motivo.inativa":"Your license is inactive. Contact support.","motivo.plano_insuficiente":"Your plan doesn't give access to this version.","motivo.outro_pc":"This license is already active on another PC. Contact support to release it.","motivo.rede":"No connection. Check your internet and try again.","motivo.generic":"Couldn't validate."
+});
+Object.assign(I18N.es,{
+  "t.searching":"Buscando...","bp.applied":"aplicado","bp.available":"disponible","bp.notInst":"no instalado","bp.noneYet":"Aún no hay bypasses.","bp.loadErr":"Error al cargar.","bp.noResult":"Sin resultados.","bp.applying":"Descargando y aplicando bypass...","bp.opening":"Abriendo el juego por su launcher...",
+  "bp.whyB":"Este juego tiene una <b>protección propia</b> (además de Steam). El bypass cambia los archivos para que corra desbloqueado, pero <span class=\"st\">si lo abres por Steam</span>, usa los archivos originales y el bypass <b>no funciona</b> (da error o pide comprar).<br><br>Por eso, <span class=\"ov\">abre siempre por el botón \"Iniciar juego\"</span>, que ejecuta directo por {launch}, sin pasar por Steam.",
+  "rm.many":"Tienes {n} luas instaladas. Son muchas para listar una por una, así que usa la búsqueda de abajo para encontrar el juego.","tier.games":"juegos","tier.full":"Catálogo completo","tier.active":"Tu plan activo","up.youHave":"Tienes {n} juegos desbloqueados.","up.upgradeSub":"Mejora a Vitalicio: 40.000 juegos + agregar cualquier juego.",
+  "login.enterEmail":"Escribe tu email.","login.checkingBtn":"Verificando...","overlay.starting":"Iniciando...","overlay.altMethod":"Aplicando método alternativo...","overlay.restoring":"Restaurando Steam...",
+  "motivo.nao_encontrado":"Email no encontrado. Usa el email exacto de tu compra.","motivo.inativa":"Tu licencia está inactiva. Habla con soporte.","motivo.plano_insuficiente":"Tu plan no da acceso a esta versión.","motivo.outro_pc":"Esta licencia ya está activa en otra PC. Habla con soporte para liberarla.","motivo.rede":"Sin conexión. Revisa tu internet e intenta de nuevo.","motivo.generic":"No se pudo validar."
+});
+let LANG=(function(){ try{const s=localStorage.getItem('overise_lang'); if(s&&I18N[s])return s;}catch(e){} const n=((typeof navigator!=='undefined'&&navigator.language)||'pt').toLowerCase(); if(n.indexOf('es')===0)return 'es'; if(n.indexOf('en')===0)return 'en'; return 'pt'; })();
+function tr(k){ const L=I18N[LANG]||I18N.pt; return (L[k]!=null?L[k]:(I18N.pt[k]!=null?I18N.pt[k]:k)); }
+function t(k){ return tr(k); }
+function applyStatic(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const v=tr(el.getAttribute('data-i18n'));
+    if(el.querySelector(':scope > i')){ [...el.childNodes].forEach(n=>{ if(n.nodeType===3) el.removeChild(n); }); el.appendChild(document.createTextNode(' '+v)); }
+    else el.textContent=v;
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{el.innerHTML=tr(el.getAttribute('data-i18n-html'));});
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{el.placeholder=tr(el.getAttribute('data-i18n-ph'));});
+  document.querySelectorAll('[data-i18n-title]').forEach(el=>{el.title=tr(el.getAttribute('data-i18n-title'));});
+}
+function setLang(l){
+  if(!I18N[l]) l='pt'; LANG=l;
+  try{ localStorage.setItem('overise_lang', l); }catch(e){}
+  applyStatic();
+  document.querySelectorAll('.lang-opt').forEach(o=>o.classList.toggle('on', o.dataset.l===l));
+  try{ if(typeof refreshDynamic==='function') refreshDynamic(); }catch(e){}
+}
+function applyAccountUI(){
+  const info=(typeof PLANO_INFO!=='undefined'&&PLANO_INFO[PLANO])||(typeof PLANO_INFO!=='undefined'&&PLANO_INFO.basico)||{label:'',count:''};
+  const bs=$('brandSub'); if(bs) bs.textContent=info.label;
+  const tp=$('tierPill'); if(tp) tp.innerHTML=(PLANO==='vitalicio'?'<i class="fa-solid fa-crown"></i> ':'')+(''+info.label).toUpperCase();
+  const tt=$('tierTitle'); if(tt) tt.textContent=info.count+' '+t('tier.games');
+  const td=$('tierDesc'); if(td) td.textContent=(PLANO==='vitalicio'?t('tier.full'):t('tier.active'));
+  const cn=$('counter'); if(cn) cn.textContent=info.count;
+  const _lim=(PLANO!=='vitalicio');
+  const ub=$('upsellBanner'); if(ub) ub.style.display=_lim?'flex':'none';
+  if(_lim){ const a=$('upTitle'),b=$('upSub'); if(a)a.textContent=t('up.youHave').replace('{n}',info.count); if(b)b.textContent=t('up.upgradeSub'); }
+  const s=window.LAST_STATUS||{}; const pill=$('steamPill');
+  if(pill){ if(s.steam){pill.className='pill';pill.innerHTML='<span class="dot"></span> '+t('steam.ok');} else if(s.steam===false){pill.className='pill off';pill.innerHTML='<span class="dot"></span> '+t('steam.no');} }
+}
+function refreshDynamic(){
+  try{ if(window.LAST_STATUS){ applyVersion(window.LAST_STATUS); applyAccountUI(); } }catch(e){}
+  try{ renderUnlock(); }catch(e){}
+  try{ refreshAddResults(); }catch(e){}
+  try{ const v=(document.querySelector('.view.active')||{}).id||''; if(v==='view-bypass')loadBypass(); else if(v==='view-rmgame')loadRmInstalled(); else if(v==='view-novos')loadNovos(); else if(v==='view-populares')buildLib(); }catch(e){}
+}
+let api=null, added=[], lastResults=[], PLANO='basico', PLANO_ALL=true, PLANO_SET=null;
 const PLANO_INFO={
   basico:   {label:'Básico',    count:'1.000'},
   avancado: {label:'Avançado',  count:'20.000'},
@@ -446,7 +586,7 @@ function upGo(){ api.checkout($('upContent').value||'upsell'); $('upModal').clas
 function upClose(){ $('upModal').classList.remove('show'); }
 function doRemove(){ $('rmModal').classList.add('show'); }
 function rmClose(){ $('rmModal').classList.remove('show'); }
-async function rmGo(){ rmClose(); overlay(true,'Restaurando a Steam...'); $('ovBar').style.width='10%'; await api.remove(); }
+async function rmGo(){ rmClose(); overlay(true,t('overlay.restoring')); $('ovBar').style.width='10%'; await api.remove(); }
 function goldBtn(content){return `<button class="cbtn gold" onclick="api.checkout('${content}')">🔒 Liberar</button>`}
 
 function setView(v){
@@ -465,10 +605,10 @@ function renderUnlock(){
   const info=PLANO_INFO[PLANO]||PLANO_INFO.basico;
   $('unlockGrid').innerHTML=`
     <div class="uc" style="grid-column:1/-1" onclick="doUnlock()">
-      <div class="kick">Seu plano</div>
-      <h4>Desbloquear ${info.count} jogos</h4>
-      <p>1 clique instala tudo e reinicia a Steam automaticamente.</p>
-      <span class="go"><i class="fa-solid fa-bolt"></i> Desbloquear agora</span>
+      <div class="kick">${t('unlock.kick')}</div>
+      <h4>${t('unlock.title').replace('{n}',info.count)}</h4>
+      <p>${t('unlock.sub')}</p>
+      <span class="go"><i class="fa-solid fa-bolt"></i> ${t('unlock.btn')}</span>
     </div>`;
 }
 function buildLib(){
@@ -498,8 +638,8 @@ function maybeShowDenuvo(){
 }
 function closeDenuvo(){ $('dnModal').classList.remove('show'); try{localStorage.setItem('overise_denuvo',DENUVO_VERSION)}catch(e){} }
 
-async function doUnlock(){ overlay(true,'Iniciando...'); $('ovBar').style.width='5%'; await api.unlock(); }
-async function doUnlockAlt(){ overlay(true,'Aplicando método alternativo...'); $('ovBar').style.width='5%'; await api.unlock_alt(); }
+async function doUnlock(){ overlay(true,t('overlay.starting')); $('ovBar').style.width='5%'; await api.unlock(); }
+async function doUnlockAlt(){ overlay(true,t('overlay.altMethod')); $('ovBar').style.width='5%'; await api.unlock_alt(); }
 /* curadoria online: jogos que a busca da Steam esconde (ex: GTA V Legacy) ou
    com nome em PT (homem aranha). Editar curadoria.json no repo = atualiza na hora. */
 let _curCache=null;
@@ -514,14 +654,20 @@ async function getCuradoria(){
 async function doSearch(){
   const q=$('q').value.trim(); if(!q)return;
   const ql=q.toLowerCase();
-  $('results').innerHTML='<div class="hint">Buscando...</div>';
+  $('results').innerHTML=`<div class="hint">${t('t.searching')}</div>`;
   const [items,cur]=await Promise.all([ api.search(q), getCuradoria() ]);
   const hits=(cur||[]).filter(e=>(e.keys||[]).some(k=>{k=(''+k).toLowerCase();return k.includes(ql)||ql.includes(k);}));
   const seen=new Set(), merged=[];
   hits.forEach(e=>{ if(e.appid&&!seen.has(e.appid)){ seen.add(e.appid); merged.push({id:e.appid,name:e.name,img:e.img}); } });
   (items||[]).forEach(it=>{ if(!seen.has(it.id)){ seen.add(it.id); merged.push(it); } });
-  if(!merged.length){$('results').innerHTML='<div class="hint">Nenhum resultado. Tente outro nome ou o número do jogo.</div>';return}
+  if(!merged.length){lastResults=[];$('results').innerHTML=`<div class="hint">${t('t.noResults')}</div>`;return}
+  lastResults=merged;
   $('results').innerHTML=merged.map(it=>row(it.id,it.name,it.img)).join('');
+}
+// redesenha os cards da busca com o estado ATUAL de `added` (ex: depois de remover, voltam pra "Adicionar")
+function refreshAddResults(){
+  const box=$('results'); if(!box || !lastResults.length) return;
+  box.innerHTML=lastResults.map(it=>row(it.id,it.name,it.img)).join('');
 }
 function canAdd(id){ return PLANO_ALL || (PLANO_SET && PLANO_SET.has(id)); }
 function coverErr(im){
@@ -543,10 +689,10 @@ function gameCard(id,name,img,state){
     if(!u.includes('capsule_231x87')) srcs.push(img); }
   const data=encodeURIComponent(JSON.stringify(srcs));
   let pill;
-  if(state==='added') pill='<button class="gpill ok" disabled><i class="fa-solid fa-check"></i> Adicionado</button>';
-  else if(state==='locked') pill=`<button class="gpill lock" onclick="openUpsell('jogo_${id}')"><i class="fa-solid fa-lock"></i> Liberar</button>`;
-  else if(state==='remove') pill=`<button class="gpill" style="background:#f87171;color:#1a0606;font-weight:800" onclick="doRemoveOne(${id},this)"><i class="fa-solid fa-trash-can"></i> Remover</button>`;
-  else pill=`<button class="gpill add" onclick="doAdd(${id},this)"><i class="fa-solid fa-plus"></i> Adicionar</button>`;
+  if(state==='added') pill=`<button class="gpill ok" disabled><i class="fa-solid fa-check"></i> ${t('card.added')}</button>`;
+  else if(state==='locked') pill=`<button class="gpill lock" onclick="openUpsell('jogo_${id}')"><i class="fa-solid fa-lock"></i> ${t('card.unlock')}</button>`;
+  else if(state==='remove') pill=`<button class="gpill" style="background:#f87171;color:#1a0606;font-weight:800" onclick="doRemoveOne(${id},this)"><i class="fa-solid fa-trash-can"></i> ${t('card.remove')}</button>`;
+  else pill=`<button class="gpill add" onclick="doAdd(${id},this)"><i class="fa-solid fa-plus"></i> ${t('card.add')}</button>`;
   return `<div class="gcard" id="row-${id}"><img loading="lazy" data-id="${id}" data-s="${data}" data-i="0" src="${srcs[0]}" onerror="coverErr(this)"><div class="ph"><i class="fa-solid fa-gamepad"></i></div><div class="grad"></div><div class="info"><div class="nm">${name}</div>${pill}</div></div>`;
 }
 function row(id,name,img){
@@ -554,54 +700,55 @@ function row(id,name,img){
   return gameCard(id,name,img,state);
 }
 async function doAdd(id,btn){
-  btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Adicionando'; btn.disabled=true; btn.classList.remove('add');
+  btn.innerHTML=`<i class="fa-solid fa-spinner fa-spin"></i> ${t('card.adding')}`; btn.disabled=true; btn.classList.remove('add');
   const r=await api.add(id,'');
   if(r&&r.ok){
-    btn.outerHTML=`<button class="gpill ok" disabled><i class="fa-solid fa-check"></i> ${r.library_only?'Biblioteca':'Adicionado'}</button>`;
+    btn.outerHTML=`<button class="gpill ok" disabled><i class="fa-solid fa-check"></i> ${r.library_only?t('card.library'):t('card.added')}</button>`;
     if(!added.includes(id)){added.push(id);updateBar()}
-  } else if(r&&r.locked){ btn.outerHTML=`<button class="gpill lock" onclick="openUpsell('jogo_${id}')"><i class="fa-solid fa-lock"></i> Liberar</button>`; }
-  else { btn.innerHTML='<i class="fa-solid fa-plus"></i> Tentar de novo'; btn.disabled=false; btn.classList.add('add'); toast('Falha: '+((r&&r.error)||'?')); }
+  } else if(r&&r.locked){ btn.outerHTML=`<button class="gpill lock" onclick="openUpsell('jogo_${id}')"><i class="fa-solid fa-lock"></i> ${t('card.unlock')}</button>`; }
+  else { btn.innerHTML=`<i class="fa-solid fa-plus"></i> ${t('card.retry')}`; btn.disabled=false; btn.classList.add('add'); toast(t('t.fail')+((r&&r.error)||'?')); }
 }
 async function loadRmInstalled(){
   const box=$('rmInstalled'); if(!box)return;
-  if(!api || !api.installed_list){ box.innerHTML='<div class="hint">Atualize o OVERISE pra listar os jogos instalados aqui. Por enquanto, use a busca abaixo.</div>'; return; }
-  box.innerHTML='<div class="hint"><i class="fa-solid fa-spinner fa-spin"></i> Procurando os jogos instalados no seu PC...</div>';
+  if(!api || !api.installed_list){ box.innerHTML=`<div class="hint">${t('rm.oldExe')}</div>`; return; }
+  box.innerHTML=`<div class="hint"><i class="fa-solid fa-spinner fa-spin"></i> ${t('rm.searching')}</div>`;
   let r; try{ r=await api.installed_list(); }catch(e){ r=null; }
-  if(!r){ box.innerHTML='<div class="hint">Não consegui ler os jogos instalados.</div>'; return; }
+  if(!r){ box.innerHTML=`<div class="hint">${t('rm.cantRead')}</div>`; return; }
   let html='';
   if(r.games && r.games.length){
-    html+=`<div class="rm-h"><i class="fa-solid fa-hard-drive"></i> Instalados no seu PC <span class="rm-c">${r.games.length}</span></div>`;
+    html+=`<div class="rm-h"><i class="fa-solid fa-hard-drive"></i> ${t('rm.installedHead')} <span class="rm-c">${r.games.length}</span></div>`;
     html+='<div class="results">'+r.games.map(g=>gameCard(g.appid,g.name,g.capsule,'remove')).join('')+'</div>';
   } else if(r.many){
-    html+=`<div class="hint">Você tem ${r.count} luas instaladas. São muitas pra listar uma por uma, então use a busca abaixo pra achar o jogo.</div>`;
+    html+=`<div class="hint">${t('rm.many').replace('{n}',r.count)}</div>`;
   } else {
-    html+='<div class="hint">Nenhuma lua individual instalada aqui no PC.</div>';
+    html+=`<div class="hint">${t('t.noInstalled')}</div>`;
   }
-  if(r.batch) html+='<div class="hint" style="margin-top:12px"><i class="fa-solid fa-circle-info"></i> Além desses, os jogos do seu plano ficam num lote. Pra tirar um do plano, busque pelo nome abaixo.</div>';
+  if(r.batch) html+=`<div class="hint" style="margin-top:12px"><i class="fa-solid fa-circle-info"></i> ${t('rm.batchNote')}</div>`;
   box.innerHTML=html;
 }
 async function doSearchRm(){
   const q=$('qr').value.trim(); if(!q)return;
-  $('resultsRm').innerHTML='<div class="hint">Buscando...</div>';
+  $('resultsRm').innerHTML=`<div class="hint">${t('t.searching')}</div>`;
   const items=await api.search(q);
-  if(!items||!items.length){ $('resultsRm').innerHTML='<div class="hint">Nenhum resultado. Tente outro nome ou o número do jogo.</div>'; return; }
+  if(!items||!items.length){ $('resultsRm').innerHTML=`<div class="hint">${t('t.noResults')}</div>`; return; }
   $('resultsRm').innerHTML=items.map(it=>gameCard(it.id,it.name,it.img,'remove')).join('');
 }
 async function doRemoveOne(id,btn){
-  btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Removendo'; btn.disabled=true;
+  btn.innerHTML=`<i class="fa-solid fa-spinner fa-spin"></i> ${t('card.removing')}`; btn.disabled=true;
   const r=await api.remove_one(id);
   if(r&&r.ok){
-    btn.outerHTML=`<button class="gpill ok" disabled><i class="fa-solid fa-check"></i> ${r.removed?'Removido':'Não estava'}</button>`;
+    btn.outerHTML=`<button class="gpill ok" disabled><i class="fa-solid fa-check"></i> ${r.removed?t('card.removed'):t('card.wasnt')}</button>`;
     if(r.removed){
       const i=added.indexOf(id); if(i>=0) added.splice(i,1);
-      $('addedCount').textContent='Jogo removido'; $('restartBar').classList.add('show');
+      $('addedCount').textContent=t('t.gameRemoved'); $('restartBar').classList.add('show');
+      refreshAddResults();
     }
-  } else { btn.innerHTML='<i class="fa-solid fa-trash-can"></i> Tentar de novo'; btn.disabled=false; toast('Falha: '+((r&&r.error)||'?')); }
+  } else { btn.innerHTML=`<i class="fa-solid fa-trash-can"></i> ${t('card.retry')}`; btn.disabled=false; toast(t('t.fail')+((r&&r.error)||'?')); }
 }
 // ── BYPASS (correções AAA — crack na pasta do jogo) ──
 let BYPASS=[], BPSEL=null;
 function bpListItem(g){
-  const st = !g.installed?'<span class="lst no">não instalado</span>':(g.applied?'<span class="lst ok">aplicado</span>':'<span class="lst av">disponível</span>');
+  const st = !g.installed?`<span class="lst no">${t('bp.notInst')}</span>`:(g.applied?`<span class="lst ok">${t('bp.applied')}</span>`:`<span class="lst av">${t('bp.available')}</span>`);
   const cap = g.capsule || (CAP+'/'+g.appid+'/capsule_231x87.jpg');
   return `<div class="bp-litem ${g.appid==BPSEL?'active':''}" data-id="${g.appid}" onclick="selectBypass(${g.appid})"><img src="${cap}" data-i="0" data-app="${g.appid}" data-h="${g.header||''}" onerror="bpImgFb(this)"><div><div class="nm">${g.name}</div>${st}</div></div>`;
 }
@@ -612,56 +759,56 @@ function bpImgFb(im){
   if(i<srcs.length){ im.dataset.i=i+1; im.src=srcs[i]; } else { im.style.visibility='hidden'; }
 }
 async function loadBypass(){
-  $('bypassList').innerHTML='<div class="hint" style="padding:14px">Carregando...</div>';
+  $('bypassList').innerHTML=`<div class="hint" style="padding:14px">${t('bp.loading')}</div>`;
   try{
     BYPASS=await api.bypass_list()||[];
-    if(!BYPASS.length){ $('bypassList').innerHTML='<div class="hint" style="padding:14px">Nenhum bypass ainda.</div>'; $('bpPane').innerHTML=''; const c=$('bpCount'); if(c)c.textContent='0'; return; }
+    if(!BYPASS.length){ $('bypassList').innerHTML=`<div class="hint" style="padding:14px">${t('bp.noneYet')}</div>`; $('bpPane').innerHTML=''; const c=$('bpCount'); if(c)c.textContent='0'; return; }
     if(!BYPASS.find(x=>x.appid==BPSEL)) BPSEL=BYPASS[0].appid;
     renderBypassList();
     selectBypass(BPSEL);
-  }catch(e){ $('bypassList').innerHTML='<div class="hint" style="padding:14px">Erro ao carregar.</div>'; }
+  }catch(e){ $('bypassList').innerHTML=`<div class="hint" style="padding:14px">${t('bp.loadErr')}</div>`; }
 }
 function renderBypassList(){
   const q=(($('bpSearch')||{}).value||'').toLowerCase().trim();
   const list = q ? BYPASS.filter(g=>(g.name||'').toLowerCase().includes(q)) : BYPASS;
   const c=$('bpCount'); if(c) c.textContent=list.length;
-  $('bypassList').innerHTML = list.length ? list.map(bpListItem).join('') : '<div class="hint" style="padding:14px">Nenhum resultado.</div>';
+  $('bypassList').innerHTML = list.length ? list.map(bpListItem).join('') : `<div class="hint" style="padding:14px">${t('bp.noResult')}</div>`;
 }
 function selectBypass(id){
   BPSEL=id;
   const g=BYPASS.find(x=>x.appid==id); if(!g)return;
   document.querySelectorAll('.bp-litem').forEach(el=>el.classList.toggle('active', el.dataset.id==id));
-  const inst=g.installed, app=g.applied, launch=(g.launch||'').split(/[\\\/]/).pop()||'launcher do jogo';
+  const inst=g.installed, app=g.applied, launch=(g.launch||'').split(/[\\\/]/).pop()||t('bp.launcherDefault');
   let primary, icons='';
   if(!inst){
-    primary=`<button class="btn bp-play" disabled style="opacity:.5"><i class="fa-solid fa-circle-info"></i> Instale pela Steam</button>`;
+    primary=`<button class="btn bp-play" disabled style="opacity:.5"><i class="fa-solid fa-circle-info"></i> ${t('bp.installSteam')}</button>`;
   } else if(app){
-    primary=`<button class="btn btn-green bp-play" onclick="doLaunchBypass(${id})"><i class="fa-solid fa-play"></i> Iniciar jogo</button>`;
-    icons=`<button class="bp-ic" title="Reaplicar bypass" onclick="doApplyBypass(${id})"><i class="fa-solid fa-rotate"></i></button>`;
-    icons+=`<button class="bp-ic" title="Abrir pasta" onclick="api.bypass_open_folder(${id})"><i class="fa-solid fa-folder-open"></i></button>`;
+    primary=`<button class="btn btn-green bp-play" onclick="doLaunchBypass(${id})"><i class="fa-solid fa-play"></i> ${t('bp.launch')}</button>`;
+    icons=`<button class="bp-ic" title="${t('bp.reapply')}" onclick="doApplyBypass(${id})"><i class="fa-solid fa-rotate"></i></button>`;
+    icons+=`<button class="bp-ic" title="${t('bp.openFolder')}" onclick="api.bypass_open_folder(${id})"><i class="fa-solid fa-folder-open"></i></button>`;
   } else {
-    primary=`<button class="btn btn-green bp-play" onclick="doApplyBypass(${id})"><i class="fa-solid fa-download"></i> Aplicar bypass</button>`;
-    icons=`<button class="bp-ic" title="Abrir pasta" onclick="api.bypass_open_folder(${id})"><i class="fa-solid fa-folder-open"></i></button>`;
+    primary=`<button class="btn btn-green bp-play" onclick="doApplyBypass(${id})"><i class="fa-solid fa-download"></i> ${t('bp.apply')}</button>`;
+    icons=`<button class="bp-ic" title="${t('bp.openFolder')}" onclick="api.bypass_open_folder(${id})"><i class="fa-solid fa-folder-open"></i></button>`;
   }
   const pathV = inst ? `<span class="v" title="${g.path||''}">${g.path||''}</span>` : '<span class="v">—</span>';
   $('bpPane').innerHTML=`
-    <div class="bp-hero"><img src="${CAP}/${id}/library_hero.jpg" onerror="this.onerror=null;this.src='${g.header||(CAP+'/'+id+'/header.jpg')}'"><div class="bp-hero-grad"></div><div class="bp-hero-tt"><h1>${g.name}</h1><span class="bp-status ${inst?'ok':'no'}"><span class="dot"></span> ${inst?'Auto-detectado':'Jogo não instalado'}</span></div></div>
-    <div class="bp-bar">${primary}<div class="bp-meta"><div class="bp-col"><span class="l">Abre pelo</span><span class="v">${inst?launch:'—'}</span></div><div class="bp-col grow"><span class="l">Local</span>${pathV}</div></div><div class="bp-icons">${icons}</div></div>
-    <div class="bp-why"><div class="bp-why-h"><i class="fa-solid fa-circle-exclamation"></i> Importante: abra esse jogo SÓ pelo nosso launcher</div>
-      <div class="bp-why-b">Esse jogo tem uma <b>proteção própria</b> (além da Steam). O bypass troca os arquivos pra ele rodar liberado, mas <span class="st">se você abrir pela Steam</span>, ela usa os arquivos do jeito original e o bypass <b>não funciona</b> (dá erro ou pede pra comprar).<br><br>Por isso, <span class="ov">abra sempre pelo botão "Iniciar jogo"</span>, que executa direto pelo <b>${launch}</b>, sem passar pela Steam.</div>
-      <div class="bp-steps"><div class="bp-step"><span class="n">1</span> Primeiro <b>"Aplicar bypass"</b>, depois <b>"Iniciar jogo"</b>. É por aqui que o jogo abre liberado.</div><div class="bp-step bad"><span class="n">✕</span> <b>Não abra pela Steam</b>. Se abrir por ela, o bypass não funciona.</div></div>
+    <div class="bp-hero"><img src="${CAP}/${id}/library_hero.jpg" onerror="this.onerror=null;this.src='${g.header||(CAP+'/'+id+'/header.jpg')}'"><div class="bp-hero-grad"></div><div class="bp-hero-tt"><h1>${g.name}</h1><span class="bp-status ${inst?'ok':'no'}"><span class="dot"></span> ${inst?t('bp.autoDetect'):t('bp.notInstalled')}</span></div></div>
+    <div class="bp-bar">${primary}<div class="bp-meta"><div class="bp-col"><span class="l">${t('bp.abrePelo')}</span><span class="v">${inst?launch:'—'}</span></div><div class="bp-col grow"><span class="l">${t('bp.local')}</span>${pathV}</div></div><div class="bp-icons">${icons}</div></div>
+    <div class="bp-why"><div class="bp-why-h"><i class="fa-solid fa-circle-exclamation"></i> ${t('bp.whyH')}</div>
+      <div class="bp-why-b">${t('bp.whyB').replace('{launch}','<b>'+launch+'</b>')}</div>
+      <div class="bp-steps"><div class="bp-step"><span class="n">1</span> ${t('bp.step1')}</div><div class="bp-step bad"><span class="n">✕</span> ${t('bp.step2')}</div></div>
     </div>`;
 }
 function doApplyBypass(id){
-  overlay(true,'Baixando e aplicando bypass...'); $('ovBar').style.width='5%';
+  overlay(true,t('bp.applying')); $('ovBar').style.width='5%';
   api.bypass_apply(id);
 }
 async function doLaunchBypass(id){
   const r=await api.bypass_launch(id);
-  if(r&&r.ok) toast('Abrindo o jogo pelo launcher dele...'); else toast('Falha: '+((r&&r.error)||'?'));
+  if(r&&r.ok) toast(t('bp.opening')); else toast(t('t.fail')+((r&&r.error)||'?'));
 }
 function updateBar(){
-  $('addedCount').textContent=added.length+' jogo'+(added.length>1?'s':'')+' adicionado'+(added.length>1?'s':'');
+  $('addedCount').textContent=t('added.count').replace('{n}',added.length);
   $('restartBar').classList.toggle('show', added.length>0);
 }
 async function loadNovos(){
@@ -703,33 +850,33 @@ window.onPy=(msg)=>{
     setTimeout(()=>overlay(false),700); $('ovAv').style.display='none';
     if(msg.ok){
       if(msg.kind==='unlock'){renderUnlock();$('steamModal').classList.add('show');}
-      else if(msg.kind==='restart'){toast('✓ Steam reiniciada!');added=[];updateBar();}
-      else if(msg.kind==='remove'){toast('✓ Jogos removidos!');added=[];updateBar();renderUnlock();}
-      else if(msg.kind==='fix'){toast('✓ Conexão corrigida!');}
-      else if(msg.kind==='bypass'){toast('✓ Bypass aplicado! Agora clique em "Iniciar jogo".');BPSEL=msg.appid;setTimeout(()=>loadBypass(),800);}
-    }else{toast('Erro: '+(msg.error||'?'));}
+      else if(msg.kind==='restart'){toast(t('t.steamRestart'));added=[];updateBar();}
+      else if(msg.kind==='remove'){toast(t('t.removed'));added=[];updateBar();renderUnlock();refreshAddResults();}
+      else if(msg.kind==='fix'){toast(t('t.connFixed'));}
+      else if(msg.kind==='bypass'){toast(t('t.bypassApplied'));BPSEL=msg.appid;setTimeout(()=>loadBypass(),800);}
+    }else{toast(t('t.error')+(msg.error||'?'));}
   }
 };
 
 // ── VERSÃO / AUTO-UPDATE ──
 function applyVersion(s){
-  s=s||{};
+  s=s||{}; window.LAST_STATUS=s;
   const bt=$('buildTag'), ban=$('updateBanner');
   const L=ban&&ban.querySelector('.upd-l'), B=ban&&ban.querySelector('.upd-btn');
   if(s.build){                                  // exe NOVO (tem auto-update, 20260628+)
-    if(bt){ bt.textContent='versão '+(s.version||s.build); bt.classList.toggle('upd', !!s.update); bt.style.display='block'; }
+    if(bt){ bt.textContent=t('upd.version')+' '+(s.version||s.build); bt.classList.toggle('upd', !!s.update); bt.style.display='block'; }
     if(ban){
       if(s.update){
-        if(L) L.innerHTML='<b>Nova versão disponível.</b> Atualize com 1 clique e o OVERISE reinicia sozinho.';
-        if(B){ B.innerHTML='<i class="fa-solid fa-download"></i> Atualizar agora'; B.onclick=doSelfUpdate; }
+        if(L) L.innerHTML=t('upd.newAvail');
+        if(B){ B.innerHTML='<i class="fa-solid fa-download"></i> '+t('upd.now'); B.onclick=doSelfUpdate; }
         ban.style.display='flex';
       } else ban.style.display='none';
     }
   } else if(s.plano){                           // exe ANTIGO (não tem o código de auto-update)
     if(bt) bt.style.display='none';
     if(ban){
-      if(L) L.innerHTML='<b>Tem uma versão nova do OVERISE.</b> Baixe a atualização pra usar as novidades. Depois dessa vez, as próximas são automáticas.';
-      if(B){ B.innerHTML='<i class="fa-solid fa-download"></i> Baixar atualização'; B.onclick=openUpdatePage; }
+      if(L) L.innerHTML=t('upd.oldAvail');
+      if(B){ B.innerHTML='<i class="fa-solid fa-download"></i> '+t('upd.download'); B.onclick=openUpdatePage; }
       ban.style.display='flex';
     }
   } else if(ban){ ban.style.display='none'; }   // status falhou: não mostra nada
@@ -740,57 +887,40 @@ function openUpdatePage(){
   if(api&&api.open_url) api.open_url(UPDATE_ZIP_URL); else toast('Baixe a nova versão em: '+UPDATE_ZIP_URL);
 }
 async function doSelfUpdate(){
-  if(!api||!api.self_update){ toast('Baixe a versão nova pela área de membros.'); return; }
-  overlay(true,'Preparando atualização...'); $('ovBar').style.width='5%';
+  if(!api||!api.self_update){ toast(t('upd.manualHint')); return; }
+  overlay(true,t('upd.preparing')); $('ovBar').style.width='5%';
   await api.self_update();   // baixa o exe novo, troca e reinicia sozinho (progresso vem pelo onPy)
 }
 async function checkUpdate(){
   if(!api||!api.status) return;
   const s=await api.status(); applyVersion(s);
-  toast(s.update ? 'Atualização disponível! Clique em "Atualizar agora".' : '✓ Você está na versão mais recente ('+(s.version||s.build||'?')+').');
+  toast(s.update ? t('upd.available') : t('upd.latest')+' ('+(s.version||s.build||'?')+').');
 }
-const MOTIVOS={
-  nao_encontrado:'Email não encontrado. Use o email exato da sua compra.',
-  inativa:'Sua licença está inativa. Fale com o suporte.',
-  plano_insuficiente:'Seu plano não dá acesso a esta versão.',
-  outro_pc:'Esta licença já está ativa em outro PC. Fale com o suporte pra liberar.',
-  rede:'Sem conexão. Verifique a internet e tente de novo.'
-};
+function motivoMsg(k){ const key='motivo.'+(k||'generic'); const v=tr(key); return v===key?t('motivo.generic'):v; }
 function loginError(m){$('loginErr').textContent=m||''}
 function showLogin(motivo){
   $('shell').style.display='none'; $('login').style.display='grid';
   $('loginChecking').style.display='none'; $('loginForm').style.display='block';
-  if(motivo) loginError(MOTIVOS[motivo]||'Não foi possível validar.');
+  if(motivo) loginError(motivoMsg(motivo));
 }
 async function showApp(){
   $('login').style.display='none'; $('shell').style.display='grid';
   const s=await api.status();
   applyVersion(s);
   PLANO = s.plano || 'basico';
-  const info = PLANO_INFO[PLANO] || PLANO_INFO.basico;
-  $('brandSub').textContent = info.label;
-  $('tierPill').innerHTML = (PLANO==='vitalicio'?'<i class="fa-solid fa-crown"></i> ':'') + info.label.toUpperCase();
-  $('tierTitle').textContent = info.count + ' jogos';
-  $('tierDesc').textContent = (PLANO==='vitalicio'?'Catálogo completo':'Seu plano ativo');
-  $('counter').textContent = info.count;
-  const _lim = (PLANO!=='vitalicio');
-  $('upsellBanner').style.display = _lim ? 'flex' : 'none';
-  if(_lim){ $('upTitle').textContent='Você tem '+info.count+' jogos liberados.'; $('upSub').textContent='Faça upgrade pro Vitalício: 40.000 jogos + adicionar qualquer jogo.'; }
+  applyAccountUI();
   try{ const pl=await api.plano_lista(); PLANO_ALL=pl.all; PLANO_SET=pl.all?null:new Set(pl.appids); }
   catch(e){ PLANO_ALL=(PLANO==='vitalicio'); PLANO_SET=PLANO_ALL?null:new Set(); }
-  const pill=$('steamPill');
-  if(s.steam){pill.className='pill';pill.innerHTML='<span class="dot"></span> Steam detectada';}
-  else{pill.className='pill off';pill.innerHTML='<span class="dot"></span> Steam não encontrada';}
   renderUnlock(); buildLib();
   maybeShowWelcome();
 }
 async function doLogin(){
   const email=$('email').value.trim();
-  if(!email){loginError('Digite seu email.');return}
-  const b=$('loginBtn'); b.disabled=true; b.textContent='Verificando...'; loginError('');
+  if(!email){loginError(t('login.enterEmail'));return}
+  const b=$('loginBtn'); b.disabled=true; b.textContent=t('login.checkingBtn'); loginError('');
   const r=await api.login(email);
-  b.disabled=false; b.textContent='Entrar';
-  if(r&&r.ok){showApp();} else {loginError(MOTIVOS[r&&r.motivo]||'Não foi possível validar.');}
+  b.disabled=false; b.textContent=t('login.btn');
+  if(r&&r.ok){showApp();} else {loginError(motivoMsg(r&&r.motivo));}
 }
 async function doLogout(){
   await api.logout(); added=[]; PLANO='basico'; $('email').value=''; loginError(''); showLogin();
@@ -799,5 +929,7 @@ async function boot(){
   const lic=await api.check_license();
   if(lic&&lic.ok){showApp();} else {showLogin(lic&&lic.motivo);}
 }
+applyStatic();
+document.querySelectorAll('.lang-opt').forEach(o=>o.classList.toggle('on', o.dataset.l===LANG));
 window.addEventListener('pywebviewready', ()=>{ api=window.pywebview.api; boot(); });
 </script></body></html>
