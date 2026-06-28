@@ -274,7 +274,13 @@ a{color:inherit;text-decoration:none}
     <section class="view" id="view-bypass">
       <div class="section-head"><h3>Bypass</h3><span>Pra jogos com proteção própria (GTA, RDR...). Aplica a correção e abre pelo launcher do jogo.</span></div>
       <div class="bp-wrap">
-        <aside class="bp-list" id="bypassList"><div class="hint" style="padding:14px">Carregando...</div></aside>
+        <aside class="bp-side">
+          <div class="bp-side-top">
+            <div class="bp-side-h"><i class="fa-solid fa-screwdriver-wrench"></i> Jogos <span id="bpCount" class="bp-count">0</span></div>
+            <div class="bp-search"><i class="fa-solid fa-magnifying-glass"></i><input id="bpSearch" placeholder="Buscar jogo..." oninput="renderBypassList()"></div>
+          </div>
+          <div class="bp-list" id="bypassList"><div class="hint" style="padding:14px">Carregando...</div></div>
+        </aside>
         <div class="bp-detail" id="bpPane"><div class="hint" style="padding:50px 20px;text-align:center">Selecione um jogo na lista.</div></div>
       </div>
     </section>
@@ -326,10 +332,19 @@ a{color:inherit;text-decoration:none}
 </div>
 <style>
 .bp-wrap{display:flex;gap:22px;align-items:flex-start}
-.bp-list{width:268px;flex:none;display:flex;flex-direction:column;gap:6px}
-.bp-litem{display:flex;align-items:center;gap:12px;padding:9px 11px;border-radius:11px;cursor:pointer;border:1px solid transparent;transition:.15s}
-.bp-litem:hover{background:rgba(255,255,255,.04)}
-.bp-litem.active{background:rgba(0,255,65,.08);border-color:rgba(0,255,65,.3)}
+.bp-side{width:284px;flex:none;background:#0d0e14;border:1px solid #1d1e28;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;max-height:calc(100vh - 175px)}
+.bp-side-top{padding:14px 14px 12px;border-bottom:1px solid #1d1e28;background:linear-gradient(180deg,rgba(0,255,65,.05),transparent)}
+.bp-side-h{font-size:.72rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#9a9aa6;display:flex;align-items:center;gap:8px;margin-bottom:11px}
+.bp-side-h i{color:#00FF41}
+.bp-count{margin-left:auto;background:rgba(0,255,65,.15);color:#00FF41;border-radius:50px;padding:1px 10px;font-size:.74rem;font-weight:800;letter-spacing:0}
+.bp-search{display:flex;align-items:center;gap:9px;background:#15161c;border:1px solid #2a2b36;border-radius:10px;padding:9px 12px;transition:.15s}
+.bp-search:focus-within{border-color:rgba(0,255,65,.5);background:#181922}
+.bp-search i{color:#6c6c76;font-size:.82rem}
+.bp-search input{background:none;border:none;outline:none;color:#e7e7ea;font-size:.85rem;width:100%;font-family:inherit}
+.bp-list{flex:1;overflow-y:auto;padding:8px;display:flex;flex-direction:column;gap:4px}
+.bp-litem{display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:10px;cursor:pointer;border-left:3px solid transparent;transition:.13s}
+.bp-litem:hover{background:rgba(255,255,255,.05)}
+.bp-litem.active{background:rgba(0,255,65,.1);border-left-color:#00FF41}
 .bp-litem img{width:56px;height:26px;object-fit:cover;border-radius:4px;flex:none;background:#1b1b22}
 .bp-litem .nm{font-size:.85rem;color:#fff;font-weight:600;line-height:1.2}
 .bp-litem .lst{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
@@ -557,11 +572,17 @@ async function loadBypass(){
   $('bypassList').innerHTML='<div class="hint" style="padding:14px">Carregando...</div>';
   try{
     BYPASS=await api.bypass_list()||[];
-    if(!BYPASS.length){ $('bypassList').innerHTML='<div class="hint" style="padding:14px">Nenhum bypass disponível ainda.</div>'; $('bpPane').innerHTML=''; return; }
+    if(!BYPASS.length){ $('bypassList').innerHTML='<div class="hint" style="padding:14px">Nenhum bypass ainda.</div>'; $('bpPane').innerHTML=''; const c=$('bpCount'); if(c)c.textContent='0'; return; }
     if(!BYPASS.find(x=>x.appid==BPSEL)) BPSEL=BYPASS[0].appid;
-    $('bypassList').innerHTML=BYPASS.map(bpListItem).join('');
+    renderBypassList();
     selectBypass(BPSEL);
   }catch(e){ $('bypassList').innerHTML='<div class="hint" style="padding:14px">Erro ao carregar.</div>'; }
+}
+function renderBypassList(){
+  const q=(($('bpSearch')||{}).value||'').toLowerCase().trim();
+  const list = q ? BYPASS.filter(g=>(g.name||'').toLowerCase().includes(q)) : BYPASS;
+  const c=$('bpCount'); if(c) c.textContent=list.length;
+  $('bypassList').innerHTML = list.length ? list.map(bpListItem).join('') : '<div class="hint" style="padding:14px">Nenhum resultado.</div>';
 }
 function selectBypass(id){
   BPSEL=id;
