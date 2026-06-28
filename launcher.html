@@ -263,11 +263,12 @@ a{color:inherit;text-decoration:none}
     <!-- REMOVER JOGO (1 jogo só) -->
     <section class="view" id="view-rmgame">
       <div class="section-head"><h3>Remover Jogo</h3><span>Tira a lua de UM jogo só — resolve conflito sem zerar a biblioteca</span></div>
-      <div class="searchbar">
-        <input id="qr" placeholder="Ex: Elden Ring, GTA V, 1245620..." onkeydown="if(event.key==='Enter')doSearchRm()">
+      <div id="rmInstalled"><div class="hint">Procurando os jogos instalados no seu PC...</div></div>
+      <div class="searchbar" style="margin-top:20px">
+        <input id="qr" placeholder="Não achou na lista? Busque pelo nome ou número..." onkeydown="if(event.key==='Enter')doSearchRm()">
         <button class="btn btn-green" onclick="doSearchRm()"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
       </div>
-      <div class="results" id="resultsRm"><div class="hint">Busque o jogo que quer remover.</div></div>
+      <div class="results" id="resultsRm"></div>
     </section>
 
     <!-- BYPASS (crack na pasta — jogos com DRM próprio) -->
@@ -350,6 +351,9 @@ a{color:inherit;text-decoration:none}
 .bp-litem .lst{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
 .bp-litem .lst.ok{color:#00FF41}.bp-litem .lst.no{color:#f87171}.bp-litem .lst.av{color:#8a8a94}
 .bp-detail{flex:1;min-width:0}
+.rm-h{font-size:.82rem;font-weight:800;color:#cfd2dc;margin:2px 2px 14px;display:flex;align-items:center;gap:9px;text-transform:uppercase;letter-spacing:.05em}
+.rm-h i{color:#39ff14;opacity:.8}
+.rm-c{background:#143a22;color:#7CFC9B;font-size:.74rem;padding:2px 10px;border-radius:20px;font-weight:800;border:1px solid #1f5c34}
 .bp-hero{position:relative;height:268px;border-radius:18px;overflow:hidden;background:#111114}
 .bp-hero img{width:100%;height:100%;object-fit:cover}
 .bp-hero-grad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,6,7,.1),rgba(6,6,7,.48) 56%,rgba(6,6,7,.96))}
@@ -440,6 +444,7 @@ function setView(v){
   if(v==='novos') loadNovos();
   if(v==='populares') buildLib();
   if(v==='bypass') loadBypass();
+  if(v==='rmgame') loadRmInstalled();
 }
 document.querySelectorAll('.nav a[data-view]').forEach(a=>a.onclick=()=>setView(a.dataset.view));
 
@@ -543,6 +548,24 @@ async function doAdd(id,btn){
     if(!added.includes(id)){added.push(id);updateBar()}
   } else if(r&&r.locked){ btn.outerHTML=`<button class="gpill lock" onclick="openUpsell('jogo_${id}')"><i class="fa-solid fa-lock"></i> Liberar</button>`; }
   else { btn.innerHTML='<i class="fa-solid fa-plus"></i> Tentar de novo'; btn.disabled=false; btn.classList.add('add'); toast('Falha: '+((r&&r.error)||'?')); }
+}
+async function loadRmInstalled(){
+  const box=$('rmInstalled'); if(!box)return;
+  if(!api || !api.installed_list){ box.innerHTML='<div class="hint">Atualize o OVERISE pra listar os jogos instalados aqui. Por enquanto, use a busca abaixo.</div>'; return; }
+  box.innerHTML='<div class="hint"><i class="fa-solid fa-spinner fa-spin"></i> Procurando os jogos instalados no seu PC...</div>';
+  let r; try{ r=await api.installed_list(); }catch(e){ r=null; }
+  if(!r){ box.innerHTML='<div class="hint">Não consegui ler os jogos instalados.</div>'; return; }
+  let html='';
+  if(r.games && r.games.length){
+    html+=`<div class="rm-h"><i class="fa-solid fa-hard-drive"></i> Instalados no seu PC <span class="rm-c">${r.games.length}</span></div>`;
+    html+='<div class="results">'+r.games.map(g=>gameCard(g.appid,g.name,g.capsule,'remove')).join('')+'</div>';
+  } else if(r.many){
+    html+=`<div class="hint">Você tem ${r.count} luas instaladas — muitas pra listar uma a uma. Use a busca abaixo pra achar o jogo.</div>`;
+  } else {
+    html+='<div class="hint">Nenhuma lua individual instalada aqui no PC.</div>';
+  }
+  if(r.batch) html+='<div class="hint" style="margin-top:12px"><i class="fa-solid fa-circle-info"></i> Além desses, os jogos do seu plano ficam num lote. Pra tirar um do plano, busque pelo nome abaixo.</div>';
+  box.innerHTML=html;
 }
 async function doSearchRm(){
   const q=$('qr').value.trim(); if(!q)return;
