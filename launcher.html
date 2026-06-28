@@ -566,7 +566,14 @@ async function doRemoveOne(id,btn){
 let BYPASS=[], BPSEL=null;
 function bpListItem(g){
   const st = !g.installed?'<span class="lst no">não instalado</span>':(g.applied?'<span class="lst ok">aplicado</span>':'<span class="lst av">disponível</span>');
-  return `<div class="bp-litem ${g.appid==BPSEL?'active':''}" data-id="${g.appid}" onclick="selectBypass(${g.appid})"><img src="${CAP}/${g.appid}/capsule_231x87.jpg" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='${CAP}/${g.appid}/header.jpg'}else{this.style.visibility='hidden'}"><div><div class="nm">${g.name}</div>${st}</div></div>`;
+  const cap = g.capsule || (CAP+'/'+g.appid+'/capsule_231x87.jpg');
+  return `<div class="bp-litem ${g.appid==BPSEL?'active':''}" data-id="${g.appid}" onclick="selectBypass(${g.appid})"><img src="${cap}" data-i="0" data-app="${g.appid}" data-h="${g.header||''}" onerror="bpImgFb(this)"><div><div class="nm">${g.name}</div>${st}</div></div>`;
+}
+function bpImgFb(im){
+  const id=im.dataset.app, h=im.dataset.h;
+  const srcs=[h, CAP+'/'+id+'/library_hero.jpg', CAP+'/'+id+'/header.jpg'].filter(Boolean);
+  let i=parseInt(im.dataset.i||'0');
+  if(i<srcs.length){ im.dataset.i=i+1; im.src=srcs[i]; } else { im.style.visibility='hidden'; }
 }
 async function loadBypass(){
   $('bypassList').innerHTML='<div class="hint" style="padding:14px">Carregando...</div>';
@@ -602,7 +609,7 @@ function selectBypass(id){
   }
   const pathV = inst ? `<span class="v" title="${g.path||''}">${g.path||''}</span>` : '<span class="v">—</span>';
   $('bpPane').innerHTML=`
-    <div class="bp-hero"><img src="${CAP}/${id}/library_hero.jpg" onerror="this.onerror=null;this.src='${CAP}/${id}/header.jpg'"><div class="bp-hero-grad"></div><div class="bp-hero-tt"><h1>${g.name}</h1><span class="bp-status ${inst?'ok':'no'}"><span class="dot"></span> ${inst?'Auto-detectado':'Jogo não instalado'}</span></div></div>
+    <div class="bp-hero"><img src="${CAP}/${id}/library_hero.jpg" onerror="this.onerror=null;this.src='${g.header||(CAP+'/'+id+'/header.jpg')}'"><div class="bp-hero-grad"></div><div class="bp-hero-tt"><h1>${g.name}</h1><span class="bp-status ${inst?'ok':'no'}"><span class="dot"></span> ${inst?'Auto-detectado':'Jogo não instalado'}</span></div></div>
     <div class="bp-bar">${primary}<div class="bp-meta"><div class="bp-col"><span class="l">Abre pelo</span><span class="v">${inst?launch:'—'}</span></div><div class="bp-col grow"><span class="l">Local</span>${pathV}</div></div><div class="bp-icons">${icons}</div></div>
     <div class="bp-why"><div class="bp-why-h"><i class="fa-solid fa-circle-exclamation"></i> Importante — abra esse jogo SÓ pelo nosso launcher</div>
       <div class="bp-why-b">Esse jogo tem uma <b>proteção própria</b> (além da Steam). O bypass troca os arquivos pra ele rodar liberado — mas <span class="st">se você abrir pela Steam</span>, ela usa os arquivos do jeito original e o bypass <b>não funciona</b> (dá erro ou pede pra comprar).<br><br>Por isso, <span class="ov">abra sempre pelo botão "Iniciar jogo"</span>, que executa direto pelo <b>${launch}</b> — sem passar pela Steam.</div>
