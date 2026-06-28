@@ -551,7 +551,7 @@ async function doRemoveOne(id,btn){
 let BYPASS=[], BPSEL=null;
 function bpListItem(g){
   const st = !g.installed?'<span class="lst no">não instalado</span>':(g.applied?'<span class="lst ok">aplicado</span>':'<span class="lst av">disponível</span>');
-  return `<div class="bp-litem ${g.appid==BPSEL?'active':''}" data-id="${g.appid}" onclick="selectBypass(${g.appid})"><img src="${CAP}/${g.appid}/capsule_231x87.jpg" onerror="this.style.visibility='hidden'"><div><div class="nm">${g.name}</div>${st}</div></div>`;
+  return `<div class="bp-litem ${g.appid==BPSEL?'active':''}" data-id="${g.appid}" onclick="selectBypass(${g.appid})"><img src="${CAP}/${g.appid}/capsule_231x87.jpg" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='${CAP}/${g.appid}/header.jpg'}else{this.style.visibility='hidden'}"><div><div class="nm">${g.name}</div>${st}</div></div>`;
 }
 async function loadBypass(){
   $('bypassList').innerHTML='<div class="hint" style="padding:14px">Carregando...</div>';
