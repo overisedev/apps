@@ -714,14 +714,30 @@ window.onPy=(msg)=>{
 // ── VERSÃO / AUTO-UPDATE ──
 function applyVersion(s){
   s=s||{};
-  const bt=$('buildTag');
-  if(bt){
-    const v = s.version || s.build;
-    if(v){ bt.textContent = 'versão '+v; bt.classList.toggle('upd', !!s.update); bt.style.display='block'; }
-    else bt.style.display='none';   // exe antigo (sem versão), esconde
-  }
-  const ban=$('updateBanner');
-  if(ban) ban.style.display = s.update ? 'flex' : 'none';
+  const bt=$('buildTag'), ban=$('updateBanner');
+  const L=ban&&ban.querySelector('.upd-l'), B=ban&&ban.querySelector('.upd-btn');
+  if(s.build){                                  // exe NOVO (tem auto-update, 20260628+)
+    if(bt){ bt.textContent='versão '+(s.version||s.build); bt.classList.toggle('upd', !!s.update); bt.style.display='block'; }
+    if(ban){
+      if(s.update){
+        if(L) L.innerHTML='<b>Nova versão disponível.</b> Atualize com 1 clique e o OVERISE reinicia sozinho.';
+        if(B){ B.innerHTML='<i class="fa-solid fa-download"></i> Atualizar agora'; B.onclick=doSelfUpdate; }
+        ban.style.display='flex';
+      } else ban.style.display='none';
+    }
+  } else if(s.plano){                           // exe ANTIGO (não tem o código de auto-update)
+    if(bt) bt.style.display='none';
+    if(ban){
+      if(L) L.innerHTML='<b>Tem uma versão nova do OVERISE.</b> Baixe a atualização pra usar as novidades. Depois dessa vez, as próximas são automáticas.';
+      if(B){ B.innerHTML='<i class="fa-solid fa-download"></i> Baixar atualização'; B.onclick=openUpdatePage; }
+      ban.style.display='flex';
+    }
+  } else if(ban){ ban.style.display='none'; }   // status falhou: não mostra nada
+}
+// Exe antigo não se auto-instala: baixa o app JÁ ATUALIZADO (zip completo) direto do release.
+const UPDATE_ZIP_URL='https://github.com/overisedev/apps/releases/download/launcher/OVERISE.zip';
+function openUpdatePage(){
+  if(api&&api.open_url) api.open_url(UPDATE_ZIP_URL); else toast('Baixe a nova versão em: '+UPDATE_ZIP_URL);
 }
 async function doSelfUpdate(){
   if(!api||!api.self_update){ toast('Baixe a versão nova pela área de membros.'); return; }
