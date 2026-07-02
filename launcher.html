@@ -851,9 +851,10 @@ function gtaVIJoke(){
 
 // Python -> JS
 window.onPy=(msg)=>{
-  if(msg.event==='progress'){overlay(true,msg.text);$('ovBar').style.width=(msg.pct*100)+'%';}
+  if(msg.event==='progress'){overlay(true,msg.text);$('ovBar').style.width=(msg.pct*100)+'%';clearTimeout(window._doneWD);if(msg.pct>=0.9){window._doneWD=setTimeout(function(){overlay(false);$('ovAv').style.display='none';if(typeof renderUnlock==='function')renderUnlock();var sm=$('steamModal');if(sm)sm.classList.add('show');},35000);}}
   else if(msg.event==='av'){$('ovAv').style.display=msg.show?'flex':'none';}
   else if(msg.event==='done'){
+    clearTimeout(window._doneWD);
     setTimeout(()=>overlay(false),700); $('ovAv').style.display='none';
     if(msg.ok){
       if(msg.kind==='unlock'){renderUnlock();$('steamModal').classList.add('show');}
