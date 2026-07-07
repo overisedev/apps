@@ -945,5 +945,61 @@ async function boot(){
 applyStatic();
 document.querySelectorAll('.lang-opt').forEach(o=>o.classList.toggle('on', o.dataset.l===LANG));
 window.addEventListener('pywebviewready', ()=>{ api=window.pywebview.api; boot(); });
-</script></body></html>
+</script>
+<!-- ===== TUTORIAL APP (OVERISE) ===== -->
+<style>
+.tut-dim{position:fixed;inset:0;background:rgba(4,7,11,.82);z-index:99500;opacity:0;transition:.25s;pointer-events:none}
+.tut-on .tut-dim{opacity:1;pointer-events:auto}
+.tut-hole{position:fixed;border-radius:14px;box-shadow:0 0 0 2px #2fb46a,0 0 22px rgba(47,180,106,.30),0 0 0 9999px rgba(4,7,11,.82);z-index:99510;transition:.32s cubic-bezier(.2,.9,.3,1);pointer-events:none;opacity:0}
+.tut-on .tut-hole{opacity:1}
+.tut-tip{position:fixed;width:min(390px,92vw);background:#141a23;border:1px solid #2c3444;border-radius:16px;padding:22px;z-index:99520;box-shadow:0 24px 70px rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:.32s cubic-bezier(.2,.9,.3,1);font-family:-apple-system,'Segoe UI',Roboto,sans-serif}
+.tut-on .tut-tip{opacity:1;pointer-events:auto}
+.tut-tip h4{font-size:1.1rem;color:#fff;margin-bottom:9px;display:flex;align-items:center;gap:9px;font-weight:800}
+.tut-tip h4 .tg{width:9px;height:9px;border-radius:50%;background:#2fb46a;flex:none}
+.tut-tip p{color:#9aa6b4;font-size:.9rem;line-height:1.6}.tut-tip p b{color:#e8edf4;font-weight:600}
+.tut-dots{display:flex;gap:5px;margin:15px 0}.tut-dots i{width:15px;height:5px;border-radius:3px;background:#2c3444;transition:.2s}.tut-dots i.on{background:#2fb46a;width:23px}
+.tut-row{display:flex;justify-content:space-between;align-items:center}.tut-count{color:#8a97a8;font-size:.82rem}
+.tut-btns{display:flex;gap:8px}.tut-b{padding:9px 16px;border-radius:9px;font-size:.85rem;font-weight:700;cursor:pointer;border:none;font-family:inherit}
+.tut-prev{background:#1b2330;color:#8a97a8;border:1px solid #242e3d}.tut-next{background:#2fb46a;color:#04130a;font-weight:800}
+.tut-skip{position:fixed;top:16px;right:18px;z-index:99520;background:#f2f2f4;color:#111;font-weight:700;padding:10px 18px;border-radius:11px;font-size:.85rem;cursor:pointer;opacity:0;transition:.25s;pointer-events:none;font-family:-apple-system,'Segoe UI',Roboto,sans-serif}
+.tut-on .tut-skip{opacity:1;pointer-events:auto}
+</style>
+<div class="tut-dim"></div><div class="tut-hole" id="tutHole"></div>
+<div class="tut-skip" id="tutSkip">Pular tutorial</div>
+<div class="tut-tip" id="tutTip"><h4 id="tutT"></h4><p id="tutX"></p><div class="tut-dots" id="tutD"></div><div class="tut-row"><span class="tut-count" id="tutC"></span><div class="tut-btns"><button class="tut-b tut-prev" id="tutP">Anterior</button><button class="tut-b tut-next" id="tutN">Próximo</button></div></div></div>
+<script>
+(function(){
+ var STEPS=[
+  {sel:'.hero',t:'Seu plano',h:'Aqui é o seu plano e quantos jogos você tem liberado.'},
+  {sel:'#unlockGrid',t:'Desbloquear (comece aqui!)',h:'O botão principal: <b>1 clique</b> instala toda a sua biblioteca e reinicia a Steam sozinho. É por onde você começa.'},
+  {sel:'[data-view="add"]',t:'Adicionar um jogo',h:'Quer um jogo específico que não veio no pacote? Adicione ele por <b>nome</b> aqui.'},
+  {sel:'[data-view="bypass"]',t:'Bypass',h:'Jogos com <b>proteção própria</b> (GTA V, RDR2) rodam pela aba Bypass.'},
+  {sel:'[data-view="novos"]',t:'Novos e Em Alta',h:'Veja os <b>lançamentos</b> e os jogos mais populares do momento.'},
+  {sel:'#unlockGrid',t:'Pronto pra jogar!',h:'Depois de <b>Desbloquear</b>, abra a Steam e seus jogos estarão lá. Bom jogo!'},
+ ];
+ var KEY='overise_tut_app_v1',i=0,$=function(id){return document.getElementById(id)};
+ var hole=$('tutHole'),tip=$('tutTip'),cur=null;
+ function place(el){var r=el.getBoundingClientRect(),p=8;hole.style.left=(r.left-p)+'px';hole.style.top=(r.top-p)+'px';hole.style.width=(r.width+p*2)+'px';hole.style.height=(r.height+p*2)+'px';
+  var th=tip.offsetHeight||210,tw=tip.offsetWidth||390,top=r.bottom+14,left=Math.min(Math.max(12,r.left),innerWidth-tw-12);if(top+th>innerHeight-12)top=Math.max(12,r.top-th-14);tip.style.top=top+'px';tip.style.left=left+'px';}
+ function show(n){i=n;var s=STEPS[n],el=document.querySelector(s.sel);if(!el)return next();cur=el;
+  document.documentElement.style.overflow='';document.body.style.overflow='';el.scrollIntoView({block:'center',behavior:'smooth'});
+  $('tutT').innerHTML='<span class="tg"></span>'+s.t;$('tutX').innerHTML=s.h;$('tutC').textContent=(n+1)+' de '+STEPS.length;
+  $('tutD').innerHTML=STEPS.map(function(_,k){return '<i class="'+(k===n?'on':'')+'"></i>'}).join('');
+  $('tutP').style.visibility=n===0?'hidden':'visible';$('tutN').textContent=n===STEPS.length-1?'Entendi!':'Próximo';
+  setTimeout(function(){place(el);document.documentElement.style.overflow='hidden';document.body.style.overflow='hidden';},460);}
+ function next(){i<STEPS.length-1?show(i+1):end()}function prev(){i>0&&show(i-1)}
+ function end(){document.documentElement.classList.remove('tut-on');document.documentElement.style.overflow='';document.body.style.overflow='';try{localStorage.setItem(KEY,'1')}catch(e){}}
+ $('tutN').onclick=next;$('tutP').onclick=prev;$('tutSkip').onclick=end;addEventListener('resize',function(){if(cur)place(cur)});
+ var seen=false;try{seen=localStorage.getItem(KEY)==='1'}catch(e){}
+ var force=location.search.indexOf('tut')>=0;
+ function anyModal(){var ids=['wcModal','dnModal','steamModal','upModal','rmModal'];for(var j=0;j<ids.length;j++){var m=$(ids[j]);if(m&&m.classList.contains('show'))return true;}return false;}
+ function tryStart(){var sh=$('shell');
+   if(sh&&getComputedStyle(sh).display!=='none'&&!anyModal()){
+     if(force||!seen){document.documentElement.classList.add('tut-on');setTimeout(function(){show(0)},600);}
+     return;}
+   setTimeout(tryStart,400);}
+ tryStart();
+})();
+</script>
+</body></html>
 <!-- rebuild acbf4d -->
