@@ -76,6 +76,11 @@ a{color:inherit;text-decoration:none}
 .gpill.lock:hover{background:rgba(255,255,255,.14)}
 .gpill.ok{background:var(--neon);color:#04130a;cursor:default}
 .gpill.warn{background:rgba(245,180,60,.16);border-color:rgba(245,180,60,.5);color:#f5b43c;cursor:help}
+.gpill.addwarn{background:rgba(245,180,60,.14);border-color:rgba(245,180,60,.45);color:#f5b43c}
+.gpill.addwarn:hover{background:rgba(245,180,60,.24)}
+.gtag{position:absolute;top:10px;left:10px;z-index:2;background:rgba(245,180,60,.92);color:#1a1205;font-size:.62rem;font-weight:800;padding:3px 9px;border-radius:50px;letter-spacing:.3px;text-transform:uppercase;box-shadow:0 3px 10px rgba(0,0,0,.4)}
+.gcard.dim img{opacity:.5;filter:saturate(.7)}
+.gcard.dim{border-color:rgba(245,180,60,.28)}
 .hint{grid-column:1/-1;color:var(--muted);text-align:center;padding:40px;font-size:.88rem}
 .modal{position:fixed;inset:0;background:rgba(4,4,6,.82);backdrop-filter:blur(6px);display:none;place-items:center;z-index:400;padding:20px}
 .modal.show{display:grid}
@@ -461,7 +466,7 @@ const I18N = {
   "stM.title":"Catálogo desbloqueado! 🎮","stM.body":"Pronto! Agora <b>abra a STEAM</b> normalmente para acessar todos os seus jogos.","stM.ok":"Entendido",
   "wcM.title":"Novidades da atualização","wcM.cta":"Entrar no OVERISE",
   "dnM.title":"Jogos com Denuvo","dnM.lead":"Alguns jogos usam o <b>Denuvo</b>, uma proteção contra cópia. Esses precisam de uma <b>ativação especial</b>, feita pela nossa equipe lá no Discord. Não dá pra liberar sozinho aqui pelo launcher.","dnM.s1":"<b>Entre no nosso Discord</b>","dnM.s2":"<b>Pegue seu cargo</b> no canal de atribuir cargo, validando seu acesso","dnM.s3":"Depois vá no <b>canal de ativação Denuvo</b> e veja o <b>tutorial</b> de como ativar o Denuvo 🎮","dnM.note":"A maioria dos jogos <b>não</b> tem Denuvo e libera direto por aqui. Isso vale só pros títulos protegidos.","dnM.cta":"Entrar no Discord","dnM.skip":"Agora não, obrigado",
-  "card.added":"Adicionado","card.unlock":"Liberar","card.remove":"Remover","card.add":"Adicionar","card.library":"Biblioteca","card.noUnlock":"Sem desbloqueio","card.retry":"Tentar de novo","card.adding":"Adicionando","card.removing":"Removendo","card.removed":"Removido","card.wasnt":"Não estava",
+  "card.added":"Adicionado","card.unlock":"Liberar","card.remove":"Remover","card.add":"Adicionar","card.library":"Biblioteca","card.noUnlock":"Sem desbloqueio","card.noUnlockTag":"sem desbloqueio","card.retry":"Tentar de novo","card.adding":"Adicionando","card.removing":"Removendo","card.removed":"Removido","card.wasnt":"Não estava",
   "upd.newAvail":"<b>Nova versão disponível.</b> Atualize com 1 clique e o OVERISE reinicia sozinho.","upd.now":"Atualizar agora","upd.oldAvail":"<b>Tem uma versão nova do OVERISE.</b> Baixe a atualização pra usar as novidades. Depois dessa vez, as próximas são automáticas.","upd.download":"Baixar atualização","upd.version":"versão","upd.preparing":"Preparando atualização...","upd.manualHint":"Baixe a versão nova pela área de membros.","upd.latest":"✓ Você está na versão mais recente","upd.available":"Atualização disponível! Clique em \"Atualizar agora\".",
   "t.steamRestart":"✓ Steam reiniciada!","t.removed":"✓ Jogos removidos!","t.connFixed":"✓ Conexão corrigida!","t.bypassApplied":"✓ Bypass aplicado! Agora clique em \"Iniciar jogo\".","t.error":"Erro: ","t.fail":"Falha: ","t.gameRemoved":"Jogo removido","t.libOnly":"Esse jogo ainda não tem desbloqueio disponível (é muito novo ou não lançou). Ele entra na sua biblioteca, mas aparece 0 B e não instala de verdade por enquanto.","t.noResults":"Nenhum resultado. Tente outro nome ou o número do jogo.","t.noInstalled":"Nenhum jogo individual instalado aqui no PC.","rm.batchNote":"Além desses, os jogos do seu plano não aparecem aqui um por um. Pra tirar um, busque pelo nome abaixo.","rm.oldExe":"Atualize o OVERISE pra listar os jogos instalados aqui. Por enquanto, use a busca abaixo.","rm.cantRead":"Não consegui ler os jogos instalados.",
   "unlock.title":"Desbloquear {n} jogos","unlock.kick":"Seu plano","unlock.sub":"1 clique instala tudo e reinicia a Steam automaticamente.","unlock.btn":"Desbloquear agora","bar.restart":"Reinicie a Steam para aplicar.","added.count":"{n} jogo(s) adicionado(s)"
@@ -485,7 +490,7 @@ const I18N = {
   "stM.title":"Catalog unlocked! 🎮","stM.body":"Done! Now <b>open STEAM</b> normally to access all your games.","stM.ok":"Got it",
   "wcM.title":"What's new","wcM.cta":"Enter OVERISE",
   "dnM.title":"Denuvo Games","dnM.lead":"Some games use <b>Denuvo</b>, a copy protection. Those need a <b>special activation</b>, done by our team on Discord. You can't unlock it by yourself here in the launcher.","dnM.s1":"<b>Join our Discord</b>","dnM.s2":"<b>Get your role</b> in the role-assign channel, validating your access","dnM.s3":"Then go to the <b>Denuvo activation channel</b> and check the <b>tutorial</b> on how to activate Denuvo 🎮","dnM.note":"Most games <b>don't</b> have Denuvo and unlock right here. This only applies to protected titles.","dnM.cta":"Join Discord","dnM.skip":"No thanks, not now",
-  "card.added":"Added","card.unlock":"Unlock","card.remove":"Remove","card.add":"Add","card.library":"Library","card.noUnlock":"No unlock yet","card.retry":"Try again","card.adding":"Adding","card.removing":"Removing","card.removed":"Removed","card.wasnt":"Wasn't there",
+  "card.added":"Added","card.unlock":"Unlock","card.remove":"Remove","card.add":"Add","card.library":"Library","card.noUnlock":"No unlock yet","card.noUnlockTag":"no unlock","card.retry":"Try again","card.adding":"Adding","card.removing":"Removing","card.removed":"Removed","card.wasnt":"Wasn't there",
   "upd.newAvail":"<b>New version available.</b> Update with 1 click and OVERISE restarts by itself.","upd.now":"Update now","upd.oldAvail":"<b>There's a new version of OVERISE.</b> Download the update to get the new features. After this one, the next ones are automatic.","upd.download":"Download update","upd.version":"version","upd.preparing":"Preparing update...","upd.manualHint":"Download the new version from the members area.","upd.latest":"✓ You're on the latest version","upd.available":"Update available! Click \"Update now\".",
   "t.steamRestart":"✓ Steam restarted!","t.removed":"✓ Games removed!","t.connFixed":"✓ Connection fixed!","t.bypassApplied":"✓ Bypass applied! Now click \"Launch game\".","t.error":"Error: ","t.fail":"Failed: ","t.gameRemoved":"Game removed","t.libOnly":"This game has no unlock available yet (it's too new or unreleased). It shows up in your library, but appears as 0 B and won't actually install for now.","t.noResults":"No results. Try another name or the game number.","t.noInstalled":"No individual game installed here on the PC.","rm.batchNote":"Besides these, your plan's games don't show up here one by one. To remove one, search by name below.","rm.oldExe":"Update OVERISE to list installed games here. For now, use the search below.","rm.cantRead":"Couldn't read the installed games.",
   "unlock.title":"Unlock {n} games","unlock.kick":"Your plan","unlock.sub":"1 click installs everything and restarts Steam automatically.","unlock.btn":"Unlock now","bar.restart":"Restart Steam to apply.","added.count":"{n} game(s) added"
@@ -509,7 +514,7 @@ const I18N = {
   "stM.title":"¡Catálogo desbloqueado! 🎮","stM.body":"¡Listo! Ahora <b>abre STEAM</b> normalmente para acceder a todos tus juegos.","stM.ok":"Entendido",
   "wcM.title":"Novedades","wcM.cta":"Entrar en OVERISE",
   "dnM.title":"Juegos con Denuvo","dnM.lead":"Algunos juegos usan <b>Denuvo</b>, una protección anticopia. Esos necesitan una <b>activación especial</b>, hecha por nuestro equipo en Discord. No se puede desbloquear solo aquí en el launcher.","dnM.s1":"<b>Entra a nuestro Discord</b>","dnM.s2":"<b>Obtén tu rol</b> en el canal de asignar rol, validando tu acceso","dnM.s3":"Después ve al <b>canal de activación Denuvo</b> y mira el <b>tutorial</b> de cómo activar Denuvo 🎮","dnM.note":"La mayoría de los juegos <b>no</b> tiene Denuvo y se desbloquea aquí directo. Esto solo aplica a los títulos protegidos.","dnM.cta":"Entrar a Discord","dnM.skip":"Ahora no, gracias",
-  "card.added":"Agregado","card.unlock":"Desbloquear","card.remove":"Quitar","card.add":"Agregar","card.library":"Biblioteca","card.noUnlock":"Sin desbloqueio","card.retry":"Intentar de nuevo","card.adding":"Agregando","card.removing":"Quitando","card.removed":"Quitado","card.wasnt":"No estaba",
+  "card.added":"Agregado","card.unlock":"Desbloquear","card.remove":"Quitar","card.add":"Agregar","card.library":"Biblioteca","card.noUnlock":"Sin desbloqueio","card.noUnlockTag":"sin desbloqueo","card.retry":"Intentar de nuevo","card.adding":"Agregando","card.removing":"Quitando","card.removed":"Quitado","card.wasnt":"No estaba",
   "upd.newAvail":"<b>Nueva versión disponible.</b> Actualiza con 1 clic y OVERISE se reinicia solo.","upd.now":"Actualizar ahora","upd.oldAvail":"<b>Hay una versión nueva de OVERISE.</b> Descarga la actualización para usar las novedades. Después de esta, las próximas son automáticas.","upd.download":"Descargar actualización","upd.version":"versión","upd.preparing":"Preparando actualización...","upd.manualHint":"Descarga la versión nueva desde el área de miembros.","upd.latest":"✓ Estás en la versión más reciente","upd.available":"¡Actualización disponible! Haz clic en \"Actualizar ahora\".",
   "t.steamRestart":"✓ ¡Steam reiniciada!","t.removed":"✓ ¡Juegos quitados!","t.connFixed":"✓ ¡Conexión corregida!","t.bypassApplied":"✓ ¡Bypass aplicado! Ahora haz clic en \"Iniciar juego\".","t.error":"Error: ","t.fail":"Falló: ","t.gameRemoved":"Juego quitado","t.libOnly":"Este juego aún no tiene desbloqueo disponible (es muy nuevo o no ha salido). Aparece en tu biblioteca, pero se muestra como 0 B y no se instala de verdad por ahora.","t.noResults":"Sin resultados. Prueba otro nombre o el número del juego.","t.noInstalled":"Ningún juego individual instalado aquí en el PC.","rm.batchNote":"Además de estos, los juegos de tu plan no aparecen aquí uno por uno. Para quitar uno, busca por nombre abajo.","rm.oldExe":"Actualiza OVERISE para listar los juegos instalados aquí. Por ahora, usa la búsqueda de abajo.","rm.cantRead":"No pude leer los juegos instalados.",
   "unlock.title":"Desbloquear {n} juegos","unlock.kick":"Tu plan","unlock.sub":"1 clic instala todo y reinicia Steam automáticamente.","unlock.btn":"Desbloquear ahora","bar.restart":"Reinicia Steam para aplicar.","added.count":"{n} juego(s) agregado(s)"
@@ -669,16 +674,16 @@ async function doSearch(){
   const [items,cur]=await Promise.all([ api.search(q), getCuradoria() ]);
   const hits=(cur||[]).filter(e=>(e.keys||[]).some(k=>{k=(''+k).toLowerCase();return k.includes(ql)||ql.includes(k);}));
   const seen=new Set(), merged=[];
-  hits.forEach(e=>{ if(e.appid&&!seen.has(e.appid)){ seen.add(e.appid); merged.push({id:e.appid,name:e.name,img:e.img}); } });
+  hits.forEach(e=>{ if(e.appid&&!seen.has(e.appid)){ seen.add(e.appid); merged.push({id:e.appid,name:e.name,img:e.img,unlock:true}); } });
   (items||[]).forEach(it=>{ if(!seen.has(it.id)){ seen.add(it.id); merged.push(it); } });
   if(!merged.length){lastResults=[];$('results').innerHTML=`<div class="hint">${t('t.noResults')}</div>`;return}
   lastResults=merged;
-  $('results').innerHTML=merged.map(it=>row(it.id,it.name,it.img)).join('');
+  $('results').innerHTML=merged.map(it=>row(it.id,it.name,it.img,it.unlock)).join('');
 }
 // redesenha os cards da busca com o estado ATUAL de `added` (ex: depois de remover, voltam pra "Adicionar")
 function refreshAddResults(){
   const box=$('results'); if(!box || !lastResults.length) return;
-  box.innerHTML=lastResults.map(it=>row(it.id,it.name,it.img)).join('');
+  box.innerHTML=lastResults.map(it=>row(it.id,it.name,it.img,it.unlock)).join('');
 }
 function canAdd(id){ return PLANO_ALL || (PLANO_SET && PLANO_SET.has(id)); }
 function coverErr(im){
@@ -693,22 +698,25 @@ function coverErr(im){
   }
   im.style.display='none'; im.nextElementSibling.style.display='grid';
 }
-function gameCard(id,name,img,state){
+function gameCard(id,name,img,state,unlock){
   const srcs=[`${CAP}/${id}/capsule_616x353.jpg`,`${CAP}/${id}/header.jpg`];
   if(img){ const u=img.split('?')[0]; const b=u.substring(0,u.lastIndexOf('/'));
     if(b.includes('/apps/')) srcs.push(b+'/capsule_616x353.jpg', b+'/header.jpg');
     if(!u.includes('capsule_231x87')) srcs.push(img); }
   const data=encodeURIComponent(JSON.stringify(srcs));
+  const noUnlock = (state==='add' && unlock===false);
   let pill;
   if(state==='added') pill=`<button class="gpill ok" disabled><i class="fa-solid fa-check"></i> ${t('card.added')}</button>`;
   else if(state==='locked') pill=`<button class="gpill lock" onclick="openUpsell('jogo_${id}')"><i class="fa-solid fa-lock"></i> ${t('card.unlock')}</button>`;
   else if(state==='remove') pill=`<button class="gpill" style="background:#f87171;color:#1a0606;font-weight:800" onclick="doRemoveOne(${id},this)"><i class="fa-solid fa-trash-can"></i> ${t('card.remove')}</button>`;
+  else if(noUnlock) pill=`<button class="gpill warn" disabled title="${t('t.libOnly')}"><i class="fa-solid fa-circle-info"></i> ${t('card.noUnlock')}</button>`;
   else pill=`<button class="gpill add" onclick="doAdd(${id},this)"><i class="fa-solid fa-plus"></i> ${t('card.add')}</button>`;
-  return `<div class="gcard" id="row-${id}"><img loading="lazy" data-id="${id}" data-s="${data}" data-i="0" src="${srcs[0]}" onerror="coverErr(this)"><div class="ph"><i class="fa-solid fa-gamepad"></i></div><div class="grad"></div><div class="info"><div class="nm">${name}</div>${pill}</div></div>`;
+  const tag = noUnlock?`<div class="gtag" title="${t('t.libOnly')}"><i class="fa-solid fa-circle-info"></i> ${t('card.noUnlockTag')}</div>`:'';
+  return `<div class="gcard${noUnlock?' dim':''}" id="row-${id}">${tag}<img loading="lazy" data-id="${id}" data-s="${data}" data-i="0" src="${srcs[0]}" onerror="coverErr(this)"><div class="ph"><i class="fa-solid fa-gamepad"></i></div><div class="grad"></div><div class="info"><div class="nm">${name}</div>${pill}</div></div>`;
 }
-function row(id,name,img){
+function row(id,name,img,unlock){
   const state = added.includes(id) ? 'added' : (canAdd(id) ? 'add' : 'locked');
-  return gameCard(id,name,img,state);
+  return gameCard(id,name,img,state,unlock);
 }
 async function doAdd(id,btn){
   btn.innerHTML=`<i class="fa-solid fa-spinner fa-spin"></i> ${t('card.adding')}`; btn.disabled=true; btn.classList.remove('add');
