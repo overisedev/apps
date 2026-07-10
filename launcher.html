@@ -238,7 +238,7 @@ a{color:inherit;text-decoration:none}
       <div class="upsell" id="upsellBanner" style="display:none">
         <div class="up-ic"><i class="fa-solid fa-crown"></i></div>
         <div class="up-txt"><b id="upTitle">Quer mais jogos?</b><span id="upSub">Faça upgrade e libere tudo.</span></div>
-        <button class="up-btn" onclick="api.checkout('banner_dash')" data-i18n="upsell.btn">Fazer upgrade →</button>
+        <button class="up-btn" onclick="upsellGo()" data-i18n="upsell.btn">Fazer upgrade →</button>
       </div>
       <div class="section-head"><h3 data-i18n="dash.unlockHead">Desbloquear catálogo</h3><span data-i18n="dash.unlockSub">1 clique instala tudo e reinicia a Steam</span></div>
       <div class="unlock-grid" id="unlockGrid"></div>
@@ -573,7 +573,7 @@ function applyAccountUI(){
   const cn=$('counter'); if(cn) cn.textContent=info.count;
   const _lim=(PLANO!=='vitalicio');
   const ub=$('upsellBanner'); if(ub) ub.style.display=_lim?'flex':'none';
-  if(_lim){ const a=$('upTitle'),b=$('upSub'); if(a)a.textContent=t('up.youHave').replace('{n}',info.count); if(b)b.textContent=t('up.upgradeSub'); }
+  if(_lim){ const u=UPSELL[PLANO]||{}; const a=$('upTitle'),b=$('upSub'); if(a)a.textContent='Vire '+(u.to||'')+' por só R$ '+(u.price||''); if(b)b.textContent=(PLANO==='avancado'?'Catálogo completo, 40.000 jogos. Metade do preço.':'20.000 jogos liberados. 50% de desconto pra você.'); }
   const s=window.LAST_STATUS||{}; const pill=$('steamPill');
   if(pill){ if(s.steam){pill.className='pill';pill.innerHTML='<span class="dot"></span> '+t('steam.ok');} else if(s.steam===false){pill.className='pill off';pill.innerHTML='<span class="dot"></span> '+t('steam.no');} }
 }
@@ -589,6 +589,11 @@ const PLANO_INFO={
   avancado: {label:'Avançado',  count:'20.000'},
   vitalicio:{label:'Vitalício', count:'40.000'},
 };
+const UPSELL={
+  basico:  {url:"https://ggcheckout.app/checkout/v5/cIZ5NAfE3oH9Kn0MNiUy", to:"Avançado",  price:"9,98"},
+  avancado:{url:"https://ggcheckout.app/checkout/v5/knU3eT3nooknPa8CT1Yp", to:"Vitalício", price:"24,98"},
+};
+function upsellGo(){ const u=UPSELL[PLANO]; if(u&&api&&api.open_url){ var q=(u.url.indexOf("?")<0?"?":"&")+"utm_source=app&utm_medium=launcher&utm_campaign=upsell&utm_content="+PLANO; api.open_url(u.url+q); } }
 const OV={3768760:"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3768760/dbe86ebd2edb4c77d113e9e2feefeb90189fabc9/header.jpg",3357650:"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3357650/e32e168b25ed68a0cf6264c220c07e96c2abfb56/header.jpg",2483190:"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2483190/27abb1584a118d50d0e3950fd48d557c51981db7/header.jpg",3764200:"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3764200/ce5437442768e38eb575f205ab9397d0264017b0/header.jpg",2215200:"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2215200/a07a9a6c0c9c1225f5b260b4f29fe40e6f099f6b/header.jpg"};
 const FEATURED=[[3768760,"007 First Light"],[3357650,"PRAGMATA"],[2483190,"Forza Horizon 6"],[3764200,"Resident Evil Requiem"],[2215200,"LEGO Batman"],[1174180,"Red Dead Redemption 2"],[271590,"Grand Theft Auto V"],[1245620,"Elden Ring"],[2358720,"Black Myth: Wukong"],[1086940,"Baldur's Gate 3"],[1091500,"Cyberpunk 2077"],[990080,"Hogwarts Legacy"],[1593500,"God of War"],[2050650,"Resident Evil 4"],[553850,"HELLDIVERS 2"],[2246340,"Monster Hunter Wilds"],[1623730,"Palworld"],[1817070,"Marvel's Spider-Man Remastered"]];
 const CAP="https://cdn.cloudflare.steamstatic.com/steam/apps";
@@ -597,12 +602,12 @@ function $(id){return document.getElementById(id)}
 function toast(m,ms){const t=$('toast');$('toastMsg').textContent=m;t.classList.add('show');clearTimeout(window._tt);window._tt=setTimeout(()=>t.classList.remove('show'),ms||3000)}
 function overlay(on,txt){$('overlay').classList.toggle('show',on);if(txt)$('ovText').textContent=txt}
 function openUpsell(content){ $('upContent').value=content; $('upModal').classList.add('show'); }
-function upGo(){ api.checkout($('upContent').value||'upsell'); $('upModal').classList.remove('show'); }
+function upGo(){ upsellGo(); $('upModal').classList.remove('show'); }
 function upClose(){ $('upModal').classList.remove('show'); }
 function doRemove(){ $('rmModal').classList.add('show'); }
 function rmClose(){ $('rmModal').classList.remove('show'); }
 async function rmGo(){ rmClose(); overlay(true,t('overlay.restoring')); $('ovBar').style.width='10%'; await api.remove(); }
-function goldBtn(content){return `<button class="cbtn gold" onclick="api.checkout('${content}')">🔒 Liberar</button>`}
+function goldBtn(content){return `<button class="cbtn gold" onclick="upsellGo()">🔒 Liberar</button>`}
 
 function setView(v){
   document.querySelectorAll('.view').forEach(s=>s.classList.remove('active'));
@@ -978,4 +983,60 @@ async function boot(){
 applyStatic();
 document.querySelectorAll('.lang-opt').forEach(o=>o.classList.toggle('on', o.dataset.l===LANG));
 window.addEventListener('pywebviewready', ()=>{ api=window.pywebview.api; boot(); });
-</script></body></html>
+</script>
+<!-- ===== TUTORIAL APP (OVERISE) ===== -->
+<style>
+.tut-dim{position:fixed;inset:0;background:rgba(4,7,11,.82);z-index:99500;opacity:0;transition:.25s;pointer-events:none}
+.tut-on .tut-dim{opacity:1;pointer-events:auto}
+.tut-hole{position:fixed;border-radius:14px;box-shadow:0 0 0 2px #2fb46a,0 0 22px rgba(47,180,106,.30),0 0 0 9999px rgba(4,7,11,.82);z-index:99510;transition:.32s cubic-bezier(.2,.9,.3,1);pointer-events:none;opacity:0}
+.tut-on .tut-hole{opacity:1}
+.tut-tip{position:fixed;width:min(390px,92vw);background:#141a23;border:1px solid #2c3444;border-radius:16px;padding:22px;z-index:99520;box-shadow:0 24px 70px rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:.32s cubic-bezier(.2,.9,.3,1);font-family:-apple-system,'Segoe UI',Roboto,sans-serif}
+.tut-on .tut-tip{opacity:1;pointer-events:auto}
+.tut-tip h4{font-size:1.1rem;color:#fff;margin-bottom:9px;display:flex;align-items:center;gap:9px;font-weight:800}
+.tut-tip h4 .tg{width:9px;height:9px;border-radius:50%;background:#2fb46a;flex:none}
+.tut-tip p{color:#9aa6b4;font-size:.9rem;line-height:1.6}.tut-tip p b{color:#e8edf4;font-weight:600}
+.tut-dots{display:flex;gap:5px;margin:15px 0}.tut-dots i{width:15px;height:5px;border-radius:3px;background:#2c3444;transition:.2s}.tut-dots i.on{background:#2fb46a;width:23px}
+.tut-row{display:flex;justify-content:space-between;align-items:center}.tut-count{color:#8a97a8;font-size:.82rem}
+.tut-btns{display:flex;gap:8px}.tut-b{padding:9px 16px;border-radius:9px;font-size:.85rem;font-weight:700;cursor:pointer;border:none;font-family:inherit}
+.tut-prev{background:#1b2330;color:#8a97a8;border:1px solid #242e3d}.tut-next{background:#2fb46a;color:#04130a;font-weight:800}
+.tut-skip{position:fixed;top:16px;right:18px;z-index:99520;background:#f2f2f4;color:#111;font-weight:700;padding:10px 18px;border-radius:11px;font-size:.85rem;cursor:pointer;opacity:0;transition:.25s;pointer-events:none;font-family:-apple-system,'Segoe UI',Roboto,sans-serif}
+.tut-on .tut-skip{opacity:1;pointer-events:auto}
+</style>
+<div class="tut-dim"></div><div class="tut-hole" id="tutHole"></div>
+<div class="tut-skip" id="tutSkip">Pular tutorial</div>
+<div class="tut-tip" id="tutTip"><h4 id="tutT"></h4><p id="tutX"></p><div class="tut-dots" id="tutD"></div><div class="tut-row"><span class="tut-count" id="tutC"></span><div class="tut-btns"><button class="tut-b tut-prev" id="tutP">Anterior</button><button class="tut-b tut-next" id="tutN">Próximo</button></div></div></div>
+<script>
+(function(){
+ var STEPS=[
+  {sel:'.hero',t:'Seu plano',h:'Aqui é o seu plano e quantos jogos você tem liberado.'},
+  {sel:'#unlockGrid',t:'Desbloquear (comece aqui!)',h:'O botão principal: <b>1 clique</b> instala toda a sua biblioteca e reinicia a Steam sozinho. É por onde você começa.'},
+  {sel:'[data-view="add"]',t:'Adicionar um jogo',h:'Quer um jogo específico que não veio no pacote? Adicione ele por <b>nome</b> aqui.'},
+  {sel:'[data-view="bypass"]',t:'Bypass',h:'Jogos com <b>proteção própria</b> (GTA V, RDR2) rodam pela aba Bypass.'},
+  {sel:'[data-view="novos"]',t:'Novos e Em Alta',h:'Veja os <b>lançamentos</b> e os jogos mais populares do momento.'},
+  {sel:'#unlockGrid',t:'Pronto pra jogar!',h:'Depois de <b>Desbloquear</b>, abra a Steam e seus jogos estarão lá. Bom jogo!'},
+ ];
+ var KEY='overise_tut_app_v1',i=0,$=function(id){return document.getElementById(id)};
+ var hole=$('tutHole'),tip=$('tutTip'),cur=null;
+ function place(el){var r=el.getBoundingClientRect(),p=8;hole.style.left=(r.left-p)+'px';hole.style.top=(r.top-p)+'px';hole.style.width=(r.width+p*2)+'px';hole.style.height=(r.height+p*2)+'px';
+  var th=tip.offsetHeight||210,tw=tip.offsetWidth||390,top=r.bottom+14,left=Math.min(Math.max(12,r.left),innerWidth-tw-12);if(top+th>innerHeight-12)top=Math.max(12,r.top-th-14);tip.style.top=top+'px';tip.style.left=left+'px';}
+ function show(n){i=n;var s=STEPS[n],el=document.querySelector(s.sel);if(!el)return next();cur=el;
+  document.documentElement.style.overflow='';document.body.style.overflow='';el.scrollIntoView({block:'center',behavior:'smooth'});
+  $('tutT').innerHTML='<span class="tg"></span>'+s.t;$('tutX').innerHTML=s.h;$('tutC').textContent=(n+1)+' de '+STEPS.length;
+  $('tutD').innerHTML=STEPS.map(function(_,k){return '<i class="'+(k===n?'on':'')+'"></i>'}).join('');
+  $('tutP').style.visibility=n===0?'hidden':'visible';$('tutN').textContent=n===STEPS.length-1?'Entendi!':'Próximo';
+  setTimeout(function(){place(el);document.documentElement.style.overflow='hidden';document.body.style.overflow='hidden';},460);}
+ function next(){i<STEPS.length-1?show(i+1):end()}function prev(){i>0&&show(i-1)}
+ function end(){document.documentElement.classList.remove('tut-on');document.documentElement.style.overflow='';document.body.style.overflow='';try{localStorage.setItem(KEY,'1')}catch(e){}}
+ $('tutN').onclick=next;$('tutP').onclick=prev;$('tutSkip').onclick=end;addEventListener('resize',function(){if(cur)place(cur)});
+ var seen=false;try{seen=localStorage.getItem(KEY)==='1'}catch(e){}
+ var force=location.search.indexOf('tut')>=0;
+ function anyModal(){var ids=['wcModal','dnModal','steamModal','upModal','rmModal'];for(var j=0;j<ids.length;j++){var m=$(ids[j]);if(m&&m.classList.contains('show'))return true;}return false;}
+ function tryStart(){var sh=$('shell');
+   if(sh&&getComputedStyle(sh).display!=='none'&&!anyModal()){
+     if(force||!seen){document.documentElement.classList.add('tut-on');setTimeout(function(){show(0)},600);}
+     return;}
+   setTimeout(tryStart,400);}
+ tryStart();
+})();
+</script>
+</body></html>
