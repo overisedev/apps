@@ -573,7 +573,7 @@ function applyAccountUI(){
   const cn=$('counter'); if(cn) cn.textContent=info.count;
   const _lim=(PLANO!=='vitalicio');
   const ub=$('upsellBanner'); if(ub) ub.style.display=_lim?'flex':'none';
-  if(_lim){ const u=UPSELL[PLANO]||{}; const a=$('upTitle'),b=$('upSub'); if(a)a.textContent='Vire '+(u.to||'')+' por só R$ '+(u.price||''); if(b)b.textContent=(PLANO==='avancado'?'Catálogo completo, 40.000 jogos. Metade do preço.':'20.000 jogos liberados. 50% de desconto pra você.'); }
+  if(_lim){ const u=UPSELL[PLANO]||{}; const a=$('upTitle'),b=$('upSub'); if(a)a.textContent='Vire '+(u.to||'')+' por só R$ '+(u.price||''); if(b)b.textContent=(PLANO==='avancado'?'Catálogo completo, 40.000 jogos no site oficial.':'20.000 jogos liberados. Suba de plano no site oficial.'); }
   const s=window.LAST_STATUS||{}; const pill=$('steamPill');
   if(pill){ if(s.steam){pill.className='pill';pill.innerHTML='<span class="dot"></span> '+t('steam.ok');} else if(s.steam===false){pill.className='pill off';pill.innerHTML='<span class="dot"></span> '+t('steam.no');} }
 }
@@ -590,8 +590,8 @@ const PLANO_INFO={
   vitalicio:{label:'Vitalício', count:'40.000'},
 };
 const UPSELL={
-  basico:  {url:"https://ggcheckout.app/checkout/v5/cIZ5NAfE3oH9Kn0MNiUy", to:"Avançado",  price:"9,98"},
-  avancado:{url:"https://ggcheckout.app/checkout/v5/knU3eT3nooknPa8CT1Yp", to:"Vitalício", price:"24,98"},
+  basico:  {url:"https://overisestore.com.br/", to:"Avançado",  price:"19,97"},
+  avancado:{url:"https://overisestore.com.br/", to:"Vitalício", price:"49,97"},
 };
 function upsellGo(){ const u=UPSELL[PLANO]; if(u&&api&&api.open_url){ var q=(u.url.indexOf("?")<0?"?":"&")+"utm_source=app&utm_medium=launcher&utm_campaign=upsell&utm_content="+PLANO; api.open_url(u.url+q); } }
 const OV={3768760:"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3768760/dbe86ebd2edb4c77d113e9e2feefeb90189fabc9/header.jpg",3357650:"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3357650/e32e168b25ed68a0cf6264c220c07e96c2abfb56/header.jpg",2483190:"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2483190/27abb1584a118d50d0e3950fd48d557c51981db7/header.jpg",3764200:"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3764200/ce5437442768e38eb575f205ab9397d0264017b0/header.jpg",2215200:"https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2215200/a07a9a6c0c9c1225f5b260b4f29fe40e6f099f6b/header.jpg"};
