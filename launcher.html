@@ -204,7 +204,7 @@ a{color:inherit;text-decoration:none}
       <a data-view="rmgame" data-i18n="nav.remove"><i class="fa-solid fa-trash-can"></i> Remover Jogo</a>
       <a data-view="bypass" data-i18n="nav.bypass"><i class="fa-solid fa-screwdriver-wrench"></i> Bypass</a>
       <a data-view="online" data-i18n="nav.online"><i class="fa-solid fa-globe"></i> Jogos Online</a>
-      <a data-view="novos" data-i18n="nav.new"><i class="fa-solid fa-fire"></i> Novos Jogos</a>
+      <a data-view="novos" data-i18n="nav.new"><i class="fa-solid fa-fire"></i> Novos e Atualizados</a>
       <a data-view="populares" data-i18n="nav.trending"><i class="fa-solid fa-ranking-star"></i> Em Alta</a>
       <div class="nav-label" data-i18n="nav.account">Conta</div>
       <a onclick="api.open_url('https://chat.whatsapp.com/Juty9syhyK4Jt304q6eqxd')" data-i18n="nav.vip"><i class="fa-brands fa-whatsapp"></i> Grupo VIP</a>
@@ -301,7 +301,7 @@ a{color:inherit;text-decoration:none}
 
     <!-- NOVOS -->
     <section class="view" id="view-novos">
-      <div class="section-head"><h3 data-i18n="novos.head">🔥 Novos Jogos</h3><span data-i18n="novos.sub">Lançamentos recém-adicionados</span></div>
+      <div class="section-head"><h3 data-i18n="novos.head">🔥 Jogos Novos e Atualizados</h3><span data-i18n="novos.sub">Lançamentos e atualizações recentes</span></div>
       <div class="results" id="novos"><div class="hint" data-i18n="novos.loading">Carregando...</div></div>
     </section>
 
@@ -449,7 +449,7 @@ a{color:inherit;text-decoration:none}
 const I18N = {
  pt:{
   "login.checking":"Verificando licença...","login.title":"Acesse sua conta","login.sub":"Use o <b>email da sua compra</b>.","login.ph":"seu@email.com","login.btn":"Entrar","login.help":"Não consegue entrar? Falar com o suporte",
-  "nav.menu":"Menu","nav.home":"Início","nav.add":"Adicionar Jogo","nav.remove":"Remover Jogo","nav.bypass":"Bypass","nav.online":"Jogos Online","nav.new":"Novos Jogos","nav.trending":"Em Alta","nav.account":"Conta","nav.vip":"Grupo VIP","nav.discord":"Discord","nav.support":"Suporte","nav.logout":"Sair",
+  "nav.menu":"Menu","nav.home":"Início","nav.add":"Adicionar Jogo","nav.remove":"Remover Jogo","nav.bypass":"Bypass","nav.online":"Jogos Online","nav.new":"Novos e Atualizados","nav.trending":"Em Alta","nav.account":"Conta","nav.vip":"Grupo VIP","nav.discord":"Discord","nav.support":"Suporte","nav.logout":"Sair",
   "top.sub":"Acesso total à sua biblioteca completa, para sempre.","steam.checking":"Verificando Steam...","steam.ok":"Steam detectada","steam.no":"Steam não encontrada",
   "hero.tag":"Bem-vindo de volta","hero.title":"Sua biblioteca <b>completa</b> está pronta.","hero.sub":"Desbloqueie sua biblioteca com 1 clique. Instala tudo e reinicia a Steam sozinho.","hero.counter":"JOGOS DISPONÍVEIS",
   "upsell.btn":"Fazer upgrade →","dash.unlockHead":"Desbloquear catálogo","dash.unlockSub":"1 clique instala tudo e reinicia a Steam",
@@ -459,7 +459,7 @@ const I18N = {
   "rm.head":"Remover Jogo","rm.sub":"Remove UM jogo só, sem zerar a biblioteca toda","rm.searching":"Procurando os jogos instalados no seu PC...","rm.ph":"Não achou na lista? Busque pelo nome ou número...","rm.installedHead":"Instalados no seu PC",
   "bp.head":"Bypass","bp.sub":"Pra jogos com proteção própria (GTA, RDR...). Aplica a correção e abre pelo launcher do jogo.","bp.sideH":"Jogos","bp.searchPh":"Buscar jogo...","bp.loading":"Carregando...","bp.selectHint":"Selecione um jogo na lista.","bp.apply":"Aplicar bypass","bp.launch":"Iniciar jogo","bp.installSteam":"Instale pela Steam","bp.abrePelo":"Abre pelo","bp.local":"Local","bp.autoDetect":"Auto-detectado","bp.notInstalled":"Jogo não instalado","bp.reapply":"Reaplicar bypass","bp.openFolder":"Abrir pasta","bp.launcherDefault":"launcher do jogo",
   "bp.whyH":"Importante: abra esse jogo SÓ pelo nosso launcher","bp.step1":"Primeiro <b>\"Aplicar bypass\"</b>, depois <b>\"Iniciar jogo\"</b>. É por aqui que o jogo abre liberado.","bp.step2":"<b>Não abra pela Steam</b>. Se abrir por ela, o bypass não funciona.",
-  "novos.head":"🔥 Novos Jogos","novos.sub":"Lançamentos recém-adicionados","novos.loading":"Carregando...","pop.head":"Em Alta","pop.sub":"Os mais jogados do momento",
+  "novos.head":"🔥 Jogos Novos e Atualizados","novos.sub":"Lançamentos e atualizações recentes","novos.loading":"Carregando...","pop.head":"Em Alta","pop.sub":"Os mais jogados do momento",
   "restart.btn":"Reiniciar Steam","overlay.processing":"Processando...","overlay.defender":"Abrir Segurança do Windows",
   "rmM.title":"Remover jogos?","rmM.body":"Remove todos os jogos desbloqueados e <b>devolve sua Steam ao normal</b> (limpa os componentes e restaura a conexão). Suas <b>contas e logins são preservados</b>. Você pode desbloquear de novo quando quiser.","rmM.yes":"Sim, remover","rmM.cancel":"Cancelar",
   "upM.title":"Jogo do Plano Completo","upM.body":"Esse jogo é exclusivo do <b>Vitalício</b>. Faça upgrade e libere <b>40.000 jogos</b> + adicionar qualquer jogo.","upM.btn":"Fazer upgrade agora","upM.later":"Agora não",
@@ -473,7 +473,7 @@ const I18N = {
  },
  en:{
   "login.checking":"Checking license...","login.title":"Sign in to your account","login.sub":"Use the <b>email from your purchase</b>.","login.ph":"you@email.com","login.btn":"Sign in","login.help":"Can't sign in? Contact support",
-  "nav.menu":"Menu","nav.home":"Home","nav.add":"Add Game","nav.remove":"Remove Game","nav.bypass":"Bypass","nav.online":"Online Games","nav.new":"New Games","nav.trending":"Trending","nav.account":"Account","nav.vip":"VIP Group","nav.discord":"Discord","nav.support":"Support","nav.logout":"Log out",
+  "nav.menu":"Menu","nav.home":"Home","nav.add":"Add Game","nav.remove":"Remove Game","nav.bypass":"Bypass","nav.online":"Online Games","nav.new":"New & Updated","nav.trending":"Trending","nav.account":"Account","nav.vip":"VIP Group","nav.discord":"Discord","nav.support":"Support","nav.logout":"Log out",
   "top.sub":"Full access to your complete library, forever.","steam.checking":"Checking Steam...","steam.ok":"Steam detected","steam.no":"Steam not found",
   "hero.tag":"Welcome back","hero.title":"Your <b>complete</b> library is ready.","hero.sub":"Unlock your library with 1 click. Installs everything and restarts Steam by itself.","hero.counter":"GAMES AVAILABLE",
   "upsell.btn":"Upgrade →","dash.unlockHead":"Unlock catalog","dash.unlockSub":"1 click installs everything and restarts Steam",
@@ -483,7 +483,7 @@ const I18N = {
   "rm.head":"Remove Game","rm.sub":"Removes ONE game only, without wiping the whole library","rm.searching":"Looking for games installed on your PC...","rm.ph":"Not in the list? Search by name or number...","rm.installedHead":"Installed on your PC",
   "bp.head":"Bypass","bp.sub":"For games with their own protection (GTA, RDR...). Applies the fix and opens via the game's launcher.","bp.sideH":"Games","bp.searchPh":"Search game...","bp.loading":"Loading...","bp.selectHint":"Select a game from the list.","bp.apply":"Apply bypass","bp.launch":"Launch game","bp.installSteam":"Install via Steam","bp.abrePelo":"Opens with","bp.local":"Location","bp.autoDetect":"Auto-detected","bp.notInstalled":"Game not installed","bp.reapply":"Reapply bypass","bp.openFolder":"Open folder","bp.launcherDefault":"the game launcher",
   "bp.whyH":"Important: open this game ONLY through our launcher","bp.step1":"First <b>\"Apply bypass\"</b>, then <b>\"Launch game\"</b>. This is how the game opens unlocked.","bp.step2":"<b>Don't open via Steam</b>. If you do, the bypass won't work.",
-  "novos.head":"🔥 New Games","novos.sub":"Recently added releases","novos.loading":"Loading...","pop.head":"Trending","pop.sub":"Most played right now",
+  "novos.head":"🔥 New & Updated Games","novos.sub":"Recent releases and updates","novos.loading":"Loading...","pop.head":"Trending","pop.sub":"Most played right now",
   "restart.btn":"Restart Steam","overlay.processing":"Processing...","overlay.defender":"Open Windows Security",
   "rmM.title":"Remove games?","rmM.body":"Removes all unlocked games and <b>restores your Steam to normal</b> (clears the components and restores the connection). Your <b>accounts and logins are preserved</b>. You can unlock again whenever you want.","rmM.yes":"Yes, remove","rmM.cancel":"Cancel",
   "upM.title":"Full Plan Game","upM.body":"This game is exclusive to <b>Lifetime</b>. Upgrade and unlock <b>40,000 games</b> + add any game.","upM.btn":"Upgrade now","upM.later":"Not now",
@@ -497,7 +497,7 @@ const I18N = {
  },
  es:{
   "login.checking":"Verificando licencia...","login.title":"Accede a tu cuenta","login.sub":"Usa el <b>email de tu compra</b>.","login.ph":"tu@email.com","login.btn":"Entrar","login.help":"¿No puedes entrar? Habla con soporte",
-  "nav.menu":"Menú","nav.home":"Inicio","nav.add":"Agregar Juego","nav.remove":"Quitar Juego","nav.bypass":"Bypass","nav.online":"Juegos Online","nav.new":"Juegos Nuevos","nav.trending":"Tendencias","nav.account":"Cuenta","nav.vip":"Grupo VIP","nav.discord":"Discord","nav.support":"Soporte","nav.logout":"Salir",
+  "nav.menu":"Menú","nav.home":"Inicio","nav.add":"Agregar Juego","nav.remove":"Quitar Juego","nav.bypass":"Bypass","nav.online":"Juegos Online","nav.new":"Nuevos y Actualizados","nav.trending":"Tendencias","nav.account":"Cuenta","nav.vip":"Grupo VIP","nav.discord":"Discord","nav.support":"Soporte","nav.logout":"Salir",
   "top.sub":"Acceso total a tu biblioteca completa, para siempre.","steam.checking":"Verificando Steam...","steam.ok":"Steam detectada","steam.no":"Steam no encontrada",
   "hero.tag":"Bienvenido de nuevo","hero.title":"Tu biblioteca <b>completa</b> está lista.","hero.sub":"Desbloquea tu biblioteca con 1 clic. Instala todo y reinicia Steam solo.","hero.counter":"JUEGOS DISPONIBLES",
   "upsell.btn":"Mejorar →","dash.unlockHead":"Desbloquear catálogo","dash.unlockSub":"1 clic instala todo y reinicia Steam",
@@ -507,7 +507,7 @@ const I18N = {
   "rm.head":"Quitar Juego","rm.sub":"Quita UN solo juego, sin borrar toda la biblioteca","rm.searching":"Buscando los juegos instalados en tu PC...","rm.ph":"¿No está en la lista? Busca por nombre o número...","rm.installedHead":"Instalados en tu PC",
   "bp.head":"Bypass","bp.sub":"Para juegos con protección propia (GTA, RDR...). Aplica la corrección y abre por el launcher del juego.","bp.sideH":"Juegos","bp.searchPh":"Buscar juego...","bp.loading":"Cargando...","bp.selectHint":"Selecciona un juego de la lista.","bp.apply":"Aplicar bypass","bp.launch":"Iniciar juego","bp.installSteam":"Instala por Steam","bp.abrePelo":"Abre con","bp.local":"Ubicación","bp.autoDetect":"Auto-detectado","bp.notInstalled":"Juego no instalado","bp.reapply":"Reaplicar bypass","bp.openFolder":"Abrir carpeta","bp.launcherDefault":"el launcher del juego",
   "bp.whyH":"Importante: abre este juego SOLO por nuestro launcher","bp.step1":"Primero <b>\"Aplicar bypass\"</b>, después <b>\"Iniciar juego\"</b>. Así es como el juego abre desbloqueado.","bp.step2":"<b>No abras por Steam</b>. Si lo haces, el bypass no funciona.",
-  "novos.head":"🔥 Juegos Nuevos","novos.sub":"Lanzamientos recién agregados","novos.loading":"Cargando...","pop.head":"Tendencias","pop.sub":"Los más jugados del momento",
+  "novos.head":"🔥 Juegos Nuevos y Actualizados","novos.sub":"Lanzamientos y actualizaciones recientes","novos.loading":"Cargando...","pop.head":"Tendencias","pop.sub":"Los más jugados del momento",
   "restart.btn":"Reiniciar Steam","overlay.processing":"Procesando...","overlay.defender":"Abrir Seguridad de Windows",
   "rmM.title":"¿Quitar juegos?","rmM.body":"Quita todos los juegos desbloqueados y <b>devuelve tu Steam a la normalidad</b> (limpia los componentes y restaura la conexión). Tus <b>cuentas y sesiones se conservan</b>. Puedes desbloquear de nuevo cuando quieras.","rmM.yes":"Sí, quitar","rmM.cancel":"Cancelar",
   "upM.title":"Juego del Plan Completo","upM.body":"Este juego es exclusivo del <b>Vitalicio</b>. Mejora y desbloquea <b>40.000 juegos</b> + agregar cualquier juego.","upM.btn":"Mejorar ahora","upM.later":"Ahora no",
