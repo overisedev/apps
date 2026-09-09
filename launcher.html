@@ -655,7 +655,7 @@ a{color:inherit;text-decoration:none}
 
 
 
-<div class="overlay" id="overlay"><div class="ov-card"><div class="spinner"></div><h3 id="ovText" data-i18n="overlay.processing">Processando...</h3><div class="bar"><i id="ovBar"></i></div><button id="ovAv" class="btn btn-green" style="display:none;margin-top:18px;width:100%;justify-content:center" onclick="api.open_defender()" data-i18n="overlay.defender"><i class="fa-solid fa-shield-halved"></i> Abrir Segurança do Windows</button><p id="ovNote" class="ov-note" style="display:none"><i class="fa-solid fa-circle-info"></i> <span data-i18n="overlay.note">Seus jogos estão sendo adicionados. Pode minimizar e continuar usando o PC. Quando terminar, abra a sua Steam que os jogos vão aparecendo na biblioteca.</span></p><button id="ovMin" class="ov-min" onclick="ovMinimize()"><i class="fa-solid fa-window-minimize"></i> <span data-i18n="overlay.min">Minimizar</span></button></div></div>
+<div class="overlay" id="overlay"><div class="ov-card"><div class="spinner"></div><h3 id="ovText" data-i18n="overlay.processing">Processando...</h3><div class="bar"><i id="ovBar"></i></div><button id="ovAv" class="btn btn-green" style="display:none;margin-top:18px;width:100%;justify-content:center" onclick="api.open_defender()" data-i18n="overlay.defender"><i class="fa-solid fa-shield-halved"></i> Abrir Segurança do Windows</button><p id="ovNote" class="ov-note" style="display:none"><i class="fa-solid fa-circle-info"></i> <span data-i18n="overlay.note">Pode abrir a sua Steam normalmente. Os seus jogos vão sendo adicionados na biblioteca. Se preferir, minimize e continue usando o PC.</span></p><button id="ovMin" class="ov-min" onclick="ovMinimize()"><i class="fa-solid fa-window-minimize"></i> <span data-i18n="overlay.min">Minimizar</span></button></div></div>
 
 <div class="modal" id="rmModal">
 
@@ -945,7 +945,7 @@ const I18N = {
 
   "novos.head":"🔥 Jogos Novos e Atualizados","novos.sub":"Lançamentos e atualizações recentes","novos.loading":"Carregando...","pop.head":"Em Alta","pop.sub":"Os mais jogados do momento",
 
-  "restart.btn":"Reiniciar Steam","overlay.processing":"Processando...","overlay.defender":"Abrir Segurança do Windows","overlay.note":"Seus jogos estão sendo adicionados. Pode minimizar e continuar usando o PC. Quando terminar, abra a sua Steam que os jogos vão aparecendo na biblioteca.","overlay.min":"Minimizar",
+  "restart.btn":"Reiniciar Steam","overlay.processing":"Processando...","overlay.defender":"Abrir Segurança do Windows","overlay.note":"Pode abrir a sua Steam normalmente. Os seus jogos vão sendo adicionados na biblioteca. Se preferir, minimize e continue usando o PC.","overlay.min":"Minimizar",
 
   "rmM.title":"Remover jogos?","rmM.body":"Remove todos os jogos desbloqueados e <b>devolve sua Steam ao normal</b> (limpa os componentes e restaura a conexão). Suas <b>contas e logins são preservados</b>. Você pode desbloquear de novo quando quiser.","rmM.yes":"Sim, remover","rmM.cancel":"Cancelar",
 
@@ -993,7 +993,7 @@ const I18N = {
 
   "novos.head":"🔥 New & Updated Games","novos.sub":"Recent releases and updates","novos.loading":"Loading...","pop.head":"Trending","pop.sub":"Most played right now",
 
-  "restart.btn":"Restart Steam","overlay.processing":"Processing...","overlay.defender":"Open Windows Security","overlay.note":"Your games are being added. You can minimize and keep using your PC. When it finishes, open your Steam and the games will show up in your library.","overlay.min":"Minimize",
+  "restart.btn":"Restart Steam","overlay.processing":"Processing...","overlay.defender":"Open Windows Security","overlay.note":"You can open your Steam normally. Your games are being added to your library. If you prefer, minimize and keep using your PC.","overlay.min":"Minimize",
 
   "rmM.title":"Remove games?","rmM.body":"Removes all unlocked games and <b>restores your Steam to normal</b> (clears the components and restores the connection). Your <b>accounts and logins are preserved</b>. You can unlock again whenever you want.","rmM.yes":"Yes, remove","rmM.cancel":"Cancel",
 
@@ -1041,7 +1041,7 @@ const I18N = {
 
   "novos.head":"🔥 Juegos Nuevos y Actualizados","novos.sub":"Lanzamientos y actualizaciones recientes","novos.loading":"Cargando...","pop.head":"Tendencias","pop.sub":"Los más jugados del momento",
 
-  "restart.btn":"Reiniciar Steam","overlay.processing":"Procesando...","overlay.defender":"Abrir Seguridad de Windows","overlay.note":"Tus juegos se están agregando. Puedes minimizar y seguir usando la PC. Cuando termine, abre tu Steam y los juegos irán apareciendo en la biblioteca.","overlay.min":"Minimizar",
+  "restart.btn":"Reiniciar Steam","overlay.processing":"Procesando...","overlay.defender":"Abrir Seguridad de Windows","overlay.note":"Puedes abrir tu Steam normalmente. Tus juegos se van agregando a la biblioteca. Si prefieres, minimiza y sigue usando la PC.","overlay.min":"Minimizar",
 
   "rmM.title":"¿Quitar juegos?","rmM.body":"Quita todos los juegos desbloqueados y <b>devuelve tu Steam a la normalidad</b> (limpia los componentes y restaura la conexión). Tus <b>cuentas y sesiones se conservan</b>. Puedes desbloquear de nuevo cuando quieras.","rmM.yes":"Sí, quitar","rmM.cancel":"Cancelar",
 
@@ -1223,7 +1223,7 @@ function $(id){return document.getElementById(id)}
 
 function toast(m,ms){const t=$('toast');$('toastMsg').textContent=m;t.classList.add('show');clearTimeout(window._tt);window._tt=setTimeout(()=>t.classList.remove('show'),ms||3000)}
 
-function overlay(on,txt){$('overlay').classList.toggle('show',on);if(txt)$('ovText').textContent=txt;if(on){var _n=$('ovNote');if(_n)_n.style.display='none';}}
+function overlay(on,txt){$('overlay').classList.toggle('show',on);if(txt)$('ovText').textContent=txt;if(!on){var _n=$('ovNote');if(_n)_n.style.display='none';}}
 
 function ovMinimize(){ try{ if(window.api && api.minimize) api.minimize(); }catch(e){} }
 
