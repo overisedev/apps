@@ -84,6 +84,8 @@ a{color:inherit;text-decoration:none}
 
 .hero-counter small{font-size:.85rem;color:var(--muted);font-weight:600;letter-spacing:1px;display:block;margin-top:4px;font-family:var(--font)}
 
+.hc-badge{color:var(--neon);font-size:2.3rem;display:inline-block;filter:drop-shadow(0 0 14px rgba(0,255,65,.4))}
+
 .section-head{display:flex;align-items:baseline;justify-content:space-between;margin:30px 0 14px}
 
 .section-head h3{font-family:var(--head);font-size:1.18rem;color:#fff}.section-head span{font-size:.8rem;color:var(--muted)}
@@ -225,6 +227,14 @@ a{color:inherit;text-decoration:none}
 .overlay.show{display:grid}
 
 .ov-card{background:var(--card);border:1px solid var(--bd2);border-radius:18px;padding:34px 40px;text-align:center;width:90%;max-width:440px}
+
+.ov-note{margin:16px auto 2px;font-size:.85rem;color:var(--muted);line-height:1.5;max-width:400px}
+
+.ov-note i{color:var(--neon);margin-right:5px}
+
+.ov-min{margin-top:16px;background:transparent;border:1px solid var(--bd2);color:var(--text);border-radius:10px;padding:9px 18px;font-size:.85rem;cursor:pointer;font-family:var(--font);display:inline-flex;align-items:center;gap:8px}
+
+.ov-min:hover{border-color:var(--neon);color:var(--neon)}
 
 .spinner{width:54px;height:54px;border:4px solid #1d1d24;border-top-color:var(--neon);border-radius:50%;margin:0 auto 18px;animation:spin 1s linear infinite}
 
@@ -476,7 +486,7 @@ a{color:inherit;text-decoration:none}
 
         <p data-i18n="hero.sub">Desbloqueie com 1 clique. Instala tudo e reinicia a Steam sozinho.</p>
 
-        <div class="hero-counter"><span id="counter">600+</span><small data-i18n="hero.counter">LANÇAMENTOS DISPONÍVEIS</small></div>
+        <div class="hero-counter"><span class="hc-badge"><i class="fa-solid fa-fire"></i></span><small data-i18n="hero.counter">LANÇAMENTOS SEMPRE ATUALIZADOS</small></div>
 
       </div>
 
@@ -645,7 +655,7 @@ a{color:inherit;text-decoration:none}
 
 
 
-<div class="overlay" id="overlay"><div class="ov-card"><div class="spinner"></div><h3 id="ovText" data-i18n="overlay.processing">Processando...</h3><div class="bar"><i id="ovBar"></i></div><button id="ovAv" class="btn btn-green" style="display:none;margin-top:18px;width:100%;justify-content:center" onclick="api.open_defender()" data-i18n="overlay.defender"><i class="fa-solid fa-shield-halved"></i> Abrir Segurança do Windows</button></div></div>
+<div class="overlay" id="overlay"><div class="ov-card"><div class="spinner"></div><h3 id="ovText" data-i18n="overlay.processing">Processando...</h3><div class="bar"><i id="ovBar"></i></div><button id="ovAv" class="btn btn-green" style="display:none;margin-top:18px;width:100%;justify-content:center" onclick="api.open_defender()" data-i18n="overlay.defender"><i class="fa-solid fa-shield-halved"></i> Abrir Segurança do Windows</button><p id="ovNote" class="ov-note" style="display:none"><i class="fa-solid fa-circle-info"></i> <span data-i18n="overlay.note">Seus jogos estão sendo adicionados. Pode minimizar e continuar usando o PC. Quando terminar, abra a sua Steam que os jogos vão aparecendo na biblioteca.</span></p><button id="ovMin" class="ov-min" onclick="ovMinimize()"><i class="fa-solid fa-window-minimize"></i> <span data-i18n="overlay.min">Minimizar</span></button></div></div>
 
 <div class="modal" id="rmModal">
 
@@ -917,7 +927,7 @@ const I18N = {
 
   "top.sub":"Seus lançamentos, sempre atualizados.","steam.checking":"Verificando Steam...","steam.ok":"Steam detectada","steam.no":"Steam não encontrada",
 
-  "hero.tag":"Bem-vindo de volta","hero.title":"Seus <b>lançamentos</b> estão prontos.","hero.sub":"Desbloqueie com 1 clique. Instala tudo e reinicia a Steam sozinho.","hero.counter":"LANÇAMENTOS DISPONÍVEIS","note.title":"Lançamentos liberados para todos por enquanto","note.sub":"Todos os planos já têm acesso aos jogos de lançamento adicionados até agora. Os próximos lançamentos ficam exclusivos do plano Vitalício.",
+  "hero.tag":"Bem-vindo de volta","hero.title":"Seus <b>lançamentos</b> estão prontos.","hero.sub":"Desbloqueie com 1 clique. Instala tudo e reinicia a Steam sozinho.","hero.counter":"LANÇAMENTOS SEMPRE ATUALIZADOS","note.title":"Lançamentos liberados para todos por enquanto","note.sub":"Todos os planos já têm acesso aos jogos de lançamento adicionados até agora. Os próximos lançamentos ficam exclusivos do plano Vitalício.",
 
   "upsell.btn":"Fazer upgrade →","dash.unlockHead":"Desbloquear catálogo","dash.unlockSub":"1 clique instala tudo e reinicia a Steam",
 
@@ -935,7 +945,7 @@ const I18N = {
 
   "novos.head":"🔥 Jogos Novos e Atualizados","novos.sub":"Lançamentos e atualizações recentes","novos.loading":"Carregando...","pop.head":"Em Alta","pop.sub":"Os mais jogados do momento",
 
-  "restart.btn":"Reiniciar Steam","overlay.processing":"Processando...","overlay.defender":"Abrir Segurança do Windows",
+  "restart.btn":"Reiniciar Steam","overlay.processing":"Processando...","overlay.defender":"Abrir Segurança do Windows","overlay.note":"Seus jogos estão sendo adicionados. Pode minimizar e continuar usando o PC. Quando terminar, abra a sua Steam que os jogos vão aparecendo na biblioteca.","overlay.min":"Minimizar",
 
   "rmM.title":"Remover jogos?","rmM.body":"Remove todos os jogos desbloqueados e <b>devolve sua Steam ao normal</b> (limpa os componentes e restaura a conexão). Suas <b>contas e logins são preservados</b>. Você pode desbloquear de novo quando quiser.","rmM.yes":"Sim, remover","rmM.cancel":"Cancelar",
 
@@ -953,7 +963,7 @@ const I18N = {
 
   "t.steamRestart":"✓ Steam reiniciada!","t.removed":"✓ Jogos removidos!","t.connFixed":"✓ Conexão corrigida!","t.bypassApplied":"✓ Bypass aplicado! Agora clique em \"Iniciar jogo\".","t.error":"Erro: ","t.fail":"Falha: ","t.gameRemoved":"Jogo removido","t.libOnly":"Esse jogo ainda não tem desbloqueio disponível (é muito novo ou não lançou). Ele entra na sua biblioteca, mas aparece 0 B e não instala de verdade por enquanto.","t.noResults":"Nenhum resultado. Tente outro nome ou o número do jogo.","t.noInstalled":"Nenhum jogo individual instalado aqui no PC.","rm.batchNote":"Além desses, os jogos do seu plano não aparecem aqui um por um. Pra tirar um, busque pelo nome abaixo.","rm.oldExe":"Atualize o OVERISE pra listar os jogos instalados aqui. Por enquanto, use a busca abaixo.","rm.cantRead":"Não consegui ler os jogos instalados.",
 
-  "unlock.title":"Desbloquear {n} jogos","unlock.kick":"Seu plano","unlock.sub":"1 clique instala tudo e reinicia a Steam automaticamente.","unlock.btn":"Desbloquear agora","bar.restart":"Reinicie a Steam para aplicar.","added.count":"{n} jogo(s) adicionado(s)"
+  "unlock.title":"Desbloquear seus lançamentos","tier.launches":"Lançamentos","unlock.kick":"Seu plano","unlock.sub":"1 clique instala tudo e reinicia a Steam automaticamente.","unlock.btn":"Desbloquear agora","bar.restart":"Reinicie a Steam para aplicar.","added.count":"{n} jogo(s) adicionado(s)"
 
  },
 
@@ -965,7 +975,7 @@ const I18N = {
 
   "top.sub":"Your latest releases, always updated.","steam.checking":"Checking Steam...","steam.ok":"Steam detected","steam.no":"Steam not found",
 
-  "hero.tag":"Welcome back","hero.title":"Your <b>releases</b> are ready.","hero.sub":"Unlock with 1 click. Installs everything and restarts Steam by itself.","hero.counter":"RELEASES AVAILABLE","note.title":"New releases unlocked for everyone, for now","note.sub":"All plans already have access to the release games added so far. Upcoming releases stay exclusive to the Lifetime plan.",
+  "hero.tag":"Welcome back","hero.title":"Your <b>releases</b> are ready.","hero.sub":"Unlock with 1 click. Installs everything and restarts Steam by itself.","hero.counter":"RELEASES, ALWAYS UPDATED","note.title":"New releases unlocked for everyone, for now","note.sub":"All plans already have access to the release games added so far. Upcoming releases stay exclusive to the Lifetime plan.",
 
   "upsell.btn":"Upgrade →","dash.unlockHead":"Unlock catalog","dash.unlockSub":"1 click installs everything and restarts Steam",
 
@@ -983,7 +993,7 @@ const I18N = {
 
   "novos.head":"🔥 New & Updated Games","novos.sub":"Recent releases and updates","novos.loading":"Loading...","pop.head":"Trending","pop.sub":"Most played right now",
 
-  "restart.btn":"Restart Steam","overlay.processing":"Processing...","overlay.defender":"Open Windows Security",
+  "restart.btn":"Restart Steam","overlay.processing":"Processing...","overlay.defender":"Open Windows Security","overlay.note":"Your games are being added. You can minimize and keep using your PC. When it finishes, open your Steam and the games will show up in your library.","overlay.min":"Minimize",
 
   "rmM.title":"Remove games?","rmM.body":"Removes all unlocked games and <b>restores your Steam to normal</b> (clears the components and restores the connection). Your <b>accounts and logins are preserved</b>. You can unlock again whenever you want.","rmM.yes":"Yes, remove","rmM.cancel":"Cancel",
 
@@ -1001,7 +1011,7 @@ const I18N = {
 
   "t.steamRestart":"✓ Steam restarted!","t.removed":"✓ Games removed!","t.connFixed":"✓ Connection fixed!","t.bypassApplied":"✓ Bypass applied! Now click \"Launch game\".","t.error":"Error: ","t.fail":"Failed: ","t.gameRemoved":"Game removed","t.libOnly":"This game has no unlock available yet (it's too new or unreleased). It shows up in your library, but appears as 0 B and won't actually install for now.","t.noResults":"No results. Try another name or the game number.","t.noInstalled":"No individual game installed here on the PC.","rm.batchNote":"Besides these, your plan's games don't show up here one by one. To remove one, search by name below.","rm.oldExe":"Update OVERISE to list installed games here. For now, use the search below.","rm.cantRead":"Couldn't read the installed games.",
 
-  "unlock.title":"Unlock {n} games","unlock.kick":"Your plan","unlock.sub":"1 click installs everything and restarts Steam automatically.","unlock.btn":"Unlock now","bar.restart":"Restart Steam to apply.","added.count":"{n} game(s) added"
+  "unlock.title":"Unlock your releases","tier.launches":"Releases","unlock.kick":"Your plan","unlock.sub":"1 click installs everything and restarts Steam automatically.","unlock.btn":"Unlock now","bar.restart":"Restart Steam to apply.","added.count":"{n} game(s) added"
 
  },
 
@@ -1013,7 +1023,7 @@ const I18N = {
 
   "top.sub":"Tus lanzamientos, siempre actualizados.","steam.checking":"Verificando Steam...","steam.ok":"Steam detectada","steam.no":"Steam no encontrada",
 
-  "hero.tag":"Bienvenido de nuevo","hero.title":"Tus <b>lanzamientos</b> están listos.","hero.sub":"Desbloquea con 1 clic. Instala todo y reinicia Steam solo.","hero.counter":"LANZAMIENTOS DISPONIBLES","note.title":"Lanzamientos liberados para todos por ahora","note.sub":"Todos los planes ya tienen acceso a los juegos de lanzamiento agregados hasta ahora. Los próximos lanzamientos quedan exclusivos del plan Vitalicio.",
+  "hero.tag":"Bienvenido de nuevo","hero.title":"Tus <b>lanzamientos</b> están listos.","hero.sub":"Desbloquea con 1 clic. Instala todo y reinicia Steam solo.","hero.counter":"LANZAMIENTOS SIEMPRE ACTUALIZADOS","note.title":"Lanzamientos liberados para todos por ahora","note.sub":"Todos los planes ya tienen acceso a los juegos de lanzamiento agregados hasta ahora. Los próximos lanzamientos quedan exclusivos del plan Vitalicio.",
 
   "upsell.btn":"Mejorar →","dash.unlockHead":"Desbloquear catálogo","dash.unlockSub":"1 clic instala todo y reinicia Steam",
 
@@ -1031,7 +1041,7 @@ const I18N = {
 
   "novos.head":"🔥 Juegos Nuevos y Actualizados","novos.sub":"Lanzamientos y actualizaciones recientes","novos.loading":"Cargando...","pop.head":"Tendencias","pop.sub":"Los más jugados del momento",
 
-  "restart.btn":"Reiniciar Steam","overlay.processing":"Procesando...","overlay.defender":"Abrir Seguridad de Windows",
+  "restart.btn":"Reiniciar Steam","overlay.processing":"Procesando...","overlay.defender":"Abrir Seguridad de Windows","overlay.note":"Tus juegos se están agregando. Puedes minimizar y seguir usando la PC. Cuando termine, abre tu Steam y los juegos irán apareciendo en la biblioteca.","overlay.min":"Minimizar",
 
   "rmM.title":"¿Quitar juegos?","rmM.body":"Quita todos los juegos desbloqueados y <b>devuelve tu Steam a la normalidad</b> (limpia los componentes y restaura la conexión). Tus <b>cuentas y sesiones se conservan</b>. Puedes desbloquear de nuevo cuando quieras.","rmM.yes":"Sí, quitar","rmM.cancel":"Cancelar",
 
@@ -1049,7 +1059,7 @@ const I18N = {
 
   "t.steamRestart":"✓ ¡Steam reiniciada!","t.removed":"✓ ¡Juegos quitados!","t.connFixed":"✓ ¡Conexión corregida!","t.bypassApplied":"✓ ¡Bypass aplicado! Ahora haz clic en \"Iniciar juego\".","t.error":"Error: ","t.fail":"Falló: ","t.gameRemoved":"Juego quitado","t.libOnly":"Este juego aún no tiene desbloqueo disponible (es muy nuevo o no ha salido). Aparece en tu biblioteca, pero se muestra como 0 B y no se instala de verdad por ahora.","t.noResults":"Sin resultados. Prueba otro nombre o el número del juego.","t.noInstalled":"Ningún juego individual instalado aquí en el PC.","rm.batchNote":"Además de estos, los juegos de tu plan no aparecen aquí uno por uno. Para quitar uno, busca por nombre abajo.","rm.oldExe":"Actualiza OVERISE para listar los juegos instalados aquí. Por ahora, usa la búsqueda de abajo.","rm.cantRead":"No pude leer los juegos instalados.",
 
-  "unlock.title":"Desbloquear {n} juegos","unlock.kick":"Tu plan","unlock.sub":"1 clic instala todo y reinicia Steam automáticamente.","unlock.btn":"Desbloquear ahora","bar.restart":"Reinicia Steam para aplicar.","added.count":"{n} juego(s) agregado(s)"
+  "unlock.title":"Desbloquear tus lanzamientos","tier.launches":"Lanzamientos","unlock.kick":"Tu plan","unlock.sub":"1 clic instala todo y reinicia Steam automáticamente.","unlock.btn":"Desbloquear ahora","bar.restart":"Reinicia Steam para aplicar.","added.count":"{n} juego(s) agregado(s)"
 
  }
 
@@ -1151,11 +1161,9 @@ function applyAccountUI(){
 
   const tp=$('tierPill'); if(tp) tp.innerHTML=(PLANO==='vitalicio'?'<i class="fa-solid fa-crown"></i> ':'')+(''+info.label).toUpperCase();
 
-  const tt=$('tierTitle'); if(tt) tt.textContent=(window.LAUNCH_COUNT!=null?window.LAUNCH_COUNT:info.count)+' '+t('tier.games');
+  const tt=$('tierTitle'); if(tt) tt.textContent=t('tier.launches');
 
   const td=$('tierDesc'); if(td) td.textContent=(PLANO==='vitalicio'?t('tier.full'):t('tier.active'));
-
-  const cn=$('counter'); if(cn) cn.textContent=(window.LAUNCH_COUNT!=null?window.LAUNCH_COUNT:info.count);
 
   const _lim=(PLANO!=='vitalicio');
 
@@ -1215,7 +1223,9 @@ function $(id){return document.getElementById(id)}
 
 function toast(m,ms){const t=$('toast');$('toastMsg').textContent=m;t.classList.add('show');clearTimeout(window._tt);window._tt=setTimeout(()=>t.classList.remove('show'),ms||3000)}
 
-function overlay(on,txt){$('overlay').classList.toggle('show',on);if(txt)$('ovText').textContent=txt}
+function overlay(on,txt){$('overlay').classList.toggle('show',on);if(txt)$('ovText').textContent=txt;if(on){var _n=$('ovNote');if(_n)_n.style.display='none';}}
+
+function ovMinimize(){ try{ if(window.api && api.minimize) api.minimize(); }catch(e){} }
 
 function openUpsell(content){ $('upContent').value=content; $('upModal').classList.add('show'); }
 
@@ -1269,53 +1279,13 @@ function renderUnlock(){
 
       <div class="kick">${t('unlock.kick')}</div>
 
-      <h4>${t('unlock.title').replace('{n}',(window.LAUNCH_COUNT!=null?window.LAUNCH_COUNT:info.count))}</h4>
+      <h4>${t('unlock.title')}</h4>
 
       <p>${t('unlock.sub')}</p>
 
       <span class="go"><i class="fa-solid fa-bolt"></i> ${t('unlock.btn')}</span>
 
     </div>`;
-
-}
-
-function refreshCounter(){
-
-  const cn=$('counter'); if(cn && window.LAUNCH_COUNT!=null) cn.textContent=window.LAUNCH_COUNT;
-
-  const tt=$('tierTitle'); if(tt && window.LAUNCH_COUNT!=null) tt.textContent=window.LAUNCH_COUNT+' '+t('tier.games');
-
-  try{ renderUnlock(); }catch(e){}
-
-}
-
-async function loadLaunchCount(){
-
-  try{
-
-    const r=await fetch('https://api.github.com/repos/overisedev/overise-luas/git/trees/main',{cache:'no-store'});
-
-    if(!r.ok) return;
-
-    const j=await r.json();
-
-    let n=0;
-
-    (j.tree||[]).forEach(function(e){
-
-      if(!e.path || e.path.slice(-4)!=='.zip') return;
-
-      const id=e.path.slice(0,-4);
-
-      if(!/^[0-9]+$/.test(id)) return;
-
-      if(PLANO_ALL || (PLANO_SET && PLANO_SET.has(parseInt(id,10)))) n++;
-
-    });
-
-    if(n>0){ window.LAUNCH_COUNT=n.toLocaleString('pt-BR'); refreshCounter(); }
-
-  }catch(e){}
 
 }
 
@@ -1373,9 +1343,9 @@ function closeDenuvo(){ $('dnModal').classList.remove('show'); try{localStorage.
 
 
 
-async function doUnlock(){ overlay(true,t('overlay.starting')); $('ovBar').style.width='5%'; await api.unlock(); }
+async function doUnlock(){ overlay(true,t('overlay.starting')); $('ovBar').style.width='5%'; var _n=$('ovNote'); if(_n)_n.style.display='block'; await api.unlock(); }
 
-async function doUnlockAlt(){ overlay(true,t('overlay.altMethod')); $('ovBar').style.width='5%'; await api.unlock_alt(); }
+async function doUnlockAlt(){ overlay(true,t('overlay.altMethod')); $('ovBar').style.width='5%'; var _n=$('ovNote'); if(_n)_n.style.display='block'; await api.unlock_alt(); }
 
 /* curadoria online: jogos que a busca da Steam esconde (ex: GTA V Legacy) ou
 
@@ -1979,7 +1949,7 @@ async function showApp(){
 
   catch(e){ PLANO_ALL=(PLANO==='vitalicio'); PLANO_SET=PLANO_ALL?null:new Set(); }
 
-  renderUnlock(); buildLib(); loadLaunchCount();
+  renderUnlock(); buildLib();
 
   maybeShowWelcome();
 
