@@ -278,6 +278,14 @@ a{color:inherit;text-decoration:none}
 
 .up-btn:hover{transform:translateY(-2px)}
 
+.launch-note{display:flex;align-items:center;gap:16px;background:linear-gradient(90deg,rgba(0,255,65,.12),var(--card) 70%);border:1px solid rgba(0,255,65,.38);border-left:4px solid var(--neon);border-radius:14px;padding:16px 20px;margin-bottom:22px}
+
+.ln-ic{width:44px;height:44px;flex:none;border-radius:11px;display:grid;place-items:center;background:rgba(0,255,65,.14);color:var(--neon);font-size:1.2rem}
+
+.ln-tx b{display:block;color:#fff;font-family:var(--head);font-size:1rem;margin-bottom:3px}
+
+.ln-tx span{color:var(--muted);font-size:.86rem;line-height:1.45}
+
 /* boas-vindas / novidades + em alta horizontal */
 
 .wc-card{background:var(--card);border:1px solid var(--bd2);border-radius:20px;width:94%;max-width:660px;max-height:90vh;overflow:auto;animation:fade .3s;text-align:left}
@@ -448,7 +456,7 @@ a{color:inherit;text-decoration:none}
 
     <div class="topbar">
 
-      <div class="greeting"><h1>Meu OVERISE</h1><p data-i18n="top.sub">Acesso total à sua biblioteca completa, para sempre.</p></div>
+      <div class="greeting"><h1>Meu OVERISE</h1><p data-i18n="top.sub">Seus lançamentos, sempre atualizados.</p></div>
 
       <span class="pill" id="steamPill"><span class="dot"></span> Verificando Steam...</span>
 
@@ -464,12 +472,17 @@ a{color:inherit;text-decoration:none}
 
         <span class="hero-tag" data-i18n="hero.tag">Bem-vindo de volta</span>
 
-        <h2 data-i18n-html="hero.title">Sua biblioteca <b>completa</b> está pronta.</h2>
+        <h2 data-i18n-html="hero.title">Seus <b>lançamentos</b> estão prontos.</h2>
 
-        <p data-i18n="hero.sub">Desbloqueie sua biblioteca com 1 clique. Instala tudo e reinicia a Steam sozinho.</p>
+        <p data-i18n="hero.sub">Desbloqueie com 1 clique. Instala tudo e reinicia a Steam sozinho.</p>
 
-        <div class="hero-counter"><span id="counter">40.000</span><small data-i18n="hero.counter">JOGOS DISPONÍVEIS</small></div>
+        <div class="hero-counter"><span id="counter">600+</span><small data-i18n="hero.counter">LANÇAMENTOS DISPONÍVEIS</small></div>
 
+      </div>
+
+      <div class="launch-note">
+        <div class="ln-ic"><i class="fa-solid fa-fire"></i></div>
+        <div class="ln-tx"><b data-i18n="note.title">Lançamentos liberados para todos por enquanto</b><span data-i18n="note.sub">Todos os planos já têm acesso aos jogos de lançamento adicionados até agora. Os próximos lançamentos ficam exclusivos do plano Vitalício.</span></div>
       </div>
 
       <div class="upsell" id="upsellBanner" style="display:none">
@@ -660,7 +673,7 @@ a{color:inherit;text-decoration:none}
 
     <h3 data-i18n="upM.title">Jogo do Plano Completo</h3>
 
-    <p data-i18n-html="upM.body">Esse jogo é exclusivo do <b>Vitalício</b>. Faça upgrade e libere <b>40.000 jogos</b> + adicionar qualquer jogo.</p>
+    <p data-i18n-html="upM.body">Esse jogo é um lançamento exclusivo do <b>Vitalício</b>. Faça upgrade e libere <b>todos os lançamentos</b>, atuais e futuros, e adicione qualquer jogo.</p>
 
     <input type="hidden" id="upContent">
 
@@ -902,9 +915,9 @@ const I18N = {
 
   "nav.menu":"Menu","nav.home":"Início","nav.add":"Adicionar Jogo","nav.remove":"Remover Jogo","nav.bypass":"Bypass","nav.online":"Jogos Online","nav.new":"Novos e Atualizados","nav.trending":"Em Alta","nav.account":"Conta","nav.vip":"Grupo VIP","nav.discord":"Discord","nav.support":"Suporte","nav.logout":"Sair",
 
-  "top.sub":"Acesso total à sua biblioteca completa, para sempre.","steam.checking":"Verificando Steam...","steam.ok":"Steam detectada","steam.no":"Steam não encontrada",
+  "top.sub":"Seus lançamentos, sempre atualizados.","steam.checking":"Verificando Steam...","steam.ok":"Steam detectada","steam.no":"Steam não encontrada",
 
-  "hero.tag":"Bem-vindo de volta","hero.title":"Sua biblioteca <b>completa</b> está pronta.","hero.sub":"Desbloqueie sua biblioteca com 1 clique. Instala tudo e reinicia a Steam sozinho.","hero.counter":"JOGOS DISPONÍVEIS",
+  "hero.tag":"Bem-vindo de volta","hero.title":"Seus <b>lançamentos</b> estão prontos.","hero.sub":"Desbloqueie com 1 clique. Instala tudo e reinicia a Steam sozinho.","hero.counter":"LANÇAMENTOS DISPONÍVEIS","note.title":"Lançamentos liberados para todos por enquanto","note.sub":"Todos os planos já têm acesso aos jogos de lançamento adicionados até agora. Os próximos lançamentos ficam exclusivos do plano Vitalício.",
 
   "upsell.btn":"Fazer upgrade →","dash.unlockHead":"Desbloquear catálogo","dash.unlockSub":"1 clique instala tudo e reinicia a Steam",
 
@@ -926,7 +939,7 @@ const I18N = {
 
   "rmM.title":"Remover jogos?","rmM.body":"Remove todos os jogos desbloqueados e <b>devolve sua Steam ao normal</b> (limpa os componentes e restaura a conexão). Suas <b>contas e logins são preservados</b>. Você pode desbloquear de novo quando quiser.","rmM.yes":"Sim, remover","rmM.cancel":"Cancelar",
 
-  "upM.title":"Jogo do Plano Completo","upM.body":"Esse jogo é exclusivo do <b>Vitalício</b>. Faça upgrade e libere <b>40.000 jogos</b> + adicionar qualquer jogo.","upM.btn":"Fazer upgrade agora","upM.later":"Agora não",
+  "upM.title":"Jogo do Plano Completo","upM.body":"Esse jogo é um lançamento exclusivo do <b>Vitalício</b>. Faça upgrade e libere <b>todos os lançamentos</b>, atuais e futuros, e adicione qualquer jogo.","upM.btn":"Fazer upgrade agora","upM.later":"Agora não",
 
   "stM.title":"Catálogo desbloqueado! 🎮","stM.body":"Pronto! Agora <b>abra a STEAM</b> normalmente para acessar todos os seus jogos.","stM.ok":"Entendido",
 
@@ -950,9 +963,9 @@ const I18N = {
 
   "nav.menu":"Menu","nav.home":"Home","nav.add":"Add Game","nav.remove":"Remove Game","nav.bypass":"Bypass","nav.online":"Online Games","nav.new":"New & Updated","nav.trending":"Trending","nav.account":"Account","nav.vip":"VIP Group","nav.discord":"Discord","nav.support":"Support","nav.logout":"Log out",
 
-  "top.sub":"Full access to your complete library, forever.","steam.checking":"Checking Steam...","steam.ok":"Steam detected","steam.no":"Steam not found",
+  "top.sub":"Your latest releases, always updated.","steam.checking":"Checking Steam...","steam.ok":"Steam detected","steam.no":"Steam not found",
 
-  "hero.tag":"Welcome back","hero.title":"Your <b>complete</b> library is ready.","hero.sub":"Unlock your library with 1 click. Installs everything and restarts Steam by itself.","hero.counter":"GAMES AVAILABLE",
+  "hero.tag":"Welcome back","hero.title":"Your <b>releases</b> are ready.","hero.sub":"Unlock with 1 click. Installs everything and restarts Steam by itself.","hero.counter":"RELEASES AVAILABLE","note.title":"New releases unlocked for everyone, for now","note.sub":"All plans already have access to the release games added so far. Upcoming releases stay exclusive to the Lifetime plan.",
 
   "upsell.btn":"Upgrade →","dash.unlockHead":"Unlock catalog","dash.unlockSub":"1 click installs everything and restarts Steam",
 
@@ -974,7 +987,7 @@ const I18N = {
 
   "rmM.title":"Remove games?","rmM.body":"Removes all unlocked games and <b>restores your Steam to normal</b> (clears the components and restores the connection). Your <b>accounts and logins are preserved</b>. You can unlock again whenever you want.","rmM.yes":"Yes, remove","rmM.cancel":"Cancel",
 
-  "upM.title":"Full Plan Game","upM.body":"This game is exclusive to <b>Lifetime</b>. Upgrade and unlock <b>40,000 games</b> + add any game.","upM.btn":"Upgrade now","upM.later":"Not now",
+  "upM.title":"Full Plan Game","upM.body":"This game is a release exclusive to <b>Lifetime</b>. Upgrade to unlock <b>all releases</b>, current and future, and add any game.","upM.btn":"Upgrade now","upM.later":"Not now",
 
   "stM.title":"Catalog unlocked! 🎮","stM.body":"Done! Now <b>open STEAM</b> normally to access all your games.","stM.ok":"Got it",
 
@@ -998,9 +1011,9 @@ const I18N = {
 
   "nav.menu":"Menú","nav.home":"Inicio","nav.add":"Agregar Juego","nav.remove":"Quitar Juego","nav.bypass":"Bypass","nav.online":"Juegos Online","nav.new":"Nuevos y Actualizados","nav.trending":"Tendencias","nav.account":"Cuenta","nav.vip":"Grupo VIP","nav.discord":"Discord","nav.support":"Soporte","nav.logout":"Salir",
 
-  "top.sub":"Acceso total a tu biblioteca completa, para siempre.","steam.checking":"Verificando Steam...","steam.ok":"Steam detectada","steam.no":"Steam no encontrada",
+  "top.sub":"Tus lanzamientos, siempre actualizados.","steam.checking":"Verificando Steam...","steam.ok":"Steam detectada","steam.no":"Steam no encontrada",
 
-  "hero.tag":"Bienvenido de nuevo","hero.title":"Tu biblioteca <b>completa</b> está lista.","hero.sub":"Desbloquea tu biblioteca con 1 clic. Instala todo y reinicia Steam solo.","hero.counter":"JUEGOS DISPONIBLES",
+  "hero.tag":"Bienvenido de nuevo","hero.title":"Tus <b>lanzamientos</b> están listos.","hero.sub":"Desbloquea con 1 clic. Instala todo y reinicia Steam solo.","hero.counter":"LANZAMIENTOS DISPONIBLES","note.title":"Lanzamientos liberados para todos por ahora","note.sub":"Todos los planes ya tienen acceso a los juegos de lanzamiento agregados hasta ahora. Los próximos lanzamientos quedan exclusivos del plan Vitalicio.",
 
   "upsell.btn":"Mejorar →","dash.unlockHead":"Desbloquear catálogo","dash.unlockSub":"1 clic instala todo y reinicia Steam",
 
@@ -1022,7 +1035,7 @@ const I18N = {
 
   "rmM.title":"¿Quitar juegos?","rmM.body":"Quita todos los juegos desbloqueados y <b>devuelve tu Steam a la normalidad</b> (limpia los componentes y restaura la conexión). Tus <b>cuentas y sesiones se conservan</b>. Puedes desbloquear de nuevo cuando quieras.","rmM.yes":"Sí, quitar","rmM.cancel":"Cancelar",
 
-  "upM.title":"Juego del Plan Completo","upM.body":"Este juego es exclusivo del <b>Vitalicio</b>. Mejora y desbloquea <b>40.000 juegos</b> + agregar cualquier juego.","upM.btn":"Mejorar ahora","upM.later":"Ahora no",
+  "upM.title":"Juego del Plan Completo","upM.body":"Este juego es un lanzamiento exclusivo del <b>Vitalicio</b>. Mejora y desbloquea <b>todos los lanzamientos</b>, actuales y futuros, y agrega cualquier juego.","upM.btn":"Mejorar ahora","upM.later":"Ahora no",
 
   "stM.title":"¡Catálogo desbloqueado! 🎮","stM.body":"¡Listo! Ahora <b>abre STEAM</b> normalmente para acceder a todos tus juegos.","stM.ok":"Entendido",
 
@@ -1050,7 +1063,7 @@ Object.assign(I18N.pt,{
 
   "on.head":"Jogos Online","on.howtoH":"Como jogar online (passo a passo)","on.sub":"Pra jogar multiplayer com amigos. Aplica o fix online e abre pelo launcher do jogo.","on.apply":"Aplicar fix online","on.reapply":"Reaplicar fix online","on.whyH":"Importante: pra jogar ONLINE, abra SÓ pelo nosso launcher","on.step1":"Primeiro <b>\"Aplicar fix online\"</b>, depois <b>\"Iniciar jogo\"</b>. É por aqui que entra no multiplayer.","on.step2":"<b>Não abra pela Steam</b>. Por ela, o online do fix não conecta.","on.whyB":"Esse jogo usa um <b>fix de online</b> pra você jogar multiplayer com amigos sem precisar da conta original. <span class=\"st\">Se abrir pela Steam</span>, ele abre no modo normal e <b>não conecta no online</b>.<br><br>Por isso, <span class=\"ov\">abra sempre pelo botão \"Iniciar jogo\"</span>, que executa pelo {launch} com o online ativado.",
 
-  "rm.many":"Você tem {n} jogos instalados. São muitos pra listar um por um, então use a busca abaixo pra achar o jogo.","tier.games":"jogos","tier.full":"Catálogo completo","tier.active":"Seu plano ativo","up.youHave":"Você tem {n} jogos liberados.","up.upgradeSub":"Faça upgrade pro Vitalício: 40.000 jogos + adicionar qualquer jogo.",
+  "rm.many":"Você tem {n} jogos instalados. São muitos pra listar um por um, então use a busca abaixo pra achar o jogo.","tier.games":"jogos","tier.full":"Catálogo completo","tier.active":"Seu plano ativo","up.youHave":"Você tem {n} jogos liberados.","up.upgradeSub":"Faça upgrade pro Vitalício: todos os lançamentos, atuais e futuros, + adicionar qualquer jogo.",
 
   "login.enterEmail":"Digite seu email.","login.checkingBtn":"Verificando...","overlay.starting":"Iniciando...","overlay.altMethod":"Aplicando método alternativo...","overlay.restoring":"Restaurando a Steam...",
 
@@ -1066,7 +1079,7 @@ Object.assign(I18N.en,{
 
   "on.head":"Online Games","on.howtoH":"How to play online (step by step)","on.sub":"To play multiplayer with friends. Applies the online fix and opens via the game launcher.","on.apply":"Apply online fix","on.reapply":"Reapply online fix","on.whyH":"Important: to play ONLINE, open it ONLY through our launcher","on.step1":"First <b>\"Apply online fix\"</b>, then <b>\"Launch game\"</b>. This is how you get into multiplayer.","on.step2":"<b>Don't open via Steam</b>. Through it, the fix's online won't connect.","on.whyB":"This game uses an <b>online fix</b> so you can play multiplayer with friends without the original account. <span class=\"st\">If you open it via Steam</span>, it opens in normal mode and <b>won't connect online</b>.<br><br>So, <span class=\"ov\">always open with the \"Launch game\" button</span>, which runs via {launch} with online enabled.",
 
-  "rm.many":"You have {n} games installed. That's too many to list one by one, so use the search below to find the game.","tier.games":"games","tier.full":"Full catalog","tier.active":"Your active plan","up.youHave":"You have {n} games unlocked.","up.upgradeSub":"Upgrade to Lifetime: 40,000 games + add any game.",
+  "rm.many":"You have {n} games installed. That's too many to list one by one, so use the search below to find the game.","tier.games":"games","tier.full":"Full catalog","tier.active":"Your active plan","up.youHave":"You have {n} games unlocked.","up.upgradeSub":"Upgrade to Lifetime: all releases, current and future, + add any game.",
 
   "login.enterEmail":"Enter your email.","login.checkingBtn":"Checking...","overlay.starting":"Starting...","overlay.altMethod":"Applying alternative method...","overlay.restoring":"Restoring Steam...",
 
@@ -1082,7 +1095,7 @@ Object.assign(I18N.es,{
 
   "on.head":"Juegos Online","on.howtoH":"Cómo jugar online (paso a paso)","on.sub":"Para jugar multijugador con amigos. Aplica el fix online y abre por el launcher del juego.","on.apply":"Aplicar fix online","on.reapply":"Reaplicar fix online","on.whyH":"Importante: para jugar ONLINE, abre SOLO por nuestro launcher","on.step1":"Primero <b>\"Aplicar fix online\"</b>, después <b>\"Iniciar juego\"</b>. Así es como entras al multijugador.","on.step2":"<b>No abras por Steam</b>. Por ella, el online del fix no conecta.","on.whyB":"Este juego usa un <b>fix de online</b> para que juegues multijugador con amigos sin necesitar la cuenta original. <span class=\"st\">Si lo abres por Steam</span>, abre en modo normal y <b>no conecta al online</b>.<br><br>Por eso, <span class=\"ov\">abre siempre por el botón \"Iniciar juego\"</span>, que ejecuta por {launch} con el online activado.",
 
-  "rm.many":"Tienes {n} juegos instalados. Son muchos para listar uno por uno, así que usa la búsqueda de abajo para encontrar el juego.","tier.games":"juegos","tier.full":"Catálogo completo","tier.active":"Tu plan activo","up.youHave":"Tienes {n} juegos desbloqueados.","up.upgradeSub":"Mejora a Vitalicio: 40.000 juegos + agregar cualquier juego.",
+  "rm.many":"Tienes {n} juegos instalados. Son muchos para listar uno por uno, así que usa la búsqueda de abajo para encontrar el juego.","tier.games":"juegos","tier.full":"Catálogo completo","tier.active":"Tu plan activo","up.youHave":"Tienes {n} juegos desbloqueados.","up.upgradeSub":"Mejora a Vitalicio: todos los lanzamientos, actuales y futuros, + agregar cualquier juego.",
 
   "login.enterEmail":"Escribe tu email.","login.checkingBtn":"Verificando...","overlay.starting":"Iniciando...","overlay.altMethod":"Aplicando método alternativo...","overlay.restoring":"Restaurando Steam...",
 
@@ -1138,17 +1151,17 @@ function applyAccountUI(){
 
   const tp=$('tierPill'); if(tp) tp.innerHTML=(PLANO==='vitalicio'?'<i class="fa-solid fa-crown"></i> ':'')+(''+info.label).toUpperCase();
 
-  const tt=$('tierTitle'); if(tt) tt.textContent=info.count+' '+t('tier.games');
+  const tt=$('tierTitle'); if(tt) tt.textContent=(window.LAUNCH_COUNT!=null?window.LAUNCH_COUNT:info.count)+' '+t('tier.games');
 
   const td=$('tierDesc'); if(td) td.textContent=(PLANO==='vitalicio'?t('tier.full'):t('tier.active'));
 
-  const cn=$('counter'); if(cn) cn.textContent=info.count;
+  const cn=$('counter'); if(cn) cn.textContent=(window.LAUNCH_COUNT!=null?window.LAUNCH_COUNT:info.count);
 
   const _lim=(PLANO!=='vitalicio');
 
   const ub=$('upsellBanner'); if(ub) ub.style.display=_lim?'flex':'none';
 
-  if(_lim){ const u=UPSELL[PLANO]||{}; const a=$('upTitle'),b=$('upSub'); if(a)a.textContent='Vire '+(u.to||'')+' por só R$ '+(u.price||''); if(b)b.textContent=(PLANO==='avancado'?'Catálogo completo, 40.000 jogos no site oficial.':'20.000 jogos liberados. Suba de plano no site oficial.'); }
+  if(_lim){ const u=UPSELL[PLANO]||{}; const a=$('upTitle'),b=$('upSub'); if(a)a.textContent='Vire '+(u.to||'')+' por só R$ '+(u.price||''); if(b)b.textContent=(PLANO==='avancado'?'Garanta também os lançamentos futuros no site oficial.':'Veja os planos no site oficial.'); }
 
   const s=window.LAST_STATUS||{}; const pill=$('steamPill');
 
@@ -1172,11 +1185,11 @@ let api=null, added=[], lastResults=[], lastRemove=false, PLANO='basico', PLANO_
 
 const PLANO_INFO={
 
-  basico:   {label:'Básico',    count:'1.000'},
+  basico:   {label:'Básico',    count:'600+'},
 
-  avancado: {label:'Avançado',  count:'20.000'},
+  avancado: {label:'Avançado',  count:'600+'},
 
-  vitalicio:{label:'Vitalício', count:'40.000'},
+  vitalicio:{label:'Vitalício', count:'600+'},
 
 };
 
@@ -1256,13 +1269,53 @@ function renderUnlock(){
 
       <div class="kick">${t('unlock.kick')}</div>
 
-      <h4>${t('unlock.title').replace('{n}',info.count)}</h4>
+      <h4>${t('unlock.title').replace('{n}',(window.LAUNCH_COUNT!=null?window.LAUNCH_COUNT:info.count))}</h4>
 
       <p>${t('unlock.sub')}</p>
 
       <span class="go"><i class="fa-solid fa-bolt"></i> ${t('unlock.btn')}</span>
 
     </div>`;
+
+}
+
+function refreshCounter(){
+
+  const cn=$('counter'); if(cn && window.LAUNCH_COUNT!=null) cn.textContent=window.LAUNCH_COUNT;
+
+  const tt=$('tierTitle'); if(tt && window.LAUNCH_COUNT!=null) tt.textContent=window.LAUNCH_COUNT+' '+t('tier.games');
+
+  try{ renderUnlock(); }catch(e){}
+
+}
+
+async function loadLaunchCount(){
+
+  try{
+
+    const r=await fetch('https://api.github.com/repos/overisedev/overise-luas/git/trees/main',{cache:'no-store'});
+
+    if(!r.ok) return;
+
+    const j=await r.json();
+
+    let n=0;
+
+    (j.tree||[]).forEach(function(e){
+
+      if(!e.path || e.path.slice(-4)!=='.zip') return;
+
+      const id=e.path.slice(0,-4);
+
+      if(!/^[0-9]+$/.test(id)) return;
+
+      if(PLANO_ALL || (PLANO_SET && PLANO_SET.has(parseInt(id,10)))) n++;
+
+    });
+
+    if(n>0){ window.LAUNCH_COUNT=n.toLocaleString('pt-BR'); refreshCounter(); }
+
+  }catch(e){}
 
 }
 
@@ -1926,7 +1979,7 @@ async function showApp(){
 
   catch(e){ PLANO_ALL=(PLANO==='vitalicio'); PLANO_SET=PLANO_ALL?null:new Set(); }
 
-  renderUnlock(); buildLib();
+  renderUnlock(); buildLib(); loadLaunchCount();
 
   maybeShowWelcome();
 
