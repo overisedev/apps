@@ -1157,7 +1157,7 @@ function applyAccountUI(){
 
   const tp=$('tierPill'); if(tp) tp.innerHTML=(PLANO==='vitalicio'?'<i class="fa-solid fa-crown"></i> ':'')+(''+info.label).toUpperCase();
 
-  const tt=$('tierTitle'); if(tt) tt.textContent=t('tier.launches');
+  const tt=$('tierTitle'); if(tt) tt.textContent=info.count+' '+t('tier.games');
 
   const td=$('tierDesc'); if(td) td.textContent=(PLANO==='vitalicio'?t('tier.full'):t('tier.active'));
 
