@@ -382,6 +382,44 @@ a{color:inherit;text-decoration:none}
 
 .nav a .fa-whatsapp{color:#25D366}.nav a .fa-discord{color:#5865F2}
 
+
+/* ===== Painel de detalhes do jogo (aba Adicionar) ===== */
+.dp-ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:59;opacity:0;pointer-events:none;transition:opacity .28s}
+.dp-ov.show{opacity:1;pointer-events:auto}
+.dpanel{position:fixed;top:0;right:0;bottom:0;width:392px;max-width:88vw;background:var(--bg2);border-left:1px solid var(--bd);z-index:60;display:flex;flex-direction:column;transform:translateX(0);transition:transform .28s cubic-bezier(.4,0,.2,1);box-shadow:-24px 0 70px rgba(0,0,0,.55)}
+.dpanel.dp-hide{transform:translateX(103%);pointer-events:none}
+.dp-scroll{overflow-y:auto;flex:1}
+.dp-cov{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#0e0e12}
+.dp-cov img{width:100%;height:100%;object-fit:cover}
+.dp-cov .g{position:absolute;inset:0;background:linear-gradient(to top,var(--bg2) 2%,transparent 55%)}
+.dp-x{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:9px;background:rgba(0,0,0,.55);border:1px solid var(--bd2);display:grid;place-items:center;color:var(--muted);cursor:pointer;z-index:2}
+.dp-x:hover{color:#fff;border-color:var(--muted)}
+.dp-in{padding:2px 22px 0}
+.dp-name{font-family:var(--head);font-weight:800;font-size:1.45rem;color:#fff;line-height:1.12;margin-bottom:6px}
+.dp-idr{display:inline-flex;align-items:center;gap:8px;font-size:.82rem;color:var(--muted);margin-bottom:16px}
+.dp-idr .cp{color:var(--muted2);cursor:pointer}.dp-idr .cp:hover{color:var(--neon)}
+.dp-row{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--bd)}
+.dp-row.top{align-items:flex-start}
+.dp-ic{width:34px;height:34px;border-radius:9px;background:var(--card2);border:1px solid var(--bd);display:grid;place-items:center;color:var(--muted);flex:none}
+.dp-k{font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2);font-weight:700}
+.dp-v{font-size:.95rem;color:#fff;font-weight:600;margin-top:1px}
+.dp-et{font-size:.92rem;color:#fff;font-weight:700}
+.dp-desc{font-size:.77rem;color:var(--muted);margin-top:3px;line-height:1.45;max-width:220px}
+.dp-desc b{color:var(--text)}
+.dp-r{margin-left:auto}
+.dbadge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:50px;font-size:.78rem;font-weight:800;white-space:nowrap}
+.dbadge.on{background:rgba(0,255,65,.14);border:1px solid rgba(0,255,65,.4);color:var(--neon)}
+.dbadge.cyan{background:rgba(0,230,118,.14);border:1px solid rgba(0,230,118,.4);color:var(--cyan)}
+.dbadge.no2{background:rgba(255,255,255,.05);border:1px solid var(--bd2);color:var(--muted)}
+.dp-sec{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);font-weight:800;margin:20px 0 2px}
+.dp-sec .sub{text-transform:none;letter-spacing:0;font-weight:500;color:var(--muted);font-size:.72rem}
+.dp-tag{font-size:.6rem;color:var(--neon);border:1px solid rgba(0,255,65,.4);border-radius:50px;padding:2px 8px;margin-left:6px;font-weight:800;vertical-align:middle}
+.dp-foot{padding:16px 22px;border-top:1px solid var(--bd)}
+.dp-add{display:flex;align-items:center;justify-content:center;gap:10px;padding:15px;border-radius:12px;background:linear-gradient(90deg,var(--neon),var(--cyan));color:#04130a;font-weight:800;font-size:1rem;cursor:pointer;border:none;width:100%;font-family:var(--font)}
+.dp-add:hover{transform:translateY(-1px)}
+.dp-add.added{background:var(--neon);cursor:default}
+.dp-add.lock{background:rgba(255,255,255,.08);color:var(--text);border:1px solid var(--bd2)}
+.dp-cap{font-size:.74rem;color:var(--muted2);text-align:center;margin-top:10px}
 </style></head><body>
 
 <div id="login"><div class="login-card">
@@ -1985,6 +2023,76 @@ applyStatic();
 
 document.querySelectorAll('.lang-opt').forEach(o=>o.classList.toggle('on', o.dataset.l===LANG));
 
+
+/* ===== Painel de detalhes do jogo (aba Adicionar) ===== */
+function DP(pt,en,es){ return LANG==='en'?en:(LANG==='es'?es:pt); }
+let _fixSets=null, _dpId=null;
+async function fixSets(){
+  if(_fixSets) return _fixSets;
+  try{
+    const on = (api&&api.online_list)? await api.online_list() : [];
+    const by = (api&&api.bypass_list)? await api.bypass_list() : [];
+    _fixSets={ online:new Set((on||[]).map(x=>String(x.appid))), bypass:new Set((by||[]).map(x=>String(x.appid))) };
+  }catch(e){ _fixSets={online:new Set(),bypass:new Set()}; }
+  return _fixSets;
+}
+function dpFmt(iso){ try{ return new Date(iso).toLocaleDateString(LANG==='en'?'en-US':(LANG==='es'?'es-ES':'pt-BR'),{day:'2-digit',month:'short',year:'numeric'}).replace('.',''); }catch(e){ return '-'; } }
+function closeDetail(){ const p=$('detailPanel'),o=$('dpOverlay'); if(p)p.classList.add('dp-hide'); if(o)o.classList.remove('show'); }
+function dpAddClick(){
+  if(!_dpId) return;
+  const b=$('dpAdd');
+  if(b.classList.contains('added')) return;
+  if(b.classList.contains('lock')){ openUpsell('jogo_'+_dpId); closeDetail(); return; }
+  const card=document.getElementById('row-'+_dpId), pill=card?card.querySelector('.gpill.add'):null;
+  if(pill){ pill.click(); } else { doAdd(+_dpId, b); }
+  closeDetail();
+}
+async function openDetail(id){
+  id=String(id); _dpId=id;
+  const g=(lastResults||[]).find(r=>String(r.id)===id) || {id:id,name:'',img:'',unlock:true};
+  const p=$('detailPanel'),o=$('dpOverlay'); if(!p) return;
+  $('dpAddedK').textContent=DP('Adicionado na Overise','Added to Overise','Agregado en Overise');
+  $('dpUpdatedK').textContent=DP('Ultima atualizacao','Last update','Ultima actualizacion');
+  $('dpUnlockK').textContent=DP('Desbloqueio','Unlock','Desbloqueo');
+  $('dpCompMain').textContent=DP('Complementos','Extras','Complementos');
+  $('dpCompSub').textContent=DP('- so alguns jogos precisam','- only some games need them','- solo algunos juegos');
+  $('dpOnlineDesc').innerHTML=DP('Pra jogar o <b>multiplayer/co-op online</b> com amigos. So precisa em jogo com online.','To play <b>online multiplayer/co-op</b> with friends. Only for online games.','Para jugar el <b>multijugador/co-op online</b>. Solo en juegos con online.');
+  $('dpBypassDesc').innerHTML=DP('So em jogos com <b>protecao propria</b> (Denuvo, Uplay, Rockstar) que o desbloqueio da Steam sozinho nao abre.','Only for games with <b>their own DRM</b> (Denuvo, Uplay, Rockstar) that the Steam unlock alone cannot open.','Solo en juegos con <b>proteccion propia</b> (Denuvo, Uplay, Rockstar).');
+  $('dpCap').textContent=DP('DLCs e lancamento em breve','DLCs and release date soon','DLCs y lanzamiento pronto');
+  const cov=$('dpCover'); cov.dataset.f=''; cov.onerror=function(){ if(this.dataset.f){ this.style.visibility='hidden'; return; } this.dataset.f='1'; this.style.visibility='visible'; this.src=CAP+'/'+id+'/capsule_616x353.jpg'; }; cov.style.visibility='visible'; cov.src=CAP+'/'+id+'/header.jpg';
+  $('dpName').textContent=g.name||('App '+id);
+  $('dpId').textContent=id;
+  $('dpUnlock').innerHTML = (g.unlock!==false) ? '<span class="dbadge on"><i class="fa-solid fa-circle-check"></i> '+DP('Disponivel','Available','Disponible')+'</span>' : '<span class="dbadge no2">'+DP('Sem desbloqueio','No unlock','Sin desbloqueo')+'</span>';
+  const b=$('dpAdd'); b.className='dp-add';
+  if(added.includes(+id)||added.includes(id)){ b.classList.add('added'); b.innerHTML='<i class="fa-solid fa-check"></i> '+DP('Adicionado','Added','Agregado'); }
+  else if(g.unlock===false){ b.classList.add('lock'); b.innerHTML='<i class="fa-solid fa-circle-info"></i> '+DP('Sem desbloqueio','No unlock','Sin desbloqueo'); }
+  else if(!canAdd(+id)){ b.classList.add('lock'); b.innerHTML='<i class="fa-solid fa-lock"></i> '+DP('Desbloquear no seu plano','Unlock in your plan','Desbloquear en tu plan'); }
+  else { b.innerHTML='<i class="fa-solid fa-plus"></i> '+DP('Adicionar a biblioteca','Add to library','Agregar a la biblioteca'); }
+  $('dpAdded').textContent='...'; $('dpUpdated').textContent='...';
+  $('dpOnline').innerHTML='<span class="dbadge no2">...</span>'; $('dpBypass').innerHTML='<span class="dbadge no2">...</span>';
+  if(o)o.classList.add('show'); p.classList.remove('dp-hide');
+  fixSets().then(fs=>{ if(_dpId!==id) return;
+    $('dpOnline').innerHTML = fs.online.has(id) ? '<span class="dbadge cyan"><i class="fa-solid fa-circle-check"></i> '+DP('Disponivel','Available','Disponible')+'</span>' : '<span class="dbadge no2">'+DP('Nao precisa','Not needed','No hace falta')+'</span>';
+    $('dpBypass').innerHTML = fs.bypass.has(id) ? '<span class="dbadge on"><i class="fa-solid fa-circle-check"></i> '+DP('Disponivel','Available','Disponible')+'</span>' : '<span class="dbadge no2">'+DP('Nao precisa','Not needed','No hace falta')+'</span>';
+  });
+  fetch('https://api.github.com/repos/overisedev/overise-luas/commits?path='+id+'.zip&per_page=100')
+    .then(r=>r.ok?r.json():null).then(cs=>{ if(_dpId!==id) return;
+      if(cs&&cs.length){
+        const upd=cs[0].commit.committer.date, add=cs[cs.length-1].commit.committer.date;
+        $('dpAdded').textContent=dpFmt(add);
+        const isUpd=(new Date(upd).getTime()-new Date(add).getTime())>86400000;
+        $('dpUpdated').innerHTML=dpFmt(upd)+(isUpd?' <span class="dp-tag">'+DP('ATUALIZADO','UPDATED','ACTUALIZADO')+'</span>':'');
+      } else { $('dpAdded').textContent='-'; $('dpUpdated').textContent='-'; }
+    }).catch(()=>{ if(_dpId!==id) return; $('dpAdded').textContent='-'; $('dpUpdated').textContent='-'; });
+}
+document.addEventListener('click', function(e){
+  if(e.target.closest('#dpCopy') && _dpId){ try{ navigator.clipboard.writeText(_dpId); toast(DP('App ID copiado','App ID copied','App ID copiado')); }catch(_){} return; }
+  if(e.target.closest('.gpill')) return;
+  const card=e.target.closest('#results .gcard');
+  if(card && card.id.indexOf('row-')===0){ openDetail(card.id.slice(4)); }
+});
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeDetail(); });
+
 window.addEventListener('pywebviewready', ()=>{ api=window.pywebview.api; boot(); });
 
 </script>
@@ -2043,4 +2151,43 @@ window.addEventListener('pywebviewready', ()=>{ api=window.pywebview.api; boot()
  tryStart();
 })();
 </script>
+
+<div class="dp-ov" id="dpOverlay" onclick="closeDetail()"></div>
+<aside class="dpanel dp-hide" id="detailPanel">
+  <div class="dp-scroll">
+    <div class="dp-cov"><img id="dpCover" src="" alt=""><div class="g"></div><div class="dp-x" onclick="closeDetail()"><i class="fa-solid fa-xmark"></i></div></div>
+    <div class="dp-in">
+      <div class="dp-name" id="dpName">-</div>
+      <div class="dp-idr">App ID <span id="dpId">-</span> <span class="cp" id="dpCopy" title="Copiar"><i class="fa-regular fa-copy"></i></span></div>
+      <div class="dp-row">
+        <div class="dp-ic"><i class="fa-regular fa-calendar-plus"></i></div>
+        <div><div class="dp-k" id="dpAddedK">Adicionado na Overise</div><div class="dp-v" id="dpAdded">...</div></div>
+      </div>
+      <div class="dp-row">
+        <div class="dp-ic" style="color:var(--neon)"><i class="fa-solid fa-arrows-rotate"></i></div>
+        <div><div class="dp-k" id="dpUpdatedK">Ultima atualizacao</div><div class="dp-v" id="dpUpdated">...</div></div>
+      </div>
+      <div class="dp-row">
+        <div class="dp-ic"><i class="fa-solid fa-unlock"></i></div>
+        <div class="dp-k" id="dpUnlockK">Desbloqueio</div>
+        <div class="dp-r" id="dpUnlock"></div>
+      </div>
+      <div class="dp-sec"><span id="dpCompMain">Complementos</span> <span class="sub" id="dpCompSub">- so alguns jogos precisam</span></div>
+      <div class="dp-row top">
+        <div class="dp-ic" style="color:var(--cyan)"><i class="fa-solid fa-wifi"></i></div>
+        <div style="flex:1"><div class="dp-et">Online Fix</div><div class="dp-desc" id="dpOnlineDesc"></div></div>
+        <span class="dp-r" id="dpOnline"></span>
+      </div>
+      <div class="dp-row top" style="border-bottom:none">
+        <div class="dp-ic"><i class="fa-solid fa-shield-halved"></i></div>
+        <div style="flex:1"><div class="dp-et">Bypass</div><div class="dp-desc" id="dpBypassDesc"></div></div>
+        <span class="dp-r" id="dpBypass"></span>
+      </div>
+    </div>
+  </div>
+  <div class="dp-foot">
+    <button class="dp-add" id="dpAdd" onclick="dpAddClick()"><i class="fa-solid fa-plus"></i> <span id="dpAddTxt">Adicionar a biblioteca</span></button>
+    <div class="dp-cap" id="dpCap"></div>
+  </div>
+</aside>
 </body></html>
